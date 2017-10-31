@@ -1,0 +1,1 @@
+/* NULL - Untuk direktori kosong di Git */
