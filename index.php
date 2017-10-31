@@ -5,7 +5,7 @@
 	 * 	GENERAL INFO :
 	 *		SinTask Framework
 	 *		(c) 2016 - 2017 CV. SinTask
-	 * 		SinTask, Ltd. / SinTask Web Developer / SinTask Engineering
+	 * 		CV. SinTask / SinTask Web Developer / SinTask Engineering
 	 *
 	 *	AUTHOR :
 	 *		- Aditya Wikardiyan
