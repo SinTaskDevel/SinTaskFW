@@ -1,6 +1,6 @@
 <?php
 	
-	/* Direct Download Feature */
+	/* Fitur s-dl Direct Download */
 
 	$param 			= $__SEGMEN__[4];
 	$fileLocation 	= $__DOC_ROOT__."/protected/data/download/direct/";

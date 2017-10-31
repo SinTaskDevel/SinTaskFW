@@ -1,6 +1,6 @@
 <?php
 	
-	/* Change if you don't or use DB - true/false */
+	/* Ubah jika anda menggunakan DB - true/false */
 	$__WITHOUT_DB__ = ($__MY_CORE__["USE_DB"] == true ? false : true);
 
 	require($__DOC_ROOT__.$requirePath['myconfig']."/my.db.config.php");
@@ -24,34 +24,30 @@
 
 		/*
 			DOCUMENTATION :
-				### Note ###
-				Each new query, we create new class.
-				For security reason don't create query with new variable
-
-				### Initiate class ###
+				### Inisiasi ###
 				$sdb->useDb([Array KEY of DB]);
 				$sdb->q('SELECT COUNT(bla_row1) AS counting, bla_row2 FROM bla_tb WHERE bla1=:bla1 AND bla2 NOT LIKE :bla2');
 				$sdb->b(':bla1', $bla_var1);
 				$sdb->b(':bla2', '%'.$bla_var2.'%');
 
-				### If execute only ###
+				### Jika hanya mengeksekusi Query ###
 				$exec = $sdb->exec();
 				- or -
 				$sdb->exec();
 
-				### If single line row ###
+				### Jika satu baris row ###
 				$rowArray 		= $sdb->rSingle();
 				$rowcountUser 	= $rowArray['counting'];
 				$rowresultUser 	= $rowArray['bla_row2'];
 
-				### If multiline row (Fetch Array/Assoc) ###
+				### Jika banyak baris row (Fetch Array/Assoc) ###
 				$rowArray = $sdb->rMany();
 				foreach($rowArray as $key => $value) {
 					$rowresultUser = $value['bla_row2'];
 				}
 
-				### If Get Count Row ###
-				Just get $rowcountUser
+				### Jika ingin mengambil banyak row dari hasil SELECT ###
+				Hanya perlu menampilkan $rowcountUser
 		*/
 
 		class mySDB {
@@ -184,52 +180,48 @@
 		
 		/*
 			DB MYSQLI STYLE
-			- with crudSDB() function
-			- with $koneksi->query
+			- menggunakan crudSDB() function
+			- menggunakan $koneksi->query
 
 			DOCUMENTATION :
-				### Note ###
-				2 type of MySQLI Style : crudSDB function and MySQLI OOP
-				For security reason don't create query with new variable
-
-				### With crudSDB ###
-					### If execute only ###
+				### Menggunakan crudSDB ###
+					### Mengekeskusi Query ###
 					$exec = crudSDB("SELECT COUNT(bla_row1) AS counting, bla_row2 FROM bla_tb WHERE bla1='$bla_var1' AND bla2 NOT LIKE '%$bla_var2%'");
 					- or -
 					crudSDB("SELECT COUNT(bla_row1) AS counting, bla_row2 FROM bla_tb WHERE bla1='$bla_var1' AND bla2 NOT LIKE '%$bla_var2%'");
 			
-					### If single line row ###
+					### Jika satu baris row ###
 					$rowArray 		= crudSDB("SELECT COUNT(bla_row1) AS counting, bla_row2 FROM bla_tb WHERE bla1='$bla_var1' AND bla2 NOT LIKE '%$bla_var2%'", "fetch_array");
 					$rowcountUser 	= $rowArray['counting'];
 					$rowresultUser 	= $rowArray['bla_row2'];
 
-					### If multiline row (Fetch Array/Assoc) ###
+					### Jika banyak baris row (Fetch Array/Assoc) ###
 					$runQuery = crudSDB("SELECT COUNT(bla_row1) AS counting, bla_row2 FROM bla_tb WHERE bla1='$bla_var1' AND bla2 NOT LIKE '%$bla_var2%'");
 					while($rowArray = $runQuery->fetch_array()) {
 						$rowresultUser = $rowArray['bla_row2'];
 					}
 
-					### If row count ###
+					### Jika ingin mengambil banyak row dari hasil SELECT ###
 					$rowcountResult = crudSDB("SELECT COUNT(bla_row1) AS counting, bla_row2 FROM bla_tb WHERE bla1='$bla_var1' AND bla2 NOT LIKE '%$bla_var2%'", "num_rows");
 
-				### With MySQLI OOP ###
-					### If execute only ###
+				### Menggunakan MySQLI OOP ###
+					### Mengekeskusi Query ###
 					$exec = $koneksi->query("SELECT COUNT(bla_row1) AS counting, bla_row2 FROM bla_tb WHERE bla1='$bla_var1' AND bla2 NOT LIKE '%$bla_var2%'");
 					- or -
 					$koneksi->query("SELECT COUNT(bla_row1) AS counting, bla_row2 FROM bla_tb WHERE bla1='$bla_var1' AND bla2 NOT LIKE '%$bla_var2%'");
 			
-					### If single line row ###
+					### Jika satu baris row ###
 					$rowArray 		= $koneksi->query("SELECT COUNT(bla_row1) AS counting, bla_row2 FROM bla_tb WHERE bla1='$bla_var1' AND bla2 NOT LIKE '%$bla_var2%'");
 					$rowcountUser 	= $rowArray['counting'];
 					$rowresultUser 	= $rowArray['bla_row2'];
 
-					### If multiline row (Fetch Array/Assoc) ###
+					### Jika banyak baris row (Fetch Array/Assoc) ###
 					$runQuery = $koneksi->query("SELECT COUNT(bla_row1) AS counting, bla_row2 FROM bla_tb WHERE bla1='$bla_var1' AND bla2 NOT LIKE '%$bla_var2%'");
 					while($rowArray = $runQuery->fetch_array()) {
 						$rowresultUser = $rowArray['bla_row2'];
 					}
 
-					### If row count ###
+					### Jika ingin mengambil banyak row dari hasil SELECT ###
 					$rowcountQuery = $koneksi->query("SELECT COUNT(bla_row1) AS counting, bla_row2 FROM bla_tb WHERE bla1='$bla_var1' AND bla2 NOT LIKE '%$bla_var2%'");
 					$rowcountResult = $rowcountQuery->num_rows;
 		
@@ -289,7 +281,7 @@
 		}
 	} else {
 		/*
-	 	 * NOT EDITABLE CLASS
+	 	 * Jangan diedit, untuk menangkal error
 		 */
 		class dummyClass {
 	        function query($input = null) {

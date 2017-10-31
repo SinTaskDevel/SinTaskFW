@@ -1,12 +1,5 @@
 <?php
 	
-	/*
-	 * NOT EDITABLE AREA
-	 * EDIT MAY CAUSE ERROR
-	 * TO ADD FUNCTION, GO TO root/assets/control/require/core.func.php
-	 * ADD SOME FUNCTION ON THIS FILE IS NOT GOOD WAY
-	 */
-
 	/* Fungsi menghasilkan array() 
 	 * input : $type
 	 * 			-> "pure"				-> Pure URL tanpa ? parameter
@@ -87,8 +80,8 @@
 	}
 
 	/* 
-	 * Fix the Segmen 
-	 * 1. Pop from array $__SEGMEN__ where last element is empty / null
+	 * Memperbaiki Segmen URL
+	 * Pop dari array $__SEGMEN__ jika element terakhir = empty / null
 	 */
 	function fixedTheSegmen(&$inputSegmen) {
 		if( end($inputSegmen)!="" && end($inputSegmen)!=null && !ctype_space(end($inputSegmen)) ) {
@@ -103,8 +96,8 @@
 		}
 	}
 
-	/* Dynamic Load File */
-	/* v2 Last Modified 03/26/2017 - Aditya W - Web Dev (New) */
+	/* SinTaskFW Routing Algorithm */
+	/* v2 Terakhir dimodifikasi 03/26/2017 - Aditya Wikardiyan - Web Dev (New) */
 	function oneOneSortCount($input) {
 		$return = 0;
 
@@ -131,7 +124,7 @@
 			$urlFile .= ".".$__SEGMEN__[$sg];
 		}
 		
-		/* Replace from double file extension */
+		/* Hapus dobel ekstensi file */
 		if($replacement != "" && $replacement != null) {
 			$urlFile = str_replace($replacement, "", $urlFile);
 		}
@@ -145,7 +138,7 @@
 		$sgminOne 	= (count($__SEGMEN__)-1);
 		$sgminTwo 	= (count($__SEGMEN__)-2);
 
-		/* First Loop Algorithm */
+		/* First-Loop Algorithm */
 		$arrayChild = $startIterationFrom;
 		$stateChild = -1;
 		for( $ss = 1; $ss <= ($sgminOne*$sgminOne); $ss++ ) {
@@ -177,15 +170,15 @@
 				}
 			}
 
-			/* Replace from double file extension */
+			/* Hapus dobel ekstensi file */
 			if($replacement != "" && $replacement != null) {
 				$urlFile = str_replace($replacement, "", $urlFile);
 			}
 
 			if($stateChild >= $sgminTwo) {
 				if($thisReqPathLoginPrefix != "both") {
-					/* Reset to normal if not found 
-					 * Change from login -> both file prefix
+					/* Kembalikan ke normal jika tidak ditemukan
+					 * Ganti dari login -> both file prefix
 					 */
 					$thisReqPathLoginPrefix = "both";
 					$ss = 1;
@@ -194,7 +187,7 @@
 					$__SEGMEN__ = siteSegmen("pure");
 					continue;
 				} else {
-					/* End $ss iteration */
+					/* Menghentikan iterasi $ss */
 					$ss = ($sgminOne*$sgminOne);
 					break;
 				}
@@ -215,7 +208,7 @@
 			return $scanPath.$scandirPath[$resultArrayScan];
 		} else {
 
-			/* OneOne Loop Algorithm */
+			/* First-Loop 2 Algorithm */
 			$thisReqPathLoginPrefix = $thisReqPathLoginPrefixDefault;
 			$urlFileOneOne = ".";
 			$resultArrayScanOneOne = "";
@@ -285,7 +278,7 @@
 			}
 		}
 	}
-	/*FOR DEBUGGER*/
+	/* Digunakan Sebagai Debugger */
 	function fileDynamicDebug($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath, $thisReqPathLoginPrefix, $thisReqPath, $startIterationFrom, $replacement = "") {
 		echo "\n<br>";
 		echo "BEGIN FILE DYNAMIC DEBUGGER...";
@@ -306,7 +299,7 @@
 			$urlFile .= ".".$__SEGMEN__[$sg];
 		}
 		
-		/* Replace from double file extension */
+		/* Hapus dobel ekstensi file */
 		if($replacement != "" && $replacement != null) {
 			$urlFile = str_replace($replacement, "", $urlFile);
 		}
@@ -320,7 +313,7 @@
 		$sgminOne 	= (count($__SEGMEN__)-1);
 		$sgminTwo 	= (count($__SEGMEN__)-2);
 
-		/* First Loop Algorithm */
+		/* First-Loop Algorithm */
 		$arrayChild = $startIterationFrom;
 		$stateChild = -1;
 
@@ -368,7 +361,7 @@
 			echo "END [1][1] WITH = ".$urlFile;
 			echo "\n<br>";
 
-			/* Replace from double file extension */
+			/* Hapus dobel ekstensi file */
 			if($replacement != "" && $replacement != null) {
 				$urlFile = str_replace($replacement, "", $urlFile);
 			}
@@ -379,8 +372,8 @@
 
 			if($stateChild >= $sgminTwo) {
 				if($thisReqPathLoginPrefix != "both") {
-					/* Reset to normal if not found 
-					 * Change from login -> both file prefix
+					/* Kembalikan ke normal jika tidak ditemukan
+					 * Ganti dari login -> both file prefix
 					 */
 					$thisReqPathLoginPrefix = "both";
 					$ss = 1;
@@ -389,7 +382,7 @@
 					$__SEGMEN__ = siteSegmen("pure");
 					continue;
 				} else {
-					/* End $ss iteration */
+					/* Menghentikan iterasi $ss */
 					$ss = ($sgminOne*$sgminOne);
 					break;
 				}
@@ -415,7 +408,7 @@
 			echo "\n<br>";
 		} else {
 
-			/* OneOne Loop Algorithm */
+			/* First-Loop 2 Algorithm */
 			$thisReqPathLoginPrefix = $thisReqPathLoginPrefixDefault;
 			$urlFileOneOne = ".";
 			$resultArrayScanOneOne = "";
@@ -639,7 +632,7 @@
 	}
 	function toSingleLine($output) {
 		/* 
-		 * \r 	= Carriage Return  	- NewLine Mac OS before X
+		 * \r 	= Carriage Return  	- NewLine Mac OS sebelum OS X
 		 * \n 	= Line Feed 		- NewLine Unix/Mac OS
 		 * \r\n = CR+LF				- NewLine Windows
 		 */
@@ -714,17 +707,17 @@
 			$output
 		);
 
-		/* Replace \r\n and \r into the one format \n */
+		/* Replace \r\n and \r menjadi format \n */
 		$breaks = array("\r\n", "\r");
 		$output = str_replace($breaks, "\n", $output);
 		
-		/* Explode per new line into Array */
+		/* Explode per baris baru menjadi Array */
 		$lines = explode("\n", $output);
 
-		/* $new_lines var as output function */
+		/* $new_lines variabel sebagai output function */
 		$new_lines = array();
 
-		/* Per line replace \t (TAB) and insert result to $new_lines array variable */
+		/* Per line replace \t (TAB) dan masukkan hasil ke $new_lines array variable */
 		foreach ($lines as $i => $line) {
 			if(!empty($line)) {
 				$fix_lines = trim($line);
@@ -734,7 +727,7 @@
 			}
 		}
 
-		/* Implode the array into one single string character var */
+		/* Implode array menjadi satu string variabel */
 		$outputFinal = implode($new_lines);
 
 		return $outputFinal;
@@ -767,23 +760,23 @@
 		return $output;
 	}
 	function netralizeContentFromHtmlTag($input) {
-		/* Change '<br /> or <br> or <br/>' to '' or null */
+		/* Ganti '<br /> atau <br> atau <br/>' ke '' atau null */
 		$breaks 		= array("<br />","<br>","<br/>");
 		$input 			= str_ireplace($breaks, "", $input);
-		/* Change '<div>' tag to '' or null */
+		/* Ganti '<div>' tag ke '' atau null */
 		$breaksDiv 		= array("<div>","< div>","<div >","< div >");
 		$input 			= str_ireplace($breaksDiv, "", $input);
-		/* Change '&nbsp;' tag to '' or null */
+		/* Ganti '&nbsp;' tag ke '' atau null */
 		$breaksSpace	= array("&nbsp;");
 		$input 			= str_ireplace($breaksSpace, "", $input);
-		/* Detect HTML tag and Pure it to text */
+		/* Deteksi HTML tag dan jadikan ke text */
 		$input 			= strip_tags($input);
 		$input 			= preg_replace("#<[^>]+>#", "", $input);
 
 		return $input;
 	}
 	function brToNl($input) {
-		/* Change '<div><br>' tag to '\r\n' New Space */
+		/* Ganti '<div><br>' tag ke '\r\n' Spasi baru */
 		$breaksDivBr	= array(
 								"<div><br>",
 								"< div><br>",
@@ -799,16 +792,16 @@
 								"< div ><br/>"
 						);
 		$input 			= str_ireplace($breaksDivBr, "\r\n", $input);
-		/* Change '<br /> or <br> or <br/>' to '\r\n' New Space */
+		/* Ganti '<br /> atau <br> atau <br/>' ke '\r\n' Spasi baru */
 		$breaks 		= array("<br />","<br>","<br/>");
 		$input 			= str_ireplace($breaks, "\r\n", $input);
-		/* Change '<div>' tag to '\r\n' New Space */
+		/* Ganti '<div>' tag ke '\r\n' Spasi baru */
 		$breaksDiv 		= array("<div>","< div>","<div >","< div >");
 		$input 			= str_ireplace($breaksDiv, "\r\n", $input);
-		/* Change '&nbsp;' tag to '\s' New Space */
+		/* Ganti '&nbsp;' tag ke '\s' Spasi baru */
 		$breaksSpace	= array("&nbsp;");
 		$input 			= str_ireplace($breaksSpace, " ", $input);
-		/* Detect HTML tag and Pure it to text */
+		/* Deteksi HTML tag dan jadikan ke text */
 		$input 			= strip_tags($input);
 		$input 			= preg_replace("#<[^>]+>#", "", $input);
 
@@ -818,16 +811,16 @@
 		return brToNl($input);
 	}
 	function br2zero($input) {
-		/* Change '<br /> or <br> or <br/>' to '' Zero or Empty */
+		/* Ganti '<br /> atau <br> atau <br/>' ke '' kosong */
 		$breaks 		= array("<br />","<br>","<br/>");
 		$input 			= str_ireplace($breaks, "", $input);
-		/* Change '<div>' tag to '' Zero or Empty */
+		/* Ganti '<div>' tag ke '' kosong */
 		$breaksDiv 		= array("<div>","< div>","<div >","< div >");
 		$input 			= str_ireplace($breaksDiv, "", $input);
-		/* Change '&nbsp;' tag to '\s' New Space */
+		/* Ganti '&nbsp;' tag ke '\s' Spasi baru */
 		$breaksSpace	= array("&nbsp;");
 		$input 			= str_ireplace($breaksSpace, " ", $input);
-		/* Detect HTML tag and Pure it to text */
+		/* Deteksi HTML tag dan jadikan ke text */
 		$input 			= strip_tags($input);
 		$input 			= preg_replace("#<[^>]+>#", "", $input);
 
@@ -910,11 +903,11 @@
 		return $result;
 	}
 	function corsSinTaskAPI() {
-		/* Allow from any origin */
+		/* Izinkan ke semua origin */
 		if (isset($_SERVER['HTTP_ORIGIN'])) {
 			/* 
-				$_SERVER['HTTP_ORIGIN'] allow from any origin 
-				for security reason we don't use * as value to 'Access-Control-Allow-Origin'
+				$_SERVER['HTTP_ORIGIN'] mengizinkan ke semua origin
+				kami tidak menggunakan * sebagai nilai 'Access-Control-Allow-Origin'
 			*/
 			header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
 			header('Access-Control-Allow-Credentials: true');
@@ -1057,7 +1050,7 @@
 		curl_setopt_array( $ch, $options );
 		$header = curl_exec($ch);
 		
-		/*Parse information from header & space or newline to newline (field)*/
+		/* Parsing informasi dari header & spasi atau baris baru ke hanya baris baru (kolom) */
 		$fields = explode("\r\n", preg_replace('/\x0D\x0A[\x09\x20]+/', ' ', $header));
 			
 		for($i=0;$i<count($fields);$i++) {
@@ -1177,6 +1170,7 @@
 		$input = str_replace("\\", "\\\\", $input);
 		return $input;
 	}
+	/* SinTaskFW fungsi untuk mengecek username yang di izinkan */
 	function checkUsernameAllowed($usernameCheck) {
 		if(
 			(!ctype_space($usernameCheck))  					&& 
@@ -1486,10 +1480,10 @@
 		return fixStJson($output);
 	}
 
-	/*IMAGE_UPLOAD_COMPRESS*/
+	/* Upload Gambar dan Kompresi */
 	function compressImage($path, $quality, $destination, $original) {
 		/*
-			Default Compression Image, support JPG and PNG only
+			Kompresi gambar standar dan mendukung JPG / PNG
 		*/
 		$info = getimagesize($path);
 		list($width, $height) = $info;
@@ -1540,8 +1534,8 @@
 	}
 	function avaCompressImage($path, $quality, $destination, $original) {
 		/*
-			This function Compress + Resize image to 1:1 aspect ratio
-			to keep quality please use 90 - 99 to $quality variable input.
+			Fungsi untuk kompress + resize gambar ke 1:1 rasio
+			untuk menjaga kualitas silahkan gunakan 90 - 99 ke $quality variabel
 		*/
 		$info = getimagesize($path);
 		/*JPG IMG*/
@@ -1703,7 +1697,7 @@
 				}
 				return $destination;
 			}
-		/*UNKNOWN IMG - DONT REMOVE! - BUT MAYBE DEPRECATED*/
+		/* Untuk gambar tidak terdeteksi */
 		} else { /* compression default */
 			list($width, $height) = $info;
 			if ($info !== FALSE) {
@@ -1876,15 +1870,13 @@
 	}
 	function curlCheckerImage($path, $quality, $destination) {
 		/* 
-			Resize the image from external link or content, that use to be preview on SinTask content
-			like SharedTask or NoteTify, etc. This image are saved into /data/content/external_image
-			
+			Resize gambar dari link eksternal atau konten, untuk digunakan sebagai preview
+
 			------------
-			Attention !
+			Perhatian !
 			------------
-			Return variable must be true or false (boolean), not 1 = true or 0 = '' = false
-			this function checker at function curlDownloadImage uses === that equivalent
-			on return result.
+			Nilai balik variable harus berupa true atau false (boolean), bukan 1 = true atau 0 = '' = false
+			fungsi ini berhubungan dengan fungsi curlDownloadImage menggunakan === yang lebih teliti
 		*/
 		$info = getimagesize($path);
 		list($width, $height) = $info;
@@ -1925,12 +1917,12 @@
 	}
 	function avaResizeImage($path, $quality, $destination, $original) {
 		/*
-			Resize the Avatar/ProfilePict image to :
-				35x35 	Super Small -> Use on special condition or special view
-				40x40 	Small 	-> Use to store image on /data/user/ava/small dir
-				80x80 	Medium 	-> Use to store image on /data/user/ava/medium dir
-				200x200 Large 	-> Use to store image on /data/user/ava/large dir
-			Support JPG and PNG, other extension will convert to JPG
+			Resize untuk Avatar/Foto Profil ke :
+				35x35 	Super kecil
+				40x40 	Kecil
+				80x80 	Medium
+				200x200 Besar
+			Mendukung JPG / PNG, ekstensi lain akan dikonversi ke JPG
 		*/
 		$info = getimagesize($path);
 		list($width, $height) = $info;
@@ -2052,16 +2044,16 @@
 	}
 	function covResizeImage($path, $quality, $destination, $crop) {
 		/*
-			Resize cover (group) image to 5,454545..:1 aspect ratio or in pixel :
+			Resize gambar cover (group) dengan rasio 5,454545..:1 contohnya :
 				54,5  x 10
 				109   x 20
 				163,5 x 30
-				.... or ....
+				.... atau ....
 				600	x 110
-				.... or ....
-				1366 x 250 -> 5,464:1 aspect ratio can use too
-			$crop is input from user reposition value of image that have height > or = width
-			value from user will normalize with 'SinTask Crop Normalization' 
+				.... atau ....
+				1366 x 250 -> 5,464:1 aspek rasio juga dapat digunakan
+			$crop adalah input dari fungsi untuk nilai reposisi dari gambar yang mempunyai tinggi > = lebar
+			nilai dari input akan dinormalisasi pada 'SinTask Crop Normalization'
 		*/
 		$info = getimagesize($path);
 		list($width, $height) = $info;
@@ -2101,16 +2093,16 @@
 	}
 	function covUserResizeImage($path, $quality, $destination, $crop) {
 		/*
-			Resize cover (profile) image to 3,7472...:1 aspect ratio or in pixel :
+			Resize gambar cover (profil) dengan rasio 3,7472..:1 contohnya :
 				37 	x 10
 				74 	x 20
 				111	x 30
 				.... or ....
 				851	x 227
 				.... or ....
-				1349 x 360 -> 3,7:1 aspect ratio can use too
-			$crop is input from user reposition value of image that have height > or = width
-			value from user will normalize with 'SinTask Crop Normalization' 
+				1349 x 360 -> 3,7:1 aspek rasio juga dapat digunakan
+			$crop adalah input dari fungsi untuk nilai reposisi dari gambar yang mempunyai tinggi > = lebar
+			nilai dari input akan dinormalisasi pada 'SinTask Crop Normalization' 
 		*/
 		$info = getimagesize($path);
 		list($width, $height) = $info;
@@ -2149,7 +2141,7 @@
 		}
 	}
 	
-	/* 	Function Norm And Fix JSON */
+	/* 	Function Normalisasi dan memperbaiki JSON - Bug pada konten yg memiliki nilai , atau ] atau [ */
 	function fixStJson($input) {
 		$input = str_replace(",]", "]", $input);
 		$input = str_replace("[,", "]", $input);
@@ -2158,7 +2150,7 @@
 		$result = $input;
 		return $result;
 	}
-	/* Function Normalize and Fix JSON v2 */
+	/* 	Function Normalisasi dan memperbaiki JSON v2 - Bug pada konten yg memiliki nilai , atau ] atau [ */
 	function fixStJsonTwo($input) {
 		$input = preg_replace("/,{2,}/", ",", $input);
 		$input = preg_replace("/,\s+\]/", "]", $input);
@@ -2166,13 +2158,13 @@
 		$result = fixStJson($input);
 		return $result;
 	}
-	/* 	Function replace <\/SCRIPT> variable value */
+	/* 	Function menghapus <\/SCRIPT> nilai variable */
 	function remScriptErr($input) {
 		$input = str_ireplace("</script>", "<\/script>", $input);
 		$result = $input;
 		return $result;
 	}
-	/* 	Get timestamp now with microseconds, so usually timestamp with 10 Digit become 13 Digit */
+	/* 	Mengambil timestamp dengan 13 digit */
 	function milliSecondsNow() {
 		$mt = explode(' ', microtime());
 		return ((int)$mt[1]) * 1000 + ((int)round($mt[0] * 1000));
@@ -2180,7 +2172,7 @@
 	function microTimeStamp() {
 		return milliSecondsNow();
 	}
-	/* 	Function cutString - Maybe Deprecated, BUT DON'T REMOVE!, We now use wrapLongText CSS CLASS 
+	/* 	Function cutString - Untuk memotong nilai yang panjang, tetapi telah digantikan oleh CSS : 
 		---------------
 		.wrapLongText {	
 			white-space: nowrap;
@@ -2195,6 +2187,8 @@
 			text-overflow: ellipsis;
 			display: inline-block; 
 		}
+		---------------
+		Fungsi Deprecated
 	*/
 	function cutString($input, $len, $overlen) {
 		$result = "";
@@ -2206,11 +2200,11 @@
 		}
 		return $result;
 	}
-	/* Function File Size Normalize from B */
+	/* 	Function File Size translasi dari B (Byte) */
 	function fileSizeFrByToAll($fileSize, $fileSizeNumFor) {
 		/*
-			This is manual, for dynamic uses POW or ^ equivalent math function
-			then devided by filesize & value approach
+			Ini manual, untuk dinamis gunakan POW atau ^ fungsi matematika
+			lalu dibagikan oleh $fileSize & nilai pendekatan
 		*/
 		$fileSizeTwo = $fileSize;
 		$fileSizeType = "B";
@@ -2234,7 +2228,7 @@
 		$fileSizeFinal = number_format($fileSizeNotFormatedNum, $fileSizeNumFor)." ".$fileSizeType;
 		return $fileSizeFinal;
 	}
-	/* 	Check PregMatch - Check PregMatch email and username, return type boolean */
+	/* 	Check PregMatch - Check PregMatch email dan username, nilai balik berupa boolean */
 	function checkPregMatch($input, $type) {
 		if($type=="email") {
 			$emailn_regex = "/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/";
@@ -2258,16 +2252,16 @@
 			return false;
 		}
 	}
-	/* Get Render HTML Result */
+	/* Dapatakan Hasil Render HTML */
 	function getRenderedHTML($path){
-		/* NOT GLOBAL RENDERED */
+		/* Render tidak global, dan tidak membaca variable lain, karena scope function */
 	    ob_start();
 	    include($path);
 	    $var = ob_get_contents(); 
 	    ob_end_clean();
 	    return $var;
 	}
-	/* Render JS from spa_template_custom - With Encrypt */
+	/* SPA - Merender HTML menjadi JS + Enkripsi AES dari GibberishAES */
 	function renderHTMLToJSENC($input) {
 		$vars = toSingleLine($input);
         $tzer = $_SESSION["globalSecureToken"];
@@ -2294,7 +2288,7 @@
 
 		return $final;
 	}
-	/* Render JS from spa_template_custom */
+	/* SPA Stay - Merender HTML menjadi JS + Enkripsi AES dari GibberishAES */
 	function renderHTMLToJSStayENC($content, $input) {
 		$vars = toSingleLine($input);
         $tzer = $_SESSION["globalSecureToken"];
@@ -2329,7 +2323,7 @@
 
 		return $final;
 	}
-	/* Render JS from spa_template_custom */
+	/* SPA - Merender HTML menjadi JS */
 	function renderHTMLToJS($input) {
 		$vars = toSingleLine($input);
 		$vars = tagSlash($vars);
@@ -2346,7 +2340,7 @@
 
 		return $final;
 	}
-	/* Render JS from spa_template_custom */
+	/* SPA Stay - Merender HTML menjadi JS */
 	function renderHTMLToJSStay($content, $input) {
 		$vars = toSingleLine($input);
         $vars = tagSlash($vars);
@@ -2376,7 +2370,7 @@
 		$filter = stripslashes(strip_tags(htmlspecialchars($input, ENT_QUOTES)));
 		return $filter;
 	}
-	/* Shuffle the array variable */
+	/* Acak dari array variable */
 	function shuffleArray(&$array) {
 		$keys = array_keys($array);
 		shuffle($keys);
@@ -2388,7 +2382,9 @@
 		$array = $new;
 		return true;
 	}
-	/* Get cURL Preview Internal */
+	/* Ambil cURL Preview Internal 
+ 	 * Sebagian menggunakan bahasa inggris (comment)
+	 */
 	function getCurlPreviewContent($url) {
 		$finalURL = $url;
 
@@ -2543,7 +2539,7 @@
 		}
 
 		if(urlCheckerv2($urlFixed)==1 || urlCheckerv2($urlFixed)==true) {
-			$imageOn 	= ""; /*ID DATA FROM TABLE fi_file_external*/
+			$imageOn 	= "";
 			$titleOn 	= "";
 			$descOn 	= "";
 			$realUrlOn 	= "";
@@ -2611,7 +2607,7 @@
 			}
 
 			$realUrlOn 	= getOriginalURL($finalURL);
-			/*if original URL is empty or null get the realUrl = fullUrl*/
+			/* if original URL is empty or null get the realUrl = fullUrl */
 			if($realUrlOn=="" || $realUrlOn==null) {
 				$realUrlOn = $finalURL;
 			}
@@ -2710,6 +2706,7 @@
     }
 
     /**
+     * -- Fungsi dari Aidan Lister --
 	 * Copy a file, or recursively copy a folder and its contents
 	 * @author      Aidan Lister <aidan@php.net>
 	 * @version     1.0.1

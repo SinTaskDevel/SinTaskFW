@@ -1,6 +1,6 @@
 <?php
 	
-	/* Not - Direct Download Feature */
+	/* Fitur Not - Direct Download */
 
 	$param 			= $__SEGMEN__[4];
 	$param2			= $__SEGMEN__[5];

@@ -1,11 +1,10 @@
 <?php
 
-	/* For General Page Blocker
+	/* Untuk General Page Blocker
 	 */
 	
-	/** [ MAINTENANCE & DB CONFIG CONDITION ]
-     * THIS PAGE RUN NON-SPA WEB-BASED
-     * die() FUNCTION WILL BLOCK THE NEXT CODE
+	/** [ MAINTENANCE & DB CONFIG ]
+     *  Halaman berbasiskan Non-SPA
      */
     if(MAINTENANCE == true) {
         ?>
@@ -20,9 +19,8 @@
         die();
     }
 
-    /** [ MAINTENANCE & DB CONFIG CONDITION ]
-     * THIS PAGE RUN NON-SPA WEB-BASED
-     * die() FUNCTION WILL BLOCK THE NEXT CODE
+    /** [ MAINTENANCE & DB CONFIG ]
+     *  Halaman berbasiskan Non-SPA
      */
     if($__CONNECT_STATUS__ == false) {
         ?>

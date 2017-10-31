@@ -1,7 +1,7 @@
 <?php
 	
 	/*
-	 *	SinTask HQ for _POST, _GET, _FILES
+	 *	SinTask HQ untuk _POST, _GET, _FILES
 	 */
 	class SinTaskHQ {
 		public function __construct() {
@@ -21,7 +21,7 @@
 	$sintaskFW = new SinTaskHQ;
 
 	/*
-	 *	SinTask META for SPA or N-SPA Page
+	 *	SinTask META untuk SPA or N-SPA Page
 	 */
 	class MetaSPA extends SinTaskHQ {
 		private $fileName	= "";
@@ -179,7 +179,7 @@
 	/*
 	 *	SinTask No Route
 	 *	-----------------
-	 * 	Using for call no_route file
+	 * 	Digunakan untuk memanggil file pada direktori no_route
 	 */
 	class NoRoute extends SinTaskHQ {
 		private $thisPath = "";
@@ -201,8 +201,7 @@
 	/* 
 	 *	SinTask Video / audio Stream
  	 *	------------------------------------
-	 *	MediaStream class we use on SinTask content that support video player & audio player, 
-	 * 	with this class, SinTask can 'Stream Media * and Play'
+	 *	MediaStream class digunakan untuk mendukung stream video player & audio player, 
 	 */
 	class MediaStream {
 	    private $path 	= "";
@@ -220,13 +219,13 @@
 	    	$this->path = $filePath;
 	    	$this->mime = $fileMime;
 	    }
-	    /* Open stream */
+	    /* Membuka Stream */
 	    private function open() {
 	        if (!($this->stream = fopen($this->path, 'rb'))) {
 	            die('Tidak dapat membuka stream video');
 	        }
 	    }
-	    /* Set proper header to serve the video content */
+	    /* Set header untuk menampilkan media stream */
 	    private function setHeader() {
 	        ob_get_clean();
 	        header("Content-Type: ".$this->mime);
@@ -276,12 +275,12 @@
 	            header("Content-Length: ".$this->size);
 	        }
 	    }
-	    /* Close currently opened stream */
+	    /* Close jika ada media stream yg terbuka, END */
 	    private function end() {
 	        fclose($this->stream);
 	        exit;
 	    }
-	    /* Perform the streaming of calculated range */
+	    /* Tampilkan streaming berdasarkan buffer, sehingga tidak meload semua */
 	    private function stream() {
 	        $i = $this->start;
 	        set_time_limit(0);
@@ -296,7 +295,7 @@
 	            $i += $bytesToRead;
 	        }
 	    } 
-	    /* Start streaming video content */
+	    /* Mulai streaming media */
 	    function start() {
 	        $this->open();
 	        $this->setHeader();
@@ -304,7 +303,7 @@
 	        $this->end();
 	    }
 	}
-	/* $sintaskMeda - Audio/Video */
+	/* $sintaskMedia - Audio/Video */
 	$sintaskMedia = new MediaStream;
 
 ?>

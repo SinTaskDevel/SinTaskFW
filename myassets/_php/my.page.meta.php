@@ -1,6 +1,6 @@
 <?php
 
-	/* for default 404 */
+	/* Untuk default 404 */
 	$sintaskNewMeta->newFileNameCustom("/assets/page/static/static.zero.php");
 	$sintaskNewMeta->newTitle("We are Not Found this page / 404");
 	$sintaskNewMeta->newSiteName("SinTaskFW");
@@ -17,7 +17,7 @@
 	$sintaskNewMeta->newImage($__BASE_URL__."/images/art/default/homie.png");
 	$sintaskNewMeta->addNew();
 
-	/* for my page meta */
+	/* Untuk page meta */
 	$sintaskNewMeta->newFileName("notlogin..php");
 	$sintaskNewMeta->newTitle("SinTask Framework / SinTaskFW");
 	$sintaskNewMeta->newSiteName("SinTaskFW");
@@ -26,12 +26,12 @@
 	$sintaskNewMeta->newImage($__BASE_URL__."/images/logo/sintask_logo_notlogin.png");
 	$sintaskNewMeta->addNew();
 
-	/* Dynamic META, you can get data from DB to change META with Paremeter of URL 
-	 * Example, 
+	/* Dynamic META, anda dapat mengambil data spesifik dari DB anda untuk dicantumkan pada Title, Description dll
+	 * Contohnya, 
 	 * URL : http(s)://www.domain.tld/username1
-	 * DB Data of username1 ($__SEGMEN_PURE__[2]) is :
+	 * DB Data dari username1 ($__SEGMEN_PURE__[2]) adalah :
 	 *		- META Desc : My name is Author, My username is username1
-	 * Change the $sintaskNewMeta->newDescription("YOUR META DESC");
+	 * Ganti $sintaskNewMeta->newDescription("META DESC ANDA");
 	 */
 	$sintaskNewMeta->newFileName("both.[].php");
 	$sintaskNewMeta->newTitle("Dynamic Page / ".$__SEGMEN_PURE__[2]);

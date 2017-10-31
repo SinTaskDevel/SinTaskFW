@@ -5,7 +5,7 @@
 	 * 	GENERAL INFO :
 	 *		SinTask Framework
 	 *		(c) 2016 - 2017 CV. SinTask
-	 * 		CV. SinTask / SinTask Web Developer / SinTask Engineering
+	 * 		SinTask, Ltd. / SinTask Web Developer / SinTask Engineering
 	 *
 	 *	AUTHOR :
 	 *		- Aditya Wikardiyan
@@ -17,11 +17,12 @@
 	 * 		- PHP 5.6 or above
 	 * 		- Support scandir()
 	 * 		- Support file_exists()
+	 *		- Ekstensi PDO PHP
+	 *		- Ekstensi OpenSSL PHP
 	 *		- MySQL Support crudSDB() function
-	 * 		- All DBMS PDO Support (Documentation on /myassets/_dbconfig/my.db.config.php)
 	 *		- Apache Web Server (.htaccess)
-	 *			- If you're using NGINX try : https://winginx.com/en/htaccess
-	 *			- and copy configuration from all .htaccess file in this Framework.
+	 *			- Jika menggunakan NGINX coba : https://winginx.com/en/htaccess
+	 *			- Atau baca dokumentasi pada https://fw.sintask.com/docs
 	 *
 	 * 	DOKUMENTASI SINGKAT :
 	 * 	Petunjuk sebelum menggunakan framework, perhatikan langkah-langkah berikut :

@@ -1,17 +1,5 @@
 <?php
 
-	/*
-	 * NOT EDITABLE AREA
-	 * EDIT MAY CAUSE ERROR
-	 */
-	/*
-	 * ---------- FOUNDER NOTE -----------
-	 * All of PHP Code is Procedural Style,
-	 * SinTask Engine run in Procedural Style script.
-	 *
-	 * ----
-	 */
-
 	/* URL Encode */
 	define("THIS_URL_ENCODE", urlencode($_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"]));
 
@@ -35,17 +23,17 @@
 		</pre>";
 	}
 
-	/* AUTO DETECTION */
+	/* Deteksi otomatis URL */
 	$__BASE_PROTOCOL__ 	= isset($_SERVER["HTTPS"]) ? 'https' : 'http';
 	$__BASE_HOST__		= $_SERVER['HTTP_HOST']; 
 	$__BASE_URL__ 		= $__BASE_PROTOCOL__."://".$__BASE_HOST__; 
 	
 	$__LOGIN_STATUS__ 	= false;
 
-	/* INCLUDE MY CORE */
+	/* Include Core dari Pengguna */
 	include($__DOC_ROOT__.$requirePath['mycontrol']."/my.core.php");
 
-	/* FORCE HTTPS */
+	/* Force HTTPS - memaksakan protokol, jika tidak terbaca Deteksi otomatis */
 	if($__MY_CORE__["FORCE_HTTPS"] == true) {
 		$__BASE_PROTOCOL__	= "https";
 		$__BASE_HOST__		= $_SERVER['HTTP_HOST']; 

@@ -1,9 +1,9 @@
 <?php 
     
-    /* Page For Null Request - Result nothing 
-     * ! MUST RESULT NULL / NOTHING / EMPTY or ZERO
-     * - Result Zero will redirect page to 404 notfound SPA page
-     * - Don't change the echo with other content or string
+    /* Halaman untuk Null Request - Menghasilkan kosong 
+     * !!! Harus menghasilkan Kosong/Null !!!
+     * - Hasil kosong akan membantu SinTaskFW memahami dan meredirect ke 404 not found
+     * - Jangan mengisi nilai pada echo
      */
     echo "";
     

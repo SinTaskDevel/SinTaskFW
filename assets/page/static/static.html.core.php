@@ -184,9 +184,8 @@
              */
 
 
-            /** [ MAINTENANCE & DB CONFIG CONDITION ]
-             * THIS PAGE RUN NON-SPA WEB-BASED
-             * die() FUNCTION WILL BLOCK THE NEXT CODE
+            /** [ MAINTENANCE & DB CONFIG ]
+             *  Halaman berbasiskan Non-SPA
              */
             if(MAINTENANCE == true) {
                 ?>
@@ -201,9 +200,8 @@
                 die();
             }
 
-            /** [ MAINTENANCE & DB CONFIG CONDITION ]
-             * THIS PAGE RUN NON-SPA WEB-BASED
-             * die() FUNCTION WILL BLOCK THE NEXT CODE
+            /** [ MAINTENANCE & DB CONFIG ]
+             *  Halaman berbasiskan Non-SPA
              */
             if($__CONNECT_STATUS__ == false) {
                 ?>
@@ -219,13 +217,7 @@
             }
 
             /** [ JS-DISABLED CONDITION ]
-             * IF USER BROWSER NOT SUPPORTED JAVASCRIPT 
-             * META WILL REDIRECT TO /jsdisabled PAGE
-             * ON THIS PAGE, WE WILL CHECK AGAIN IF JAVASCRIPT IS ACTIVE OR NOT VIA <script></script>
-             *      - IF JS IS ACTIVE : WE WILL REDIRECT TO DEFAULT PAGE
-             *      - IF JS NOT ACTIVE : WE WILL STAY ON /jsdisabled PAGE
-             * THIS PAGE RUN NON-SPA WEB-BASED
-             * die() FUNCTION WILL BLOCK THE NEXT CODE
+             *  Halaman berbasiskan Non-SPA
              */
             /* NOSCRIPT CHECKER */
             if($__SEGMEN__[2]!="jsdisabled") {
@@ -252,13 +244,7 @@
             }
 			
 			/** [ COOKIE-DISABLED CONDITION ]
-             * IF USER BROWSER NOT SUPPORTED OR BLOCK COOKIE 
-             * JS WILL REDIRECT TO /kk PAGE
-             * ON THIS PAGE, WE WILL CHECK AGAIN IF COOKIE IS ACTIVE OR NOT VIA <script></script>
-             *      - IF COOKIE IS ACTIVE : WE WILL REDIRECT TO DEFAULT PAGE
-             *      - IF COOKIE NOT ACTIVE : WE WILL STAY ON /kk PAGE
-             * THIS PAGE RUN NON-SPA WEB-BASED
-             * die() FUNCTION WILL BLOCK THE NEXT CODE
+             *  Halaman berbasiskan Non-SPA
              */
             /* COOKIE CHECKER */
             if($__SEGMEN__[2]!="kk") {
@@ -302,13 +288,7 @@
             }
 			
 			/** [ HTML5-NOT-SUPPORT CONDITION ]
-             * IF USER BROWSER NOT SUPPORTED HTML5 
-             * META WILL REDIRECT TO /html5 PAGE
-             * ON THIS PAGE, WE WILL CHECK AGAIN IF HTML5 IS SUPPORT OR NOT
-             *      - IF HTML5 IS SUPPORT : WE WILL SHOWN YOUR BROWSER SUPPORT HTML5
-             *      - IF HTML5 NOT SUPPORT : WE WILL SHOWN YOUR BROWSER DOESN'T SUPPORT HTML5
-             * THIS PAGE RUN NON-SPA WEB-BASED
-             * die() FUNCTION WILL BLOCK THE NEXT CODE
+             *  Halaman berbasiskan Non-SPA
              */
             /* HTML5 CHECKER */
             if($__SEGMEN__[2]!="html5") {
@@ -369,7 +349,7 @@
                     /* SEO Support */
                     if($__XHR_STATUS__ == false) {
                         if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".jssintasktemplate") != $__ZERO__) {
-                            /* Readable Content without Javascript */
+                            /* Konten dapat terbaca tanpa Javascript */
                             $pathRender = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".jssintasktemplate");
                             /* HTML Rendering */
                             ob_start();
@@ -382,7 +362,7 @@
                     }
                 ?>
                 <script>
-                    /* Reset Readable Content with JS - CTRL+U or Source Crawler may not seen this disapear */
+                    /* Menghapus dari Pengguna tetapi tidak pada SOURCE VIEW */
                     sjqNoConflict("#freeContentSinTask").html("");
                     sjqNoConflict("#freeContentSinTask").show();
                 </script>

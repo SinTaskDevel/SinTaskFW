@@ -1,4 +1,8 @@
 <?php
+
+	/* Halaman Statis untuk -
+	 * Auto-Update
+	 */
 	
 	$sintaskGet = $_GET["to"];
 	if($sintaskGet == "step1") {

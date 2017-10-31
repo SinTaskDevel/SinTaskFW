@@ -1,13 +1,5 @@
 <?php
 
-	/*
-	 * NOT EDITABLE AREA
-	 * EDIT MAY CAUSE ERROR
-	 * CHANGEABLE :
-	 *	- $__VERSION__
-	 * 	- $__CODENAME__
-	 */
-
 	/* Inisialisasi & Core
 	 * List :
 	 * 			-> $__SEGMEN__ 			Menghasilkan pecahan URL (tanpa tanda ? untuk parameter get).

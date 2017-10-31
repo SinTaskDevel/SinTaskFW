@@ -1,6 +1,7 @@
 <?php
 
-	/*
+	/* 	Kode dengan comment berbahasa inggris
+	 * 	------------------------------
 	 * 	Gibberish AES - Security Class
 	 * 	GITHUB ON : https://github.com/ivantcholakov/gibberish-aes-php
 	 * 	--------------------------------------------------------------
