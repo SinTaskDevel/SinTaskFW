@@ -15,6 +15,7 @@ Untuk saat ini dokumentasi lengkap terdapat pada [Website SinTaskFW](https://fw.
 - Dokumentasi [SinTaskFW](https://fw.sintask.com/docs)
 - Dokumentasi [Extra](https://fw.sintask.com/docs/extra)
 - Dokumentasi [Local-Development](https://fw.sintask.com/docs/local-dev)
+- Dokumentasi [Error](https://fw.sintask.com/docs/error)
 
 ## Bahasa/Language
 Dokumentasi dan sebagian comment pada kode berbahasa Indonesia.
