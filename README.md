@@ -11,10 +11,10 @@ Tujuan dikembangkannya SinTaskFW adalah untuk mempermudah para PHP & Web Develop
 Dengan SinTaskFW yang Simple, dan Light juga berbasis PHP dan SPA (Single Page Application) kami mempunyai misi agar Framework ini dapat dikenal luas dan dapat dikembangkan secara bersama-sama oleh seluruh Developer terkait.
 
 ## Dokumentasi
-Untuk saat ini dokumentasi lengkap terdapat pada website SinTaskFW https://fw.sintask.com 
-- Dokumentasi SinTaskFW v1.0.0 pada https://fw.sintask.com/docs/v1.0.0
-- Dokumentasi Extra pada https://fw.sintask.com/docs/extra
-- Dokumentasi Local Development pada https://fw.sintask.com/docs/local-dev
+Untuk saat ini dokumentasi lengkap terdapat pada [Website SinTaskFW](https://fw.sintask.com) 
+- Dokumentasi [SinTaskFW](https://fw.sintask.com/docs)
+- Dokumentasi [Extra](https://fw.sintask.com/docs/extra)
+- Dokumentasi [Local-Development](https://fw.sintask.com/docs/local-dev)
 
 ## Bahasa/Language
 Dokumentasi dan sebagian comment pada kode berbahasa Indonesia.
