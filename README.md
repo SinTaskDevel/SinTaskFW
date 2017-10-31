@@ -14,4 +14,6 @@ Untuk saat ini dokumentasi lengkap terdapat pada website SinTaskFW https://fw.si
 Dokumentasi dan sebagian comment pada kode berbahasa Indonesia.
 
 ## Github & Web Rilis
-Kami terlebih dahulu merilis melalui (Web Download Latest-Release)[https://fw.sintask.com/direct/dl/latest] lalu setelah itu ke (Github Release)[https://github.com/sintask/SinTaskFW/releases]
+Kami terlebih dahulu merilis melalui :
+1. [Web Download Latest-Release](https://fw.sintask.com/direct/dl/latest)
+2. lalu setelah itu ke [Github Release](https://github.com/sintask/SinTaskFW/releases)
