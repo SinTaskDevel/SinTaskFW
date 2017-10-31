@@ -2,7 +2,13 @@
 <p align="center">Framework</p>
 
 ## SinTaskFW (Micro-Framework)
-SinTaskFW adalah Simple &amp; Light PHP Framework built-in SPA (Single Page Application)
+SinTaskFW adalah Simple &amp; Light PHP Framework built-in SPA (Single Page Application).
+
+SinTaskFW atau SinTask Framework dikembangkan oleh Divisi Web SinTask, yang dimana SinTask adalah Startup Teknologi yang juga mengembangkan [SinTask Productive & Fun](https://www.sintask.com).
+
+Tujuan dikembangkannya SinTaskFW adalah untuk mempermudah para PHP & Web Developer Native agar lebih cepat dalam membangun suatu Web Publik, Web Aplikasi, Web SPA-Based atau Proyek Web lainnya.
+
+Dengan SinTaskFW yang Simple, dan Light juga berbasis PHP dan SPA (Single Page Application) kami mempunyai misi agar Framework ini dapat dikenal luas dan dapat dikembangkan secara bersama-sama oleh seluruh Developer terkait.
 
 ## Dokumentasi
 Untuk saat ini dokumentasi lengkap terdapat pada website SinTaskFW https://fw.sintask.com 
