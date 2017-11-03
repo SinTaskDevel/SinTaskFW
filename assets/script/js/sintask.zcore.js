@@ -411,7 +411,7 @@ xhrSinTaskMovePage.push( sjqNoConflict.ajax({
             purgeSideSinTask(0);
             purgeScriptAdd();
             fadeContentOne("Load Problem", 200, "show");
-            location.assign("/SINTASK_ERROR");
+            location.assign("SINTASK_ERROR");
         }
         sintaskLoaderIframeStop();
     }
@@ -437,7 +437,7 @@ sjqNoConflict.loadContent = function () {
                 purgeSideSinTask(0);
                 purgeScriptAdd();
                 fadeContentOne("Load Problem", 200, "show");
-                location.assign("/SINTASK_ERROR");
+                location.assign("SINTASK_ERROR");
             }
             sintaskLoaderIframeStop();
         }
@@ -469,7 +469,7 @@ sjqNoConflict.backForwardButtons = function () {
                     purgeSideSinTask(0);
                     purgeScriptAdd();
                     fadeContentOne("Load Problem", 200, "show");
-                    location.assign("/SINTASK_ERROR");
+                    location.assign("SINTASK_ERROR");
                 }
                 sintaskLoaderIframeStop();
             }

@@ -8,21 +8,21 @@
 
 	$thisPostKuki = $sintaskFW->post("postCookie");
 	if(isset($thisPostKuki)) {
-		$sintaskKuki->set("sintaskFW", "POST COOKIE", "2 d", "/", ".sintask.local", false, true);
+		$sintaskKuki->set("sintaskFW", "POST COOKIE", "2 d", "/", "", false, true);
 		echo "THIS POST : ".$thisPostKuki;
 		echo "<hr>";
 	}
 
 	$thisPostModifKuki = $sintaskFW->post("postModifCookie");
 	if(isset($thisPostModifKuki)) {
-		$sintaskKuki->set("sintaskFW", "POST MODIFIED COOKIE", "2 d", "/", ".sintask.local", false, true);
+		$sintaskKuki->set("sintaskFW", "POST MODIFIED COOKIE", "2 d", "/", "", false, true);
 		echo "THIS POST : ".$thisPostModifKuki;
 		echo "<hr>";
 	}
 
 	$thisPostClearKuki = $sintaskFW->post("clearCookie");
 	if(isset($thisPostClearKuki)) {
-		$sintaskKuki->purge("sintaskFW", "/", ".sintask.local");
+		$sintaskKuki->purge("sintaskFW", "/", "");
 		echo "THIS POST : ".$thisPostClearKuki;
 		echo "<hr>";
 	}

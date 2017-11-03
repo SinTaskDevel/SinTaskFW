@@ -131,7 +131,9 @@
 	$requirePath['auto_css'] 	= "/myassets/auto_css_head";
 
 	/* Inisialisasi DOCUMENT_ROOT alias */
-	$__DOC_ROOT__		= $_SERVER['DOCUMENT_ROOT'];
+	$__CENTER__		= preg_replace("!${_SERVER['SCRIPT_NAME']}$!", '', $_SERVER['SCRIPT_FILENAME']);
+	$__BASE_DIR__	= str_replace("\\", "/", __DIR__);
+	$__DOC_ROOT__	= $__BASE_DIR__;
     
 	/* Daftar Inisialisasi require - urutan require tidak dapat di ubah */
 	require($__DOC_ROOT__.$requirePath['controlreq']."/class.php");

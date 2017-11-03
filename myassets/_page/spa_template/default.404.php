@@ -13,7 +13,7 @@
         <div class="contentNotFound_1"> 
             SinTask System is Not Found This Page
             <br/>
-            <a class="s sintaskInlineBox" href="/">Back to Home</a>
+            <a class="s sintaskInlineBox" href="<?php echo $__BASE_URL__;?>">Back to Home</a>
             <br/><br/><br/><br/><br/>
         </div> 
     </div> 

@@ -1,14 +1,7 @@
 <?php
-
-	/* URL Encode */
-	define("THIS_URL_ENCODE", urlencode($_SERVER['HTTP_HOST'].$_SERVER["REQUEST_URI"]));
-
-	/* Global Secure Token - Semua user mempunyai token ini (login/tidak login) */
-	if($_SESSION['globalSecureToken']=="" || $_SESSION['globalSecureToken']==null) {
-		$_SESSION['globalSecureToken'] = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890'), 0, 170 );
-		$_SESSION['verIncludeCode'] = $_SESSION['globalSecureToken'];
-	}
-
+	
+	/* ### FUNCTION CORE ### */
+	
 	/* 
 	 * Debuging Function
 	 */
@@ -22,12 +15,23 @@
 			".$arrayResult."
 		</pre>";
 	}
-
-	/* Deteksi otomatis URL */
-	$__BASE_PROTOCOL__ 	= isset($_SERVER["HTTPS"]) ? 'https' : 'http';
-	$__BASE_HOST__		= $_SERVER['HTTP_HOST']; 
-	$__BASE_URL__ 		= $__BASE_PROTOCOL__."://".$__BASE_HOST__; 
 	
+	/*
+	 * str_replace hanya untuk awal hasil
+	 */
+	function strReplaceFirst($from, $to, $subject) {
+		$from = '/'.preg_quote($from, '/').'/';
+		return preg_replace($from, $to, $subject, 1);
+	}
+	
+	/* ### END FUNCTION CORE ### */
+	
+	/* ### VARIABLE & SETTING CORE ### */
+
+	/* Deteksi otomatis Protokol */
+	$__BASE_PROTOCOL__ 	= isset($_SERVER["HTTPS"]) ? 'https' : 'http';
+	
+	/* Inisialisasi awal login status */
 	$__LOGIN_STATUS__ 	= false;
 
 	/* Include Core dari Pengguna */
@@ -36,15 +40,25 @@
 	/* Force HTTPS - memaksakan protokol, jika tidak terbaca Deteksi otomatis */
 	if($__MY_CORE__["FORCE_HTTPS"] == true) {
 		$__BASE_PROTOCOL__	= "https";
-		$__BASE_HOST__		= $_SERVER['HTTP_HOST']; 
-		$__BASE_URL__ 		= $__BASE_PROTOCOL__."://".$__BASE_HOST__; 
 	}
-
+	
+	/* Deteksi otomatis URL */
+	$__TMP_BASE_URL__	= preg_replace("!^${__CENTER__}!", '', $__BASE_DIR__);
+	$__BASE_PORT__		= $_SERVER['SERVER_PORT'];
+	$__DISPLAY_PORT__ 	= ($__BASE_PROTOCOL__ == 'http' && $__BASE_PORT__ == 80 || $__BASE_PROTOCOL__ == 'https' && $__BASE_PORT__ == 443) ? '' : ":$__BASE_PORT__";
+	$__BASE_DOMAIN__	= $_SERVER['SERVER_NAME'];
+	$__BASE_URL__  		= "${__BASE_PROTOCOL__}://${__BASE_DOMAIN__}${__DISPLAY_PORT__}${__TMP_BASE_URL__}";
+	
+	/* $__BASE_URL__ Custom, sehingga dapat diganti menjadi manual */
 	if($__MY_CORE__["CUSTOM_BASE_URL"] != null && $__MY_CORE__["CUSTOM_BASE_URL"] != "") {
-		if(filter_var($__MY_CORE__["CUSTOM_BASE_URL"], FILTER_VALIDATE_URL) === true) {
-		    $__BASE_URL__ = $__MY_CORE__["CUSTOM_BASE_URL"];
-		}
+		$__BASE_URL__ = $__MY_CORE__["CUSTOM_BASE_URL"];
 	}
+	
+	/* Variabel GLOBALS $__BASE_URL__ */
+	$GLOBALS["__BASE_URL__"] 	= $__BASE_URL__;
+	
+	/* Hapus SEGMEN berlebih (Pertama saja) */
+	$_SERVER["REQUEST_URI"] 	= strReplaceFirst($__TMP_BASE_URL__, "", $_SERVER["REQUEST_URI"]); 
 
 	/* Global Secure Token jika login lebih complex & panjang 
 	 * $_SESSION['verIncludeCode'] dicocokan / disamakan dengan $_SESSION['globalSecureToken']
@@ -88,4 +102,15 @@
 	
 	/* Status Maintenance */
 	define("MAINTENANCE", $__MY_CORE__["MAINTENANCE"]); /* Boolean Value */
+	
+	/* URL Encode */
+	define("THIS_URL_ENCODE", urlencode($__BASE_URL__));
+
+	/* Global Secure Token - Semua user mempunyai token ini (login/tidak login) */
+	if($_SESSION['globalSecureToken'] == "" || $_SESSION['globalSecureToken'] == null) {
+		$_SESSION['globalSecureToken'] = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890'), 0, 170 );
+		$_SESSION['verIncludeCode'] = $_SESSION['globalSecureToken'];
+	}
+	
+	/* ### END VARIABLE & SETTING CORE ### */
 ?>

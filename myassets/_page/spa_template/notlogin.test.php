@@ -27,7 +27,8 @@
 	</form>
 	<br><br>
 	<form action="" method="post" enctype="multipart/form-data">
-	    Select image to upload:
+	    Pilih file untuk di upload (akan tersimpan pada /protected/data/download/not-direct/) :
+		<br>
 	    <input type="file" name="fileToUpload" id="fileToUpload">
 	    <input type="submit" value="Upload File" name="submitFile">
 	</form>

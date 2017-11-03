@@ -32,11 +32,7 @@
 			</li>
 			<div class="borderSpaceMini"></div>
 			<li>
-				Silahkan baca dokumentasi lengkap di <a href="https://fw.sintask.com/docs" target="_blank">fw.sintask.com</a> (Sangat Disarankan) 
-			</li>
-			<div class="borderSpaceMini"></div>
-			<li>
-				CSS & JS SinTaskFW (Tidak boleh diubah)
+				Penunjang SPA pada SinTaskFW
 				<div class="borderSpaceMini"></div>
 				<div class="noted">
 					<div class="orangeBubble">Mengubah script dapat menyebabkan malfunction</div>
@@ -51,9 +47,17 @@ assets/script/js/
 			</li>
 			<div class="borderSpaceMini"></div>
 			<li>
-				Ingin mengembangkan SinTaskFW lebih lanjut? kami terbuka untuk siapa saja yang ingin mengembangkan SinTaskFW, saat ini SinTaskFW <b>tidak dapat</b> ditemukan di GitHub, Bitbucket, GitLab dan sejenisnya.
+				Ingin mengembangkan SinTaskFW lebih lanjut? kami terbuka untuk siapa saja yang ingin mengembangkan SinTaskFW
 				<div class="borderSpaceMini"></div>
-				Keterangan lebih lanjut dapat hubungi tim SinTask melalui email ke <span class="thisTagging">hi@sintask.com</span> atau <span class="thisTagging">developer@sintask.com</span>
+				<div class="noted">
+					<b>GitHub</b> &mdash; <a href="https://github.com/SinTaskDevel/SinTaskFW" target="_blank">SinTaskFW</a> & <a href="https://github.com/SinTaskDevel/SinTaskFW-Installer" target="_blank">SinTaskFW-Installer</a>
+					<div class="borderSpaceMini"></div>
+					<b>Kontak</b> &mdash; Keterangan lebih lanjut dapat hubungi tim SinTask melalui email ke <span class="thisTagging">hi@sintask.com</span> atau <span class="thisTagging">developer@sintask.com</span>
+				</div>
+			</li>
+			<div class="borderSpaceMini"></div>
+			<li>
+				Silahkan baca dokumentasi lengkap di <a href="https://fw.sintask.com/docs" target="_blank">fw.sintask.com</a> (Sangat Disarankan) 
 			</li>
 		</ul>
 	</div>
@@ -63,19 +67,19 @@ assets/script/js/
 	Contoh Page.
 	<div class="borderSpaceMini"></div>
 	<div class="contentTwo">
-		<span class="s ft_style_u c_pointer" s-data-url="/true/div">
+		<span class="s ft_style_u c_pointer" s-data-url="<?php echo $__BASE_URL__;?>/true/div">
 			Tidak menggunakan a href (SPA - 404)
 		</span>
 		<div class="borderSpaceMini"></div>
-		<a href="/true/href" class="s ft_style_u">
+		<a href="<?php echo $__BASE_URL__;?>/true/href" class="s ft_style_u">
 			Menggunakan href biasa (SPA - 404)
 		</a>
 		<div class="borderSpaceMini"></div>
-		<a href="/test?src=HOMEPAGES" class="s ft_style_u">
+		<a href="<?php echo $__BASE_URL__;?>/test?src=HOMEPAGES" class="s ft_style_u">
 			Halaman test (SPA)
 		</a>
 		<div class="borderSpaceMini"></div>
-		<a href="/general" class="s ft_style_u">
+		<a href="<?php echo $__BASE_URL__;?>/general" class="s ft_style_u">
 			Halaman general -> akan menghasilkan halaman SINTASK_ERROR (NON-SPA)
 		</a>
 		<div class="borderSpaceMini"></div>
@@ -83,15 +87,15 @@ assets/script/js/
 			Jangan memberi <span class="thisTagging">class="s"</span> untuk perpindahan dari halaman SPA ke NON-SPA.
 		</div>
 		<div class="borderSpaceMini"></div>
-		<a href="/general" class="ft_style_u">
+		<a href="<?php echo $__BASE_URL__;?>/general" class="ft_style_u">
 			Halaman general (NON-SPA)
 		</a>
 		<div class="borderSpaceMini"></div>
-		<a href="/dynamic1" class="s ft_style_u">
+		<a href="<?php echo $__BASE_URL__;?>/dynamic1" class="s ft_style_u">
 			Halaman dinamis 1 (SPA)
 		</a>
 		<div class="borderSpaceMini"></div>
-		<a href="/dynamic2" class="s ft_style_u">
+		<a href="<?php echo $__BASE_URL__;?>/dynamic2" class="s ft_style_u">
 			Halaman dinamis 2 (SPA)
 		</a>
 	</div>

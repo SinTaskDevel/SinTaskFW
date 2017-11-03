@@ -8,14 +8,14 @@
 		"DISPLAY_PHP_ERROR"		=> true,
 		"AES_SECURE_SPA_TRANSF"	=> true,
 		"USE_DB"				=> false,
-		"FORCE_HTTPS"			=> false,				/* Memaksakan HTTPS pada URL auto-detect */
+		"FORCE_HTTPS"			=> false,
 		"MAX_EXEC_TIME_PHP"		=> 300,
 		"TIMEZONE" 				=> "Asia/Makassar",
 		"DEFAULT_CHARSET"		=> "UTF-8",
 		"UPLOAD_MAX_FILESIZE"	=> "60",
 		"POST_UPLOAD_MAX_SIZE"	=> "60",
 		"MAX_FILE_UPLOADS" 		=> "200",
-		"CUSTOM_BASE_URL"		=> "",					/* Jika ingin menggunakan URL selain auto-detect */
+		"CUSTOM_BASE_URL"		=> "",
 	];
 
 	/* SinTaskFW Auto Update Page

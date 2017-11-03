@@ -1467,10 +1467,10 @@
 							{\"title\":\"".$title."\"}
 						]},
 						{\"addStyle\":[
-							{\"style\":\"/404/404.latecss\"}
+							{\"style\":\"".$GLOBALS["__BASE_URL__"]."/404/404.latecss\"}
 						]},
 						{\"addScript\":[
-							{\"script\":\"/404/404.jssintasktemplate?type=content\"}
+							{\"script\":\"".$GLOBALS["__BASE_URL__"]."/404/404.jssintasktemplate?type=content\"}
 						]}
 					]},
 					{\"sts\":200},
