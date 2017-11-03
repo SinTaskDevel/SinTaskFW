@@ -13,9 +13,9 @@
 	$__TOKENIZING__		= $_SESSION['globalSecureToken'];
 
 	/*CHANGEABLE*/
-	$__VERSION__ 		= "SinTaskFW v1.0.0-b22r6";
+	$__VERSION__ 		= "SinTaskFW v1.0.0-b23r7";
 	$__CODENAME__ 		= "SinTask_Dev_Release";
-	$__VERNAME__		= "1.0.0-b22r6";
+	$__VERNAME__		= "1.0.0-b23r7";
 	
 	$__IP_USER__      	= $_SERVER['REMOTE_ADDR'];
 
