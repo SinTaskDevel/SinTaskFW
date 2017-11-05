@@ -46,6 +46,7 @@
                 "lib/cryptojs-aes.js",
             ];
 
+            /* Default */
             foreach($base_css as $value) {
                 ?><link rel="stylesheet" type="text/css" href="<?php echo $base_url_css.$value;?>"/><?php
             }
@@ -76,7 +77,7 @@
                 foreach($__MY_JS_HEAD__ as $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
                         $value = $__BASE_URL__."/".$value;
-                        ?><script type="text/javascript" src="<?php echo $value;?>"></script><?php
+                        ?><script s-again type="text/javascript" src="<?php echo $value;?>"></script><?php
                     }
                 }
             }
@@ -92,7 +93,7 @@
             if(count($__MY_EXT_JS_HEAD__) > 0) {
                 foreach($__MY_EXT_JS_HEAD__ as $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
-                        ?><script type="text/javascript" src="<?php echo $value;?>"></script><?php
+                        ?><script s-again type="text/javascript" src="<?php echo $value;?>"></script><?php
                     }
                 }
             }
@@ -420,6 +421,7 @@
                 "sintask.zcore.js",
             ];
 
+            /* Default */
             foreach($footer_js as $value) {
                 ?><script type="text/javascript" src="<?php echo $base_url_js.$value;?>"></script><?php
             }
@@ -431,7 +433,7 @@
 
             for($autoJsI = 2; $autoJsI < $count_auto_js; $autoJsI++) {
                 $value = $base_url_auto_js.$auto_js[$autoJsI];                   
-                ?><script type="text/javascript" src="<?php echo $value;?>"></script><?php
+                ?><script s-again type="text/javascript" src="<?php echo $value;?>"></script><?php
             }
 
             /* CUSTOM JS & CSS */
@@ -447,7 +449,7 @@
                 foreach($__MY_JS_FOOT__ as $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
                         $value = $__BASE_URL__."/".$value;
-                        ?><script type="text/javascript" src="<?php echo $value;?>"></script><?php
+                        ?><script s-again type="text/javascript" src="<?php echo $value;?>"></script><?php
                     }
                 }
             }
@@ -462,11 +464,19 @@
             if(count($__MY_EXT_JS_FOOT__) > 0) {
                 foreach($__MY_EXT_JS_FOOT__ as $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
-                        ?><script type="text/javascript" src="<?php echo $value;?>"></script><?php
+                        ?><script s-again type="text/javascript" src="<?php echo $value;?>"></script><?php
                     }
                 }
             }
             /* END CUSTOM JS & CSS */
+
+            ?>
+            <script>
+                sjqNoConflict(document).ready(function(){
+                    sCached(); 
+                });
+            </script>
+            <?php
         }
 
         if($thisCoreGet == "scriptend_general") {

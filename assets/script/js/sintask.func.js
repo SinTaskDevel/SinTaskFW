@@ -239,6 +239,33 @@ saveSintCookiesAdv = function(sname, svalue, expiresDays, domain) {
     var expiresCtg = "expiresCtg=" + dateCtg.toUTCString();
     document.cookie = sname+"="+svalue+"; "+expiresCtg+"; path=/; domain="+domain;
 }
+/** Bagian penting SinTaskFW untuk caching
+ */
+sCached = function() {
+    var sAgain      = sjqNoConflict("script[s-again]");
+    var sAgainLen   = sAgain.length;
+    var prefix      = "sCachedSinTaskFW";
+    var it          = 0;
+
+    sessionStorage[prefix] = "";
+    
+    for(it = 0; it < sAgainLen; it++) {
+        var srcNow  = sAgain.eq(it).attr("src");
+
+        sjqNoConflict.ajax({
+            type: "GET",
+            cache: true,
+            dataType: "script",
+            url: srcNow,
+            success: function (data) {
+                sessionStorage[prefix] += data;
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                /*NOTHING*/
+            }
+        });
+    }
+}
 /**
  * displayCountArrayContent = Return array how many same value on array().
  * e.g.     : array = [2, 5, 3, 2, 5, 3, 6, 1, 9]

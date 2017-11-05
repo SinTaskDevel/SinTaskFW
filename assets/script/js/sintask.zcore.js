@@ -86,7 +86,6 @@ var completeAllLoaded = 0; /*1_IF_COMPLETE_LOAD_ALL_DATA*/
 loadAddScript = function(link, funcToRun, funcParamToRun) {
     var link_ = link;
     if(funcToRun=="normal") {
-        var link__ = link_.split("/");
         sjqNoConflict.ajax({
             type: "POST",
             data: { tokenizing: tokenizingUser, get: JSGETJSON },
@@ -101,7 +100,6 @@ loadAddScript = function(link, funcToRun, funcParamToRun) {
             }
         });
     } else if(funcToRun=="noRand") {
-        var link__ = link_.split("/");
         var searchAfterLoadScript = afterLoadScript.indexOf(link_);
         if(searchAfterLoadScript<0) {
             afterLoadScript.push(link_);

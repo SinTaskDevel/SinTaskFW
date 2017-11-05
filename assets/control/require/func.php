@@ -923,11 +923,13 @@
 		}
 	}
 	function headerSinTaskAPI() {
-		header('API-Info: SinTaskAPI v1.0 (cURL)');
+		header('API-Info: SinTaskAPI v1.0');
 		header('API-Public-Service: https://getcontent.sintask.com');
 	}
 	function headerSinTaskHQ() {
-		header('SinTask-Info: fw.sintask.com');
+		header('Content-Type: text/html; charset=UTF-8');
+		header('Cache-Control: max-age=3600, must-revalidate');
+		header('SinTask-Framework-Info: fw.sintask.com');
 		header('SinTask-Author: SinTask Web Developer');
 		header('SinTask-License: Framework is under MIT License');
 		header('SinTask-Company: PT. SinTask Digital');
@@ -2261,6 +2263,14 @@
 	    ob_end_clean();
 	    return $var;
 	}
+	/* Ambil SCRIPT (JS) lagi */
+	function getScriptAgain() {
+		$tzer = $_SESSION["globalSecureToken"];
+
+		$output = 'eval(sessionStorage.sCachedSinTaskFW);';
+
+		return $output;
+	}
 	/* SPA - Merender HTML menjadi JS + Enkripsi AES dari GibberishAES */
 	function renderHTMLToJSENC($input) {
 		$vars = toSingleLine($input);
@@ -2285,6 +2295,7 @@
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
         $final .= 'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');';
+        $final .= getScriptAgain();
 
 		return $final;
 	}
@@ -2337,6 +2348,7 @@
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
         $final .= 'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');';
+        $final .= getScriptAgain();
 
 		return $final;
 	}

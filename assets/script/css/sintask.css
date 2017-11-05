@@ -15,19 +15,19 @@ SinTask CSS v10.1 (c) 2014 - 2016. SinTask, Ltd.
     font-family: 'Lato';
     font-style: normal;
     font-weight: 400;
-    src: local('Lato'), local('Lato'), url(./assets/extended/font/lato/woff_v1/lato.woff) format('woff');
+    src: local('Lato'), local('Lato'), url(/assets/extended/font/lato/woff_v1/lato.woff) format('woff');
 }
 @font-face {
     font-family: 'Lato';
     font-style: normal;
     font-weight: 700;
-    src: local('Lato'), local('Lato'), url(./assets/extended/font/lato/woff_v1/lato_700.woff) format('woff');
+    src: local('Lato'), local('Lato'), url(/assets/extended/font/lato/woff_v1/lato_700.woff) format('woff');
 }
 @font-face {
     font-family: 'Lato';
     font-style: normal;
     font-weight: 500;
-    src: local('Lato'), local('Lato'), url(./assets/extended/font/lato/woff_v1/lato_500.woff) format('woff');
+    src: local('Lato'), local('Lato'), url(/assets/extended/font/lato/woff_v1/lato_500.woff) format('woff');
 }
 
 html, body {
