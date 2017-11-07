@@ -5,6 +5,8 @@
  * ----------------------------------------
  * SinTask, Inc (c) 2017
  */
+var globalScrollPage = [];
+
 sjqNoConflict(window).on('load', function() {
     sintaskLoaderIframeStop();
 });
@@ -40,6 +42,13 @@ sintaskLoaderIframeStop = function() {
 		checkCss = sjqNoConflict("style.styleAdd").html();
 		if(typeof checkCss != 'undefined' && checkCss != "" && ctypeSpace(checkCss) != 0) {
 			instructBodyObjectSinTask("show", expectHiddenObject);
+
+            /*FIXED_THE_SCROLL*/
+            if(typeof globalScrollPage[document.URL] === "undefined") {
+                sjqNoConflict(document).scrollTop(0);
+            } else {
+                sjqNoConflict(document).scrollTop(globalScrollPage[document.URL]);
+            }
 		} else {
 			sintaskLoaderIframeStop();
 		}
@@ -270,6 +279,7 @@ sintaskSuccessGetData = function(data, theHeaderUrl = thisUrl) {
         }
         /*GET NEW TITLE*/
         document.title = theTitle[0].title;
+
         /*LOAD_FUNC_SCRIPT_AGAIN*/
         sintaskLoaderIframeStop();
     } else {
@@ -485,6 +495,8 @@ sjqNoConflict.backForwardButtons = function () {
  * destination page get from atribute s-data-url on html element (<a href...></a>).
  */
 sjqNoConflict(document).on('click', '.s', function (e) {
+    globalScrollPage[document.URL] = sjqNoConflict(document).scrollTop();
+
     pageUrl = sjqNoConflict(this).attr('href');
     if(pageUrl=="" || pageUrl==null || typeof pageUrl == 'undefined') {
         pageUrl = sjqNoConflict(this).attr('s-data-url');

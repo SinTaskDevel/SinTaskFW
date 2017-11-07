@@ -2668,22 +2668,6 @@
 		$input = str_replace("\'", "'", $input);
 		return $input;
 	}
-	function normalizeFriendListWithComma($input) {
-		$exp_in = explode(",", $input);
-		$count_in = count($exp_in);
-		$itr = 0;
-		$output = ",";
-		while($itr<$count_in) {
-			$now_var = $exp_in[$itr];
-			if($now_var=="" || ctype_space($now_var)) {
-				/* do_nothing */
-			} else {
-				$output = $output.$now_var.",";
-			}
-			$itr = $itr+1;
-		}
-		return $output;
-	}
 
 	function colorRandSintask($input) {
 		$result = "";
