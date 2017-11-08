@@ -20,7 +20,7 @@
 		case "sec-s-ajaxify" :
 		case "sec-s-api" :
 			$__FTOKEN__ = $sintaskSess->get("globalSecureToken");
-			$__STOKEN__ = $sintaskFW->post("tokenizing");
+			$__STOKEN__ = $_POST["tokenizing"];
 			/* Halaman dinamis request ajax -> [DYNAMIC_PAGE] -> [domain]/api/[anything] */
 			if(
 				$__SEGMEN__[3] 	!= "" 			&& 
