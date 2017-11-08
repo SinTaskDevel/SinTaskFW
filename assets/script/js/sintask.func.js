@@ -460,7 +460,7 @@ copyToClipboard = function(elem) {
 fadeContentOne = function(message, fadeTime, status) {
     if(status=="show") {
         var checkContent = sjqNoConflict("#typeOneFadeContent").length;
-        var templateBegin = "<div id=\"typeOneFadeContent\" class=\"fadeContentFooter\" style=\"display: none;\"><div class=\"fadeContentFooterChild\">";
+        var templateBegin = "<div id=\"typeOneFadeContent\" class=\"fadeContentFooter\" style=\"display: none;\"><div id=\"fadeContentFooterChild\" class=\"fadeContentFooterChild\">";
         var templateEnd = "<\/div><\/div>";
         if(checkContent<1) {
             sjqNoConflict("#fadeContentOne").html(templateBegin+message+templateEnd);
