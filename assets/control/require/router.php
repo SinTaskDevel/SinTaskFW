@@ -1,4 +1,31 @@
 <?php
+	/* Pindahkan GET Param ke SESSION */
+	foreach($_GET as $key => $value) {
+		$_SESSION['postGET'][$key] = $value;
+	}
+	/* Pindahkan POST Param ke SESSION */
+	foreach($_POST as $key => $value) {
+		$_SESSION['postPOST'][$key] = $value;
+	}
+	/* Pindahkan FILES Param ke SESSION */
+	foreach($_FILES as $key => $value) {
+		$__TMP_DIR_FILE__ = $__DOC_ROOT__."/protected/data/tmp";
+		
+		/* Check Directory EXIST */
+		if(!is_dir($__TMP_DIR_FILE__)) {
+		    mkdir($__TMP_DIR_FILE__, 0755, true);
+		}
+
+		/* Pindahkan FILES ke tmp Directory */
+		$tmpFile = $__TMP_DIR_FILE__.getRandomPlusDate(5).".tmp";
+		move_uploaded_file($_FILES[$key]['tmp_name'], $tmpFile);
+
+		/* Rename tmp_name menjadi Value baru */
+		$_FILES[$key]['tmp_name'] = $tmpFile;
+		$_SESSION['postFILES'][$key] = $value;
+		$_SESSION['postFILES'][$key]['tmp_name'] = $tmpFile;
+	}
+
 	/* Router Core */
 	switch ($__SEGMEN__[2]) {
 
@@ -15,6 +42,9 @@
 			} else {
 				require($__ZERO__);
 			}
+
+			clearAllSessInput();
+
 			break;
 
 		case "sec-s-ajaxify" :
@@ -32,6 +62,9 @@
 			} else {
 				require($__ZERO__);
 			}
+
+			clearAllSessInput();
+
 			break;
 
 		case "s-dl" :
@@ -51,6 +84,9 @@
 			} else {
 				require($__ZERO__);
 			}
+
+			clearAllSessInput();
+
 			break;
 
 		case "s-update" :
@@ -62,39 +98,15 @@
 				) {
 					if($__SEGMEN__[3] == $__MY_AUTO_UPDATE__["AUTO_UPDATE_SECRET_KEY"]) {
 						include($__DOC_ROOT__.$requirePath['static']."/static.auto.update.php");
-						break;
 					}
 				}
 			}
 
+			clearAllSessInput();
+
+			break;
+
 		default :
-			/* Pindahkan GET Param ke SESSION */
-			foreach($_GET as $key => $value) {
-				$_SESSION['postGET'][$key] = $value;
-			}
-			/* Pindahkan POST Param ke SESSION */
-			foreach($_POST as $key => $value) {
-				$_SESSION['postPOST'][$key] = $value;
-			}
-			/* Pindahkan FILES Param ke SESSION */
-			foreach($_FILES as $key => $value) {
-				$__TMP_DIR_FILE__ = $__DOC_ROOT__."/protected/data/tmp";
-				
-				/* Check Directory EXIST */
-				if(!is_dir($__TMP_DIR_FILE__)) {
-				    mkdir($__TMP_DIR_FILE__, 0755, true);
-				}
-
-				/* Pindahkan FILES ke tmp Directory */
-				$tmpFile = $__TMP_DIR_FILE__.getRandomPlusDate(5).".tmp";
-				move_uploaded_file($_FILES[$key]['tmp_name'], $tmpFile);
-
-				/* Rename tmp_name menjadi Value baru */
-				$_FILES[$key]['tmp_name'] = $tmpFile;
-				$_SESSION['postFILES'][$key] = $value;
-				$_SESSION['postFILES'][$key]['tmp_name'] = $tmpFile;
-			}
-			
 			$__FTOKEN__ = $sintaskSess->get("globalSecureToken");
 			$__STOKEN__ = $sintaskFW->post("tokenizing");
 
@@ -208,13 +220,7 @@
 					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['latecss'], "default", $thisReqPath, 2, ".latecss"));
 				}
 
-				/* Menghapus postGET & postPOST - karena terakhir di load */
-				unset($_SESSION['postGET']);
-				unset($_SESSION['postPOST']);
-				foreach($_SESSION['postFILES'] as $key => $value) {
-					unlink($_SESSION['postFILES'][$key]['tmp_name']);
-				}
-				unset($_SESSION['postFILES']);
+				clearAllSessInput();
 			} else if(
 				$__XHR_STATUS__ 	== true 				&& 
 				$__END_SEGMEN_DOT__ == "staycontent"		&&
@@ -343,12 +349,7 @@
 						include($__HTML_CORE_REQ__);
 					}
 
-					/* Menghapus postGET & postPOST */
-					unset($_SESSION['postGET']);
-					unset($_SESSION['postPOST']);
-					foreach($_SESSION['postFILES'] as $key => $value) {
-						unlink($_SESSION['postFILES'][$key]['tmp_name']);
-					}
+					clearAllSessInput();
 				} else {
 					/* [SPA] Jika halaman adalah SPA */
 					$thisCoreGet = "doctype";

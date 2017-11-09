@@ -487,7 +487,15 @@
 	/* 
 		SinTask Core Function PHP
 	*/
-
+	function clearAllSessInput() {
+		/* Menghapus postGET & postPOST - karena terakhir di load */
+		unset($_SESSION['postGET']);
+		unset($_SESSION['postPOST']);
+		foreach($_SESSION['postFILES'] as $key => $value) {
+			unlink($_SESSION['postFILES'][$key]['tmp_name']);
+		}
+		unset($_SESSION['postFILES']);
+	}
 	function addslashesNormalize($input) {
 		$thisInput = $input;
 		$thisInput = str_replace("&bsol;", "\\", $thisInput);
