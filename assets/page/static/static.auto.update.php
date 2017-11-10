@@ -141,6 +141,8 @@
 	    $file   = $__DOC_ROOT__.'/protected/data/tmp/sintaskfw';
 	    $dest   = $__DOC_ROOT__;
 	    
+	    rcopy($file."/.htaccess", $dest."/.htaccess");
+	    rcopy($file."/index.php", $dest."/index.php");
 	    rcopy($file."/assets", $dest."/assets");
 	    rrmdir($file);
 
@@ -151,7 +153,7 @@
 		<html>
 			<head>
 				<title>SinTask Auto-Update</title>
-				<script type="text/javascript" src="/assets/script/js/lib/jquery.min.js"></script>
+				<script type="text/javascript" src="<?php echo $__BASE_URL__;?>/assets/script/js/lib/jquery.min.js"></script>
 			</head>
 			<body>
 				<style>
@@ -338,6 +340,8 @@
 				            logMessage("Browser anda tidak mendukung XMLHttpRequest, silahkan update browser anda");
 				            return;
 				        }
+
+				        logMessage("Memulai mengunduh...");
 				        
 				        try {
 				            var xhr = new XMLHttpRequest();

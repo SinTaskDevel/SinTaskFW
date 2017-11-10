@@ -75,9 +75,9 @@
 			) {
 				$__LOWER_CASE_SEG3__ = strtolower($__SEGMEN__[3]);
 				if($__LOWER_CASE_SEG3__ == "direct") {
-					include($__DOC_ROOT__.$requirePath['static']."/static.direct.download.php");
+					include($__DOC_ROOT__.$requirePath['static']."/static.direct.download".$__FILE_EXTENSION__);
 				} else if($__LOWER_CASE_SEG3__ == "ndr") {
-					include($__DOC_ROOT__.$requirePath['static']."/static.not.direct.download.php");
+					include($__DOC_ROOT__.$requirePath['static']."/static.not.direct.download".$__FILE_EXTENSION__);
 				} else {
 					require($__ZERO__);
 				}
@@ -97,9 +97,22 @@
 					!ctype_space($__SEGMEN__[3])
 				) {
 					if($__SEGMEN__[3] == $__MY_AUTO_UPDATE__["AUTO_UPDATE_SECRET_KEY"]) {
-						include($__DOC_ROOT__.$requirePath['static']."/static.auto.update.php");
+						include($__DOC_ROOT__.$requirePath['static']."/static.auto.update".$__FILE_EXTENSION__);
 					}
 				}
+			}
+
+			clearAllSessInput();
+
+			break;
+
+		case "s-dcss" :
+			if(
+				$__SEGMEN__[3] != "" &&
+				$__SEGMEN__[3] != null
+			) {
+				header("Content-type: text/css");
+				include($__DOC_ROOT__.$requirePath['static']."/dcss/".$__SEGMEN_PURE__[3].$__FILE_EXTENSION__);
 			}
 
 			clearAllSessInput();

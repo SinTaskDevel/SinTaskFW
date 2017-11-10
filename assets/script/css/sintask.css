@@ -4,32 +4,11 @@ SinTask CSS, CreatedOn-1470028500[EUTS]
 SinTask CSS v10.1 (c) 2014 - 2016. SinTask, Ltd.
 -------------------------------------------------
 */
-/*LATO FONT v1*/
 * {
     margin:0; 
     padding:0;
     outline: none;
 }
-
-@font-face {
-    font-family: 'Lato';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Lato'), local('Lato'), url(/assets/extended/font/lato/woff_v1/lato.woff) format('woff');
-}
-@font-face {
-    font-family: 'Lato';
-    font-style: normal;
-    font-weight: 700;
-    src: local('Lato'), local('Lato'), url(/assets/extended/font/lato/woff_v1/lato_700.woff) format('woff');
-}
-@font-face {
-    font-family: 'Lato';
-    font-style: normal;
-    font-weight: 500;
-    src: local('Lato'), local('Lato'), url(/assets/extended/font/lato/woff_v1/lato_500.woff) format('woff');
-}
-
 html, body {
     margin: 0;
     padding: 0;
@@ -38,7 +17,7 @@ html, body {
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility; 
 }
-/*END LATO FONT*/
+
 html {
     height: 101%;
     box-sizing: border-box;

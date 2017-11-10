@@ -34,6 +34,8 @@
         }
 
         if($thisCoreGet == "scripttop") {
+            ?><link rel="stylesheet" type="text/css" href="<?php echo $__BASE_URL__;?>/s-dcss/font"/><?php
+
             $base_url_css 	= $__BASE_URL__."/assets/script/css/";
             $base_url_js 	= $__BASE_URL__."/assets/script/js/";
             $base_url_jsd 	= $__BASE_URL__."/assets/script/jsd/";
