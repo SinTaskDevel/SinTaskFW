@@ -240,7 +240,7 @@ sintaskSPA = function(input) {
  * loadAddScript function have one parameter to run new javascript function (command from server),
  * and run function with from server parameter.
  */
-sintaskSuccessGetData = function(data, theHeaderUrl = thisUrl) {
+sintaskSuccessGetData = function(data) {
     /*afterLoadScript = [];*/
     var datafeed    = (data);
     var feedbackSts = datafeed[1].sts;
@@ -412,7 +412,7 @@ xhrSinTaskMovePage.push( sjqNoConflict.ajax({
     url: thisUrl,
     success: function (data) {
         fadeContentOne("", 200, "hide");
-        sintaskSuccessGetData(data, thisUrl);
+        sintaskSuccessGetData(data);
     },
     error: function(xhr, textStatus, errorThrown) {
         if(textStatus!="abort") {
@@ -438,7 +438,7 @@ sjqNoConflict.loadContent = function () {
         url: homeUrl+sintaskSPA(pageUrl),
         success: function (data) {
             fadeContentOne("", 200, "hide");
-            sintaskSuccessGetData(data, (homeUrl+pageUrl));
+            sintaskSuccessGetData(data);
         },
         error: function(xhr, textStatus, errorThrown) {
             if(textStatus!="abort") {
@@ -467,10 +467,10 @@ sjqNoConflict.backForwardButtons = function () {
         xhrSinTaskMovePage.push( sjqNoConflict.ajax({
             type: "POST",
             data: { tokenizing: tokenizingUser, part: "content", get: JSGETJSON },
-            url: homeUrl+location.pathname,
+            url: location.pathname,
             success: function (data) {
                 fadeContentOne("", 200, "hide");
-                sintaskSuccessGetData(data, (homeUrl+location.pathname));
+                sintaskSuccessGetData(data);
             },
             error: function(xhr, textStatus, errorThrown) {
                 if(textStatus!="abort") {
