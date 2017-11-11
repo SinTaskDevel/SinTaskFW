@@ -157,6 +157,9 @@
 			</head>
 			<body>
 				<style>
+					body, html {
+						font-family: Arial, sans-serif;
+					}
 					body {
 						background: #FFF;
 					    background-repeat: repeat;
@@ -199,8 +202,8 @@
 						border-radius: 4px;
 					}
 					.noted {
-						padding: 15px;
-						border: 1px solid #EA9F2D;
+						padding: 5px 20px;
+						border-left: 3px solid #EA9F2D;
 						color: #555;
 					}
 					.orangeBubble {
@@ -251,9 +254,17 @@
 				</style>
 
 				<div class="contentArea">
-				    <b class="fontSize25px">SinTaskFW Auto-Update</b>
+				    <b class="fontSize25px">SinTaskFW Auto-Update / Versi saat ini <?php echo $__VERNAME__;?></b>
 				    <div class="borderSpace"></div>
-				    Klik tombol periksa update untuk mendapatkan update terkini dari SinTaskFW.
+				    <div id="thisNotedUser" class="noted">
+				    	<div class="orangeBubble">Mohon diperhatikan</div>
+				    	<div class="borderSpaceMini"></div>
+				    	Perlu diketahui, dengan menekan tombol <b>Periksa update</b> maka akan mengembalikan segala perubahan pada direktori <span class="thisTagging">/assets</span>, file <span class="thisTagging">index.php</span> dan <span class="thisTagging">.htaccess</span> menjadi default SinTaskFW.
+				    	<div class="borderSpaceMini"></div>
+				    	Lingkup direktori pekerjaan atau proyek web anda pada <span class="thisTagging">/myassets</span>, <span class="thisTagging">/images</span>, dan <span class="thisTagging">/protected</span>. Anda juga diperkenankan menambah direktori-direktori lainnya untuk keperluan anda.
+				    </div>
+				    <div class="borderSpaceMini"></div>
+				    Klik tombol <b>Periksa update</b> untuk mendapatkan update terkini dari SinTaskFW.
 				    <div class="borderSpaceMini"></div>
 				    <button id="checkUpdate" onclick="ajaxChecker();">Periksa update</button>
 				    <div class="borderLine"></div>
@@ -278,11 +289,14 @@
 				    
 				    function ajaxChecker() {
 				        sjqNoConflict("#checkUpdate").prop("disabled", true);
+				        sjqNoConflict("#thisNotedUser").remove();
 				        
 				        if (!window.XMLHttpRequest) {
 				            logMessage("Browser anda tidak mendukung XMLHttpRequest, silahkan update browser anda");
 				            return;
 				        }
+
+				        logMessage("Memulai mengunduh...");
 				        
 				        try {
 				            var xhr = new XMLHttpRequest();
@@ -310,13 +324,24 @@
 				                        var new_response = JSON.parse( xhr.responseText );
 				                        var verfull = new_response.versionFull;
 				                        var ver     = new_response.version;
+				                        var compare	= new_response.verCompare;
 
 				                        if(verfull == "<?php echo $__VERNAME__;?>") {
 				                            logMessageOne("SinTaskFW anda up-to-date dengan versi v"+verfull);
 				                            
 				                            sjqNoConflict("#checkUpdate").prop("disabled", false);
 				                        } else {
-				                            next = true;
+				                        	if(compare < "<?php echo $__VERCOMPARE__;?>") {
+				                            	logMessageOne("Versi SinTaskFW anda lebih baru dari versi yang ada pada Server SinTaskFW - Notice: "+compare+"_SRV : <?php echo $__VERCOMPARE__;?>_YOU");
+				                            
+				                            	sjqNoConflict("#checkUpdate").prop("disabled", false);
+				                        	} else if(compare == "<?php echo $__VERCOMPARE__;?>") {
+				                        		logMessageOne("SinTaskFW anda up-to-date dengan versi v<?php echo $__VERNAME__;?>");
+				                            
+				                            	sjqNoConflict("#checkUpdate").prop("disabled", false);
+				                        	} else {
+				                        		next = true;
+				                        	}
 				                        }
 				                    }   
 				                }
@@ -340,8 +365,6 @@
 				            logMessage("Browser anda tidak mendukung XMLHttpRequest, silahkan update browser anda");
 				            return;
 				        }
-
-				        logMessage("Memulai mengunduh...");
 				        
 				        try {
 				            var xhr = new XMLHttpRequest();

@@ -32,18 +32,17 @@
 			</li>
 			<div class="borderSpaceMini"></div>
 			<li>
-				Penunjang SPA pada SinTaskFW
+				SinTaskFW sudah langsung menggunakan Lato Font. Jika anda ingin me-reset pengaturan CSS font-family cukup tambahkan kode di bawah pada file <span class="thisTagging">myassets/css/my.css</span> atau file css custom anda (pada contoh di bawah ini menggunakan Arial Font)
 				<div class="borderSpaceMini"></div>
 				<div class="noted">
-					<div class="orangeBubble">Mengubah script dapat menyebabkan malfunction</div>
-					<pre><code>
-assets/script/css/sintask.css
-assets/script/js/
-	|_ jquery.min.js
-		|_ sintask.plugin.js
-		|_ sintask.func.js
-		|_ sintask.zcore.js</code></pre>
+					<pre><code>body, html {
+	font-family: Arial;
+}</code></pre>
 				</div>
+			</li>
+			<div class="borderSpaceMini"></div>
+			<li>
+				Direktori <span class="thisTagging">/myassets</span> merupakan inti dari web yang akan anda bangun, sehingga semua konfigurasi, code, ataupun library tambahan anda harus terletak pada direktori tersebut 
 			</li>
 			<div class="borderSpaceMini"></div>
 			<li>
@@ -105,5 +104,5 @@ assets/script/js/
 	Lisensi untuk Framework ini menggunakan <a href="https://fw.sintask.com/licenses" target="_blank">MIT License</a>.
 	<div class="borderSpaceMini"></div>
 	<div class="borderLine"></div>
-	<div class="fontSize13px">&copy; 2016 - 2017, CV. SinTask - <?php echo $__VERSION__."-".$__CODENAME__;?> </div>
+	<div class="fontSize13px">&copy; 2016 - 2017, CV. SinTask / <?php echo $__VERSION__." - ".$__CODENAME__;?> </div>
 </div>
