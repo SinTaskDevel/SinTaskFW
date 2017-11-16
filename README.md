@@ -1,4 +1,4 @@
-<p align="center"><img height="60px" src="https://fw.sintask.com/images/logo/sintask_logo_notlogin_.png"/></p>
+<p align="center"><img height="200px" src="https://fw.sintask.com/images/logo/sintask_logo_notlogin_.png"/></p>
 <p align="center">Micro Framework</p>
 
 ## SinTaskFW (Micro-Framework)
