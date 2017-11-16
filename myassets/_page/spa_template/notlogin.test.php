@@ -1,7 +1,7 @@
-<div>
-	THIS IS TEST PAGE NOT HELLO WORLD! :D <?php echo $sintaskFW->get("src");?>
+<div class="contentArea">
+	Hanya halaman test -> hasil dari $_GET['src'] atau ditulis $sintaskFW->get("src") : <?php echo $sintaskFW->get("src");?>
 	<br><br>
-	HELLO TEST / COOKIE 'sintaskFW' = <?php echo $sintaskKuki->get('sintaskFW');?>
+	Cookie test 'sintaskFW' = <?php echo $sintaskKuki->get('sintaskFW');?>
 	<br><br>
 	<form action="" method="post">
 		<input type="hidden" name="changeToken" value="leterror"/>

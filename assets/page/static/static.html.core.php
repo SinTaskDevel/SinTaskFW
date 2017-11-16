@@ -34,7 +34,10 @@
         }
 
         if($thisCoreGet == "scripttop") {
-            ?><link rel="stylesheet" type="text/css" href="<?php echo $__BASE_URL__;?>/s-dcss/font"/><?php
+            ?>
+                <link rel="stylesheet" type="text/css" href="<?php echo $__BASE_URL__;?>/s-dcss/font"/>
+                <link rel="stylesheet" type="text/css" href="<?php echo $__BASE_URL__;?>/s-dcss/misc"/>
+            <?php
 
             $base_url_css 	= $__BASE_URL__."/assets/script/css/";
             $base_url_js 	= $__BASE_URL__."/assets/script/js/";
@@ -109,7 +112,7 @@
                 </HEAD>
                 <?php
             } else {
-                $imagefavicon = $__BASE_URL__."/images/logo/fav_sintask.png";
+                $imagefavicon = $__BASE_URL__."/images/logo/sintasklogo.png";
                 ?>
                 <link rel="Shortcut Icon" type="image/png" href="<?php echo $imagefavicon;?>" />
                 </HEAD>

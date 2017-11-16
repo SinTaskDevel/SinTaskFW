@@ -103,6 +103,4 @@
 
 	Lisensi untuk Framework ini menggunakan <a href="https://fw.sintask.com/licenses" target="_blank">MIT License</a>.
 	<div class="borderSpaceMini"></div>
-	<div class="borderLine"></div>
-	<div class="fontSize13px">&copy; 2016 - 2017, CV. SinTask / <?php echo $__VERSION__." - ".$__CODENAME__;?> </div>
 </div>

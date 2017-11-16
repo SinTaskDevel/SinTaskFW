@@ -1,5 +1,5 @@
-<div>
-	Just Example of Dynamic Page
+<div class="contentArea">
+	Hanya contoh untuk halaman Dinamis
 	<br>
-	Segmentation -> <?php echo $__SEGMEN_PURE__[2];?>
+	Parameter Segmen URL &mdash; <b><?php echo $__SEGMEN_PURE__[2];?></b>
 </div>

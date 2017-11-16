@@ -2120,7 +2120,7 @@ c_disabled {
 
 .bNoColor {
     padding: 15px 0px;
-    margin: 10px auto;
+    margin: 0px auto;
     background-color: transparent;
     width: 100%;
     color: #FFF;
@@ -2328,15 +2328,7 @@ c_disabled {
     margin-left: 15px;
 	left: 100%;
 }
-/* DIV PLACEHOLDER *//* [CLOSED BY MYSTERIUS BUG ON MOZILLA FIREFOX]
-.divPlaceholder[placeholder]:empty:before {
-    content: attr(placeholder);
-    color: #555; 
-}
-.divPlaceholder[placeholder]:empty:focus:before {
-    content: "";
-}
-*/
+/* DIV PLACEHOLDER */
 .typeDivPlaceholder {
     position: absolute;
     padding: 3px 10px;

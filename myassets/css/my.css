@@ -2,3 +2,13 @@
 	padding: 10px;
 	background: #FFF;
 }
+.theFooter {
+    border-top: 1px solid #EAEAEA;
+    position: absolute;
+    text-align: center;
+    padding: 10px;
+    background: #FFF;
+    font-size: 13px;
+    width: 100%;
+    box-sizing: border-box;
+}

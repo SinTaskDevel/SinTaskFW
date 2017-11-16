@@ -43,8 +43,6 @@
 				require($__ZERO__);
 			}
 
-			clearAllSessInput();
-
 			break;
 
 		case "sec-s-ajaxify" :
@@ -62,8 +60,6 @@
 			} else {
 				require($__ZERO__);
 			}
-
-			clearAllSessInput();
 
 			break;
 
@@ -85,8 +81,6 @@
 				require($__ZERO__);
 			}
 
-			clearAllSessInput();
-
 			break;
 
 		case "s-update" :
@@ -102,8 +96,6 @@
 				}
 			}
 
-			clearAllSessInput();
-
 			break;
 
 		case "s-dcss" :
@@ -114,8 +106,6 @@
 				header("Content-type: text/css");
 				include($__DOC_ROOT__.$requirePath['static']."/dcss/".$__SEGMEN_PURE__[3].$__FILE_EXTENSION__);
 			}
-
-			clearAllSessInput();
 
 			break;
 
@@ -225,7 +215,15 @@
 				/* [SPA] Jika halaman adalah .latecss (CSS late load) */
 				header("Content-type: text/css");
 				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['latecss'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".latecss") != $__ZERO__) {
-					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['latecss'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".latecss"));
+					$pathRender = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['latecss'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".latecss");
+					
+					/* Render CSS - LateCSS agar ukuran lebih kecil */
+					ob_start();
+				    include($pathRender);
+				    $varRender = ob_get_contents(); 
+					ob_end_clean();
+					
+					echo toSingleLine($varRender);
 				} else {
 					/* Tidak menemukan SPA tidak ke $__ZERO__ */
 					$__SEGMEN__ 	= [];
