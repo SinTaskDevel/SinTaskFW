@@ -1,4 +1,10 @@
 <?php
+
+	/** 
+	 * -----------------------
+	 * SINTASKFW CORE FUNCTION
+	 * -----------------------
+	 */
 	
 	/* Fungsi menghasilkan array() 
 	 * input : $type
@@ -483,10 +489,8 @@
 		echo "\n<br>";
 		echo "...END FILE DYNAMIC DEBUGGER";
 	}
-	
-	/* 
-		SinTask Core Function PHP
-	*/
+
+	/* Menghapus semua session untuk POST, GET, FILES */
 	function clearAllSessInput() {
 		/* Menghapus postGET & postPOST - karena terakhir di load */
 		unset($_SESSION['postGET']);
@@ -496,31 +500,14 @@
 		}
 		unset($_SESSION['postFILES']);
 	}
+	/* Addslash untuk \ dan " saja */
 	function addslashesNormalize($input) {
 		$thisInput = $input;
 		$thisInput = str_replace("&bsol;", "\\", $thisInput);
 		$thisInput = str_replace("&quot;", "\"", $thisInput);
 		return $thisInput;
 	}
-	function amPmHour($input) {
-		$output = "";
-		$expInput = explode(":", $input);
-		if($expInput[0]>12) {
-			$s = $expInput[0]-12;
-			if($s<10) {
-				$s = "0".$s;
-			}
-			$output = $s.":".$expInput[1].":".$expInput[2]." PM";
-		} else {
-			if($expInput[0]==0) {
-				$s = "12";
-			} else {
-				$s = $expInput[0];
-			}
-			$output = $s.":".$expInput[1].":".$expInput[2]." AM";
-		}
-		return $output;
-	}
+	/* implode array - tanpa menggunakan implode() */
 	function implodeArrayWord($input, $count) {
 		$output = "";
 		for($a=0;$a<$count;$a++) {
@@ -532,112 +519,20 @@
 		}
 		return $output;
 	}
-	function regexType($type) {
-		$output = "";
-		if($type==1) {
-			$output = "%^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@|\d{1,3}(?:\.\d{1,3}){3}|(?:(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)(?:\.(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)*(?:\.[a-z\x{00a1}-\x{ffff}]{2,6}))(?::\d+)?(?:[^\s]*)?$%siu";
-		} else if($type==2) {
-			$output = "#[-a-zA-Z0-9@:%_\+.~\#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~\#?&//=]*)?#si";
-		} else if($type==3) {
-			$output = '#((https?|ftp)://(\S*?\.\S*?))([\s)\[\]{},;"\':<]|\.\s|$)#i';
-		} else if($type==4) {
-			$output = "/(?:http|https)?(?:\:\/\/)?(?:www.)?(([A-Za-z0-9-]+\.)*[A-Za-z0-9-]+\.[A-Za-z]+)(?:\/.*)?/im";
-		} else if($type==5) {
-			$output = '_^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?$_iuS';
+	/* Function untuk mendeteksi OS dari host/server */
+	function hostOS() {
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			return 'windows';
 		} else {
-			$output = "@(https?|ftp)://(-\.)?([^\s/?\.#-]+\.?)+(/[^\s]*)?$@iS";
+			if(strtoupper(substr(PHP_OS, 0, 3)) === 'LIN') {
+				return 'linux';
+			} else {
+				return 'other';
+			}
 		}
-		return $output;
 	}
-	function getBrowser() {
-		$u_agent = $_SERVER['HTTP_USER_AGENT'];
-		$bname = 'Unknown';
-		$platform = 'Unknown';
-		$version= "";
-		$PLT = "";
-		$BR_NAME = "";
-		
-		if (preg_match('/linux/i', $u_agent)) {
-			$platform = 'Linux';
-			$PLT = "LINUX";
-		}
-		elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
-			$platform = 'Mac';
-			$PLT = "MAC";
-		}
-		elseif (preg_match('/windows|win32/i', $u_agent)) {
-			$platform = 'Windows';
-			$PLT = "WINDOWS";
-		}
-		if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent))
-		{
-			$bname = 'Internet Explorer';
-			$ub = "MSIE";
-			$BR_NAME = "MS_IE";
-		}
-		elseif(preg_match('/Firefox/i',$u_agent))
-		{
-			$bname = 'Mozilla Firefox';
-			$ub = "Firefox";
-			$BR_NAME = "MOZ_FIRE";
-		}
-		elseif(preg_match('/Chrome/i',$u_agent))
-		{
-			$bname = 'Google Chrome';
-			$ub = "Chrome";
-			$BR_NAME = "CHROME";
-		}
-		elseif(preg_match('/Safari/i',$u_agent))
-		{
-			$bname = 'Apple Safari';
-			$ub = "Safari";
-			$BR_NAME = "SAFARI";
-		}
-		elseif(preg_match('/Opera/i',$u_agent))
-		{
-			$bname = 'Opera';
-			$ub = "Opera";
-			$BR_NAME = "OPERA";
-		}
-		elseif(preg_match('/Netscape/i',$u_agent))
-		{
-			$bname = 'Netscape';
-			$ub = "Netscape";
-			$BR_NAME = "NETSCAPE";
-		}
 
-		$known = array('Version', $ub, 'other');
-		$pattern = '#(?<browser>' . join('|', $known) .
-		')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
-		if (!preg_match_all($pattern, $u_agent, $matches)) {
-		}
-		
-		$i = count($matches['browser']);
-		if ($i != 1) {
-			if (strripos($u_agent,"Version") < strripos($u_agent,$ub)){
-				$version= $matches['version'][0];
-			}
-			else {
-				$version= $matches['version'][1];
-			}
-		}
-		else {
-			$version= $matches['version'][0];
-		}
-		
-		if ($version==null || $version=="") {
-			$version="?";
-		}
-		
-		return array(
-			'userAgent' => $u_agent,
-			'name'      => $bname,
-			'version'   => $version,
-			'platform'  => $platform,
-			'pattern'    => $pattern,
-			'BR_NAME'	=> $BR_NAME
-		);
-	}
+	/* Membuat baris kode menjadi single line */
 	function toSingleLine($output) {
 		/* 
 		 * \r 	= Carriage Return  	- NewLine Mac OS sebelum OS X
@@ -740,6 +635,7 @@
 
 		return $outputFinal;
 	}
+	/* Menghapus tag slash custom -> \\, /, ', \" */
 	function tagSlash($output) {
 		$breaks = array("\\");
 		$output = str_replace($breaks, "\\\\", $output);
@@ -755,6 +651,7 @@
 		
 		return $output;
 	}
+	/* Menghapus tag slash custom -> /, ', \" */
 	function tagSlashOri($output) {
 		$breaks = array("/");
 		$output = str_replace($breaks, "\/", $output);
@@ -767,6 +664,435 @@
 		
 		return $output;
 	}
+
+	/* Mendapatkan nilai random dari function rand() 
+	 * Nilai rand minimal saat $maxFrame = 1 adalah 8 digit
+	 */
+	function getRandomOnSinTask($maxFrame) {
+		$return_ = "";
+		$frame = 0;
+		if($maxFrame<=0) {
+			$maxFrame = 1;
+		}
+		while($frame<$maxFrame) {
+			$return_ = $return_."".rand(10000000,99999999);
+			$frame = $frame+1;
+		}
+		return $return_;
+	}
+	/* Menghasilkan random dari substr + str_shuffle 
+	 * panjang maksimal 56 pada $long (56 karakter) 
+	 */
+	function getRandom($long) {
+		$rand = substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890'), 0, $long );
+		return $rand;
+	}
+	/* Menghasilkan random dari substr + str_shuffle + strtotime & date (timestamp)
+	 * panjang maksimal 56 pada $long (56 karakter) + 10 digit angka timestamp
+	 */
+	function getRandomPlusDate($long) {
+		$rand = substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890'), 0, $long ).strtotime(date("d-m-Y H:i:s"));
+		return $rand;
+	}
+	/* Menghasilkan random karakter Key Token Standard SinTaskFW
+	 * 100 karakter dengan campuran timestamp
+	 */
+	function getRandomKeyToken() {
+		$key_token 	= substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 25).substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 25).substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 25).substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 15).strtotime(date("d-m-Y H:i:s"));
+		return $key_token;
+	}
+
+	/* Untuk allow CORS - Cross Origin 
+	 * Digunakan untuk API yg dapat digunakan untuk umum
+	 */
+	function corsSinTaskAPI() {
+		/* Izinkan ke semua origin */
+		if (isset($_SERVER['HTTP_ORIGIN'])) {
+			/* 
+				$_SERVER['HTTP_ORIGIN'] mengizinkan ke semua origin
+				kami tidak menggunakan * sebagai nilai 'Access-Control-Allow-Origin'
+			*/
+			header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+			header('Access-Control-Allow-Credentials: true');
+			header('Access-Control-Max-Age: 86400');
+		}
+
+		if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+			if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
+				header("Access-Control-Allow-Methods: GET, POST, OPTIONS");         
+			if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
+				header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+			exit(0);
+		}
+	}
+	/* Header tambahan SinTaskFW */
+	function headerSinTaskHQ() {
+		header('Content-Type: text/html; charset=UTF-8');
+		header('Cache-Control: max-age=3600, must-revalidate');
+		header('SinTask-Framework-Info: fw.sintask.com');
+		header('SinTask-Author: SinTask Web Developer');
+		header('SinTask-License: Framework is under MIT License');
+		header('SinTask-Company: PT. SinTask Digital');
+		header('SinTask-Framework: fw@sintask.com');
+	}
+
+	/* Template loading pada web */
+	function loadingHtmlTemplate() {
+		$output = '
+		<div class="loading"> 
+			<span class="l01"></span> 
+			<span class="l02"></span> 
+			<span class="l03"></span> 
+			<span class="l04"></span> 
+			<span class="l05"></span> 
+			<div class="clearBoth"></div>
+		</div>';
+		return $output;
+	}
+	/* JSON initial - awal template */
+	function initialJson($title, $style, $script, $inst = "null", $msg = "OK") {
+		$output = "[
+						{\"content\":[
+							{\"contentTitle\":[
+								{\"title\":\"".$title."\"}
+							]},
+							{\"addStyle\":[
+								{\"style\":\"".$style."\"}
+							]},
+							{\"addScript\":[
+								{\"script\":\"".$script."\"}
+							]}
+						]},
+						{\"sts\":200},
+						{\"inst\":\"".$inst."\"},
+						{\"msg\":\"".$msg."\"}
+					]";
+		return fixStJson($output);
+	}
+	/* JSON jika token salah */
+	function invalidToken($msg, $t1 = "null", $t2 = "null") {
+		$output = "[
+						{\"content\":[
+							{\"contentTitle\":[
+								{\"title\":\"Invalid\"}
+							]},
+							{\"addStyle\":[
+								{\"style\":\"null\"}
+							]},
+							{\"addScript\":[
+								{\"script\":\"null\"}
+							]}
+						]},
+						{\"sts\":205},
+						{\"inst\":\"t1:".$t1."_t2:".$t2."\"},
+						{\"msg\":\"".$msg."\"}
+					]";
+		return fixStJson($output);
+	}
+	/* Template halaman error */
+	function errorPageTemplate($msg) {
+		$output = "[
+						{\"content\":[
+							{\"contentTitle\":[
+								{\"title\":\"Error Page\"}
+							]},
+							{\"addStyle\":[
+								{\"style\":\"null\"}
+							]},
+							{\"addScript\":[
+								{\"script\":\"null\"}
+							]}
+						]},
+						{\"sts\":200},
+						{\"inst\":\"null\"},
+						{\"msg\":\"".$msg."\"}
+					]";
+		return fixStJson($output);
+	}
+	/* Template halaman 404 */
+	function notFound404Template($title) {
+		$output = "  [
+					{\"content\":[
+						{\"contentTitle\":[
+							{\"title\":\"".$title."\"}
+						]},
+						{\"addStyle\":[
+							{\"style\":\"".$GLOBALS["__BASE_URL__"]."/404/404.latecss\"}
+						]},
+						{\"addScript\":[
+							{\"script\":\"".$GLOBALS["__BASE_URL__"]."/404/404.jssintasktemplate?type=content\"}
+						]}
+					]},
+					{\"sts\":200},
+					{\"inst\":\"_[inst]_hide|#headerTwoSinTask_[inst]_removeClass|loginRegForgotBackgroundHNL|#contentSinTask\"},
+					{\"msg\":\"Ok!\"}
+				]";
+		return fixStJson($output);
+	}
+
+	/* Dapatakan Hasil Render HTML */
+	function getRenderedHTML($path){
+		/* Render tidak global, dan tidak membaca variable lain, karena scope function */
+	    ob_start();
+	    include($path);
+	    $var = ob_get_contents(); 
+	    ob_end_clean();
+	    return $var;
+	}
+	/* Ambil SCRIPT (JS) lagi */
+	function getScriptAgain() {
+		$tzer = $_SESSION["globalSecureToken"];
+
+		$output = 'eval(sessionStorage.sCachedSinTaskFW);';
+
+		return $output;
+	}
+	/* SPA - Merender HTML menjadi JS + Enkripsi AES dari GibberishAES */
+	function renderHTMLToJSENC($input) {
+		$vars = toSingleLine($input);
+        $tzer = $_SESSION["globalSecureToken"];
+
+        $__AES_ENC_KEY__ 	= $tzer;
+        $__AES_ENC_OUTPUT__ = $vars;
+
+        $old_key_size = GibberishAES::size();
+		GibberishAES::size(256);
+		$encrypted_the_output = GibberishAES::enc($__AES_ENC_OUTPUT__, $__AES_ENC_KEY__);
+		GibberishAES::size($old_key_size);
+
+        $final = 'var checkingCache = pageCache.indexOf("'.$__BASE_URL__.'");';
+        $final .= 'if(checkingCache < 0) {';
+        $final .= 'pageCache.push("'.$__BASE_URL__.'");';
+        $final .= '};';
+        $final .= 'var sintaskGFV'.$tzer.' = "'.$encrypted_the_output.'";';
+        $final .= 'var decsintaskGFV'.$tzer.' = CryptoJS.AES.decrypt(sintaskGFV'.$tzer.', tokenizing);';
+        $final .= 'decsintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.'.toString(CryptoJS.enc.Utf8);';
+        $final .= 'sintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.';';
+        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
+        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
+        $final .= 'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');';
+        $final .= getScriptAgain();
+
+		return $final;
+	}
+	/* SPA Stay - Merender HTML menjadi JS + Enkripsi AES dari GibberishAES */
+	function renderHTMLToJSStayENC($content, $input) {
+		$vars = toSingleLine($input);
+        $tzer = $_SESSION["globalSecureToken"];
+        $tzer = $tzer.$content;
+
+        $__AES_ENC_KEY__ 	= $_SESSION["globalSecureToken"];
+        $__AES_ENC_OUTPUT__ = $vars;
+
+        $old_key_size = GibberishAES::size();
+		GibberishAES::size(256);
+		$encrypted_the_output = GibberishAES::enc($__AES_ENC_OUTPUT__, $__AES_ENC_KEY__);
+		GibberishAES::size($old_key_size);
+
+        $final = 'var checkingCache = pageCache.indexOf("'.$__BASE_URL__.'");';
+        $final .= 'if(checkingCache < 0) {';
+        $final .= 'pageCache.push("'.$__BASE_URL__.'");';
+        $final .= '};';
+        $final .= 'var sintaskGFV'.$tzer.' = "'.$encrypted_the_output.'";';
+        $final .= 'var decsintaskGFV'.$tzer.' = CryptoJS.AES.decrypt(sintaskGFV'.$tzer.', tokenizing);';
+        $final .= 'decsintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.'.toString(CryptoJS.enc.Utf8);';
+        $final .= 'sintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.';';
+        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
+        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
+        
+        if($content == "header") {
+        	$final .= 'sjqNoConflict("#headerStayContentSinTask").html(sintaskGFV'.$tzer.');';
+        } else if($content == "footer") {
+        	$final .= 'sjqNoConflict("#footerStayContentSinTask").html(sintaskGFV'.$tzer.');';
+      	} else if($content == "content") {
+        	$final .= 'sjqNoConflict("#stayContentSinTask").html(sintaskGFV'.$tzer.');';
+        }
+
+		return $final;
+	}
+	/* SPA - Merender HTML menjadi JS */
+	function renderHTMLToJS($input) {
+		$vars = toSingleLine($input);
+		$vars = tagSlash($vars);
+        $tzer = $_SESSION["globalSecureToken"];
+
+        $final = 'var checkingCache = pageCache.indexOf("'.$__BASE_URL__.'");';
+        $final .= 'if(checkingCache < 0) {';
+        $final .= 'pageCache.push("'.$__BASE_URL__.'");';
+        $final .= '};';
+        $final .= 'var sintaskGFV'.$tzer.' = "'.$vars.'";';
+        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
+        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
+        $final .= 'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');';
+        $final .= getScriptAgain();
+
+		return $final;
+	}
+	/* SPA Stay - Merender HTML menjadi JS */
+	function renderHTMLToJSStay($content, $input) {
+		$vars = toSingleLine($input);
+        $vars = tagSlash($vars);
+        $tzer = $_SESSION["globalSecureToken"];
+        $tzer = $tzer.$content;
+
+        $final = 'var checkingCache = pageCache.indexOf("'.$__BASE_URL__.'");';
+        $final .= 'if(checkingCache < 0) {';
+        $final .= 'pageCache.push("'.$__BASE_URL__.'");';
+        $final .= '};';
+        $final .= 'var sintaskGFV'.$tzer.' = "'.$vars.'";';
+        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
+        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
+        
+        if($content == "header") {
+        	$final .= 'sjqNoConflict("#headerStayContentSinTask").html(sintaskGFV'.$tzer.');';
+        } else if($content == "footer") {
+        	$final .= 'sjqNoConflict("#footerStayContentSinTask").html(sintaskGFV'.$tzer.');';
+      	} else if($content == "content") {
+        	$final .= 'sjqNoConflict("#stayContentSinTask").html(sintaskGFV'.$tzer.');';
+        }
+
+		return $final;
+	}
+
+	/** 
+	 * ------------------------
+	 * SINTASKFW EXTRA FUNCTION
+	 * ------------------------
+	 */
+
+	/* Function extra untuk memunculkan AM/PM dari jam */
+	function amPmHour($input) {
+		$output = "";
+		$expInput = explode(":", $input);
+		if($expInput[0]>12) {
+			$s = $expInput[0]-12;
+			if($s<10) {
+				$s = "0".$s;
+			}
+			$output = $s.":".$expInput[1].":".$expInput[2]." PM";
+		} else {
+			if($expInput[0]==0) {
+				$s = "12";
+			} else {
+				$s = $expInput[0];
+			}
+			$output = $s.":".$expInput[1].":".$expInput[2]." AM";
+		}
+		return $output;
+	}
+	/* Function extra untuk regex http */
+	function httpRegexType($type) {
+		$output = "";
+		if($type==1) {
+			$output = "%^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@|\d{1,3}(?:\.\d{1,3}){3}|(?:(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)(?:\.(?:[a-z\d\x{00a1}-\x{ffff}]+-?)*[a-z\d\x{00a1}-\x{ffff}]+)*(?:\.[a-z\x{00a1}-\x{ffff}]{2,6}))(?::\d+)?(?:[^\s]*)?$%siu";
+		} else if($type==2) {
+			$output = "#[-a-zA-Z0-9@:%_\+.~\#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~\#?&//=]*)?#si";
+		} else if($type==3) {
+			$output = '#((https?|ftp)://(\S*?\.\S*?))([\s)\[\]{},;"\':<]|\.\s|$)#i';
+		} else if($type==4) {
+			$output = "/(?:http|https)?(?:\:\/\/)?(?:www.)?(([A-Za-z0-9-]+\.)*[A-Za-z0-9-]+\.[A-Za-z]+)(?:\/.*)?/im";
+		} else if($type==5) {
+			$output = '_^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]+-?)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/[^\s]*)?$_iuS';
+		} else {
+			$output = "@(https?|ftp)://(-\.)?([^\s/?\.#-]+\.?)+(/[^\s]*)?$@iS";
+		}
+		return $output;
+	}
+	/* Alias untuk httpRegexType */
+	function regexType($type) {
+		return httpRegexType($type);
+	}
+	/* Function extra untuk mengambil data browser user/visitor/client */
+	function getBrowser() {
+		$u_agent = $_SERVER['HTTP_USER_AGENT'];
+		$bname = 'Unknown';
+		$platform = 'Unknown';
+		$version= "";
+		$PLT = "";
+		$BR_NAME = "";
+		
+		if (preg_match('/linux/i', $u_agent)) {
+			$platform = 'Linux';
+			$PLT = "LINUX";
+		}
+		elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
+			$platform = 'Mac';
+			$PLT = "MAC";
+		}
+		elseif (preg_match('/windows|win32/i', $u_agent)) {
+			$platform = 'Windows';
+			$PLT = "WINDOWS";
+		}
+		if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent))
+		{
+			$bname = 'Internet Explorer';
+			$ub = "MSIE";
+			$BR_NAME = "MS_IE";
+		}
+		elseif(preg_match('/Firefox/i',$u_agent))
+		{
+			$bname = 'Mozilla Firefox';
+			$ub = "Firefox";
+			$BR_NAME = "MOZ_FIRE";
+		}
+		elseif(preg_match('/Chrome/i',$u_agent))
+		{
+			$bname = 'Google Chrome';
+			$ub = "Chrome";
+			$BR_NAME = "CHROME";
+		}
+		elseif(preg_match('/Safari/i',$u_agent))
+		{
+			$bname = 'Apple Safari';
+			$ub = "Safari";
+			$BR_NAME = "SAFARI";
+		}
+		elseif(preg_match('/Opera/i',$u_agent))
+		{
+			$bname = 'Opera';
+			$ub = "Opera";
+			$BR_NAME = "OPERA";
+		}
+		elseif(preg_match('/Netscape/i',$u_agent))
+		{
+			$bname = 'Netscape';
+			$ub = "Netscape";
+			$BR_NAME = "NETSCAPE";
+		}
+
+		$known = array('Version', $ub, 'other');
+		$pattern = '#(?<browser>' . join('|', $known) .
+		')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+		if (!preg_match_all($pattern, $u_agent, $matches)) {
+		}
+		
+		$i = count($matches['browser']);
+		if ($i != 1) {
+			if (strripos($u_agent,"Version") < strripos($u_agent,$ub)){
+				$version= $matches['version'][0];
+			}
+			else {
+				$version= $matches['version'][1];
+			}
+		}
+		else {
+			$version= $matches['version'][0];
+		}
+		
+		if ($version==null || $version=="") {
+			$version="?";
+		}
+		
+		return array(
+			'userAgent' => $u_agent,
+			'name'      => $bname,
+			'version'   => $version,
+			'platform'  => $platform,
+			'pattern'    => $pattern,
+			'BR_NAME'	=> $BR_NAME
+		);
+	}
+	/* Function extra untuk menghilangkan tag HTML */
 	function netralizeContentFromHtmlTag($input) {
 		/* Ganti '<br /> atau <br> atau <br/>' ke '' atau null */
 		$breaks 		= array("<br />","<br>","<br/>");
@@ -783,6 +1109,7 @@
 
 		return $input;
 	}
+	/* Untuk mengubah New Line ke \n, \r, \r\n */
 	function brToNl($input) {
 		/* Ganti '<div><br>' tag ke '\r\n' Spasi baru */
 		$breaksDivBr	= array(
@@ -799,13 +1126,22 @@
 								"<div ><br/>",
 								"< div ><br/>"
 						);
-		$input 			= str_ireplace($breaksDivBr, "\r\n", $input);
+
+		$getOs = hostOS();
+		$replacer = "\n";
+		if($getOs == "windows") {
+			$replacer = "\r\n";
+		} else {
+			$replacer = "\n";
+		}
+
+		$input 			= str_ireplace($breaksDivBr, $replacer, $input);
 		/* Ganti '<br /> atau <br> atau <br/>' ke '\r\n' Spasi baru */
 		$breaks 		= array("<br />","<br>","<br/>");
-		$input 			= str_ireplace($breaks, "\r\n", $input);
+		$input 			= str_ireplace($breaks, $replacer, $input);
 		/* Ganti '<div>' tag ke '\r\n' Spasi baru */
 		$breaksDiv 		= array("<div>","< div>","<div >","< div >");
-		$input 			= str_ireplace($breaksDiv, "\r\n", $input);
+		$input 			= str_ireplace($breaksDiv, $replacer, $input);
 		/* Ganti '&nbsp;' tag ke '\s' Spasi baru */
 		$breaksSpace	= array("&nbsp;");
 		$input 			= str_ireplace($breaksSpace, " ", $input);
@@ -815,9 +1151,11 @@
 
 		return $input;
 	}
+	/* Alias dari penulisan brToNl agar sesuai dengan nl2br (standard PHP) */
 	function br2nl($input) {
 		return brToNl($input);
 	}
+	/* Menghapus semua New Line menjadi Kosong */
 	function br2zero($input) {
 		/* Ganti '<br /> atau <br> atau <br/>' ke '' kosong */
 		$breaks 		= array("<br />","<br>","<br/>");
@@ -834,46 +1172,31 @@
 
 		return $input;
 	}
+	/* Menghapus semua New Line (\r, \n, \r\n) menjadi Spasi */
 	function nl2space($input) {
 		$breaks 	= array("\r\n", "\r", "\t\n", "\t");
 		$input 		= str_ireplace($breaks, " ", $input);
 
 		return $input;
 	}
+	/* Menghapus Slash dari ' misalnya \' menjadi hanya ' saja */
 	function removeSlashOneQuot($input) {
 		$breaks = array("\'");  
 		$input = str_ireplace($breaks, "'", $input);
 		return $input;
 	}
+	/* Membuat <br> dan &nbsp menjadi spasi */
 	function normalizationNewLineAndSpaceHtml($input) {
 		$breaks = array("<br />","<br>","<br/>","&nbsp;");  
 		$input = str_ireplace($breaks, " ", $input);
 		return $input;
 	}
-	function getRandomOnSinTask($maxFrame) {
-		$return_ = "";
-		$frame = 0;
-		if($maxFrame<=0) {
-			$maxFrame = 1;
-		}
-		while($frame<$maxFrame) {
-			$return_ = $return_."".rand(10000000,99999999);
-			$frame = $frame+1;
-		}
-		return $return_;
-	}
-	function getRandom($long) {
-		$rand = substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890'), 0, $long );
-		return $rand;
-	}
-	function getRandomPlusDate($long) {
-		$rand = substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890'), 0, $long ).strtotime(date("d-m-Y H:i:s"));
-		return $rand;
-	}
-	function getRandomKeyToken() {
-		$key_token 	= substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 25).substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 25).substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 25).substr(str_shuffle('1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 15).strtotime(date("d-m-Y H:i:s"));
-		return $key_token;
-	}
+	/* Mengambil hanya nama Domain saja dari URL (tidak termasuk subdomain) 
+ 	 * Contoh : getDomainName("https://fw.sintask.com"); akan menghasilkan "sintask.com"
+ 	 * Contoh : getDomainName("https://fw.st.com"); akan menghasilkan "fw.st.com"
+ 	 * Contoh : getDomainName("https://fw.snt.id"); akan menghasilkan "fw.snt.id"
+ 	 * Contoh : getDomainName("https://fw.sntk.id"); akan menghasilkan "sntk.id"
+	 */
 	function getDomainName($url) {
 		$pieces = parse_url($url);
 		$domain = isset($pieces['host']) ? $pieces['host'] : '';
@@ -882,6 +1205,9 @@
 		}
 		return false;
 	}
+	/* Memudahkan function parse_url menjadi lebih singkat
+	 * Contoh : parse_url($url, PHP_URL_HOST); hanya perlu tulis getDomainURL($url, "host");
+	 */
 	function getDomainURL($url, $type) {
 		$type = strtolower($type);
 		if($type=="scheme") {
@@ -903,6 +1229,7 @@
 		}
 		return $return;
 	}
+	/* Untuk men-cetak <br> HTML tag sesuai banyak yg diinginkan */
 	function printbr($times = 1) {
 		$result = "";
 		for($a = 0; $a < $times; $a ++) {
@@ -910,39 +1237,7 @@
 		}
 		return $result;
 	}
-	function corsSinTaskAPI() {
-		/* Izinkan ke semua origin */
-		if (isset($_SERVER['HTTP_ORIGIN'])) {
-			/* 
-				$_SERVER['HTTP_ORIGIN'] mengizinkan ke semua origin
-				kami tidak menggunakan * sebagai nilai 'Access-Control-Allow-Origin'
-			*/
-			header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-			header('Access-Control-Allow-Credentials: true');
-			header('Access-Control-Max-Age: 86400');
-		}
-
-		if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-			if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
-				header("Access-Control-Allow-Methods: GET, POST, OPTIONS");         
-			if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
-				header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
-			exit(0);
-		}
-	}
-	function headerSinTaskAPI() {
-		header('API-Info: SinTaskAPI v1.0');
-		header('API-Public-Service: https://getcontent.sintask.com');
-	}
-	function headerSinTaskHQ() {
-		header('Content-Type: text/html; charset=UTF-8');
-		header('Cache-Control: max-age=3600, must-revalidate');
-		header('SinTask-Framework-Info: fw.sintask.com');
-		header('SinTask-Author: SinTask Web Developer');
-		header('SinTask-License: Framework is under MIT License');
-		header('SinTask-Company: PT. SinTask Digital');
-		header('SinTask-Framework: fw@sintask.com');
-	}
+	/* Request CURL menggunakan userAgent Mozilla Firefox 43 */
 	function curlDownload($Url) {
 		$output = "";
 		if (!function_exists('curl_init')){
@@ -950,7 +1245,6 @@
 		}
 		
 		$ch = curl_init();
-		/*$userAgent = $_SERVER['HTTP_USER_AGENT'];*/
 		$userAgent = "Mozilla/5.0 Gecko/20100101 Firefox/43.0";
 		
 		$options = array(
@@ -963,7 +1257,6 @@
 			CURLOPT_CONNECTTIMEOUT => 120,
 			CURLOPT_TIMEOUT        => 120,
 			CURLOPT_MAXREDIRS      => 10,
-			/*CURLOPT_REFERER        => "http://api.sintask.com",*/
 			CURLOPT_USERAGENT      => $userAgent,
 		);
 		curl_setopt_array( $ch, $options );
@@ -972,6 +1265,9 @@
 	
 		return $output;
 	}
+	/* Request CURL secara Asynchronous
+	 * sangat cocok untuk request ke server tanpa harus menunggu response hingga selesai
+	 */
 	function curlAsyncShell($url, $timeout=1, $error_report=FALSE) {
 		$curl = curl_init();
 		curl_setopt( $curl, CURLOPT_URL,            $url         );
@@ -999,6 +1295,7 @@
 		curl_close($curl);
 		return $htm;
 	}
+	/* Mengambil HTTP code saja menggunakan CURL */
 	function curlDownloadInfo($Url) {
 		if (!function_exists('curl_init')){
 			die('cURL is not installed');
@@ -1011,10 +1308,11 @@
 		
 		return $output;
 	}
+	/* Mengambil Original URL jika menggunakan URL Shortener (tanpa blocking page) 
+ 	 * Maksimal Redirect URL = 10 (CURLOPT_MAXREDIRS)
+	 */
 	function getOriginalURL($url) {
 		$ch = curl_init($url);
-		$userAgent = $_SERVER['HTTP_USER_AGENT'];
-		//$userAgent = "SinTaskComot/1.0";
 		$userAgent = "Mozilla/5.0 Gecko/20100101 Firefox/43.0";
 		
 		$options = array(
@@ -1028,7 +1326,6 @@
 			CURLOPT_CONNECTTIMEOUT => 120,
 			CURLOPT_TIMEOUT        => 120,
 			CURLOPT_MAXREDIRS      => 10,
-			//CURLOPT_REFERER        => "http://api.sintask.com",
 			CURLOPT_USERAGENT      => $userAgent,
 		);
 		curl_setopt_array( $ch, $options );
@@ -1038,38 +1335,7 @@
 		
 		return $redir;
 	}
-	function getOriginalURL_OLD($url) {
-		$ch = curl_init($url);
-		$userAgent = $_SERVER['HTTP_USER_AGENT'];
-		//$userAgent = "SinTaskComot/1.0";
-		$userAgent = "Mozilla/5.0 Gecko/20100101 Firefox/43.0";
-		
-		$options = array(
-			CURLOPT_URL            => $url,
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_HEADER         => true,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_ENCODING       => "UTF-8",
-			CURLOPT_AUTOREFERER    => true,
-			CURLOPT_CONNECTTIMEOUT => 120,
-			CURLOPT_TIMEOUT        => 120,
-			CURLOPT_MAXREDIRS      => 10,
-			//CURLOPT_REFERER        => "http://api.sintask.com",
-			CURLOPT_USERAGENT      => $userAgent,
-		);
-		curl_setopt_array( $ch, $options );
-		$header = curl_exec($ch);
-		
-		/* Parsing informasi dari header & spasi atau baris baru ke hanya baris baru (kolom) */
-		$fields = explode("\r\n", preg_replace('/\x0D\x0A[\x09\x20]+/', ' ', $header));
-			
-		for($i=0;$i<count($fields);$i++) {
-			if(strpos($fields[$i],'Location') !== false) {
-				$url = str_replace("Location: ","",$fields[$i]);
-			}
-		}
-		return $url;
-	}
+	/* Mengambil hanya HOST dari URL (termasuk subdomain) */
 	function urlFixed($url) {
 		$urlFixed = parse_url($url, PHP_URL_HOST);
 		if($urlFixed=="" || $urlFixed==null) {
@@ -1078,6 +1344,7 @@
 		}
 		return $urlFixed;
 	}
+	/* Menggunakan regexType() mendeteksi URl dan menghasilkan true/false */
 	function searchLinkCurl($input) {
 		$regexType = 5;
 		$regex = regexType($regexType);
@@ -1087,6 +1354,9 @@
 			return false;
 		}
 	}
+	/* Menggunakan regexType() mendeteksi URl dan menghasilkan true/false 
+	 * jika http://localhost akan bernilai true
+	 */
 	function urlCheckerv2($url) {
 		$regexType = 5;
 		$regex = regexType($regexType);
@@ -1105,6 +1375,10 @@
 			}
 		}
 	}
+	/* Memperbaiki URL 
+	 * Contoh : https://fw.sintask.com -> //fw.sintask.com
+	 * Contoh : ngasal://www.sintask.com -> //
+	 */
 	function fixedTheURL($url, $addhost) {
 		$output;
 		if(searchLinkCurl($url) == false) {
@@ -1166,16 +1440,19 @@
 		}
 		return $output;
 	}
+	/* addslashes tanpa menambah slash pada ' single quot */
 	function addslashesCustom($input) {
 		$input = addslashes($input);
 		$input = str_replace("\'", "'", $input);
 		return $input;
 	}
+	/* addslash dengan menambahkan \ pada \" menjadi \\\" */
 	function addslashesCustomForLang($input) {
 		$input = addslashes($input);
 		$input = str_replace("\"", "\\\"", $input);
 		return $input;
 	}
+	/* Menambahkan \ pada \\ menjadi \\\\ */
 	function addslashesSlash($input) {
 		$input = str_replace("\\", "\\\\", $input);
 		return $input;
@@ -1367,109 +1644,14 @@
 		}
 		return $result;
 	}
+	/* Alias function customHtmlLoopTemplate() menjadi chlt();  */
 	function chlt($htmlcode, $count) {
 		return customHtmlLoopTemplate($htmlcode, $count);
 	}
 
-	/* Template loading pada web */
-	function loadingHtmlTemplate() {
-		$output = '
-		<div class="loading"> 
-			<span class="l01"></span> 
-			<span class="l02"></span> 
-			<span class="l03"></span> 
-			<span class="l04"></span> 
-			<span class="l05"></span> 
-			<div class="clearBoth"></div>
-		</div>';
-		return $output;
-	}
-
-	/* JSON initial - awal template */
-	function initialJson($title, $style, $script, $inst = "null", $msg = "OK") {
-		$output = "[
-						{\"content\":[
-							{\"contentTitle\":[
-								{\"title\":\"".$title."\"}
-							]},
-							{\"addStyle\":[
-								{\"style\":\"".$style."\"}
-							]},
-							{\"addScript\":[
-								{\"script\":\"".$script."\"}
-							]}
-						]},
-						{\"sts\":200},
-						{\"inst\":\"".$inst."\"},
-						{\"msg\":\"".$msg."\"}
-					]";
-		return fixStJson($output);
-	}
-
-	/* JSON jika token salah */
-	function invalidToken($msg, $t1 = "null", $t2 = "null") {
-		$output = "[
-						{\"content\":[
-							{\"contentTitle\":[
-								{\"title\":\"Invalid\"}
-							]},
-							{\"addStyle\":[
-								{\"style\":\"null\"}
-							]},
-							{\"addScript\":[
-								{\"script\":\"null\"}
-							]}
-						]},
-						{\"sts\":205},
-						{\"inst\":\"t1:".$t1."_t2:".$t2."\"},
-						{\"msg\":\"".$msg."\"}
-					]";
-		return fixStJson($output);
-	}
-
-	/* Template halaman error */
-	function errorPageTemplate($msg) {
-		$output = "[
-						{\"content\":[
-							{\"contentTitle\":[
-								{\"title\":\"Error Page\"}
-							]},
-							{\"addStyle\":[
-								{\"style\":\"null\"}
-							]},
-							{\"addScript\":[
-								{\"script\":\"null\"}
-							]}
-						]},
-						{\"sts\":200},
-						{\"inst\":\"null\"},
-						{\"msg\":\"".$msg."\"}
-					]";
-		return fixStJson($output);
-	}
-
-	/* Template halaman 404 */
-	function notFound404Template($title) {
-		$output = "  [
-					{\"content\":[
-						{\"contentTitle\":[
-							{\"title\":\"".$title."\"}
-						]},
-						{\"addStyle\":[
-							{\"style\":\"".$GLOBALS["__BASE_URL__"]."/404/404.latecss\"}
-						]},
-						{\"addScript\":[
-							{\"script\":\"".$GLOBALS["__BASE_URL__"]."/404/404.jssintasktemplate?type=content\"}
-						]}
-					]},
-					{\"sts\":200},
-					{\"inst\":\"_[inst]_hide|#headerTwoSinTask_[inst]_removeClass|loginRegForgotBackgroundHNL|#contentSinTask\"},
-					{\"msg\":\"Ok!\"}
-				]";
-		return fixStJson($output);
-	}
-
-	/* Upload Gambar dan Kompresi */
+	/* Upload Gambar dan Kompresi 
+	 * Berisi 8 function extra - khusus kompresi, resize, dan crop (normalisasi) gambar
+	 */
 	function compressImage($path, $quality, $destination, $original) {
 		/*
 			Kompresi gambar standar dan mendukung JPG / PNG
@@ -2147,6 +2329,7 @@
 		$result = fixStJson($input);
 		return $result;
 	}
+
 	/* 	Function menghapus <\/SCRIPT> nilai variable */
 	function remScriptErr($input) {
 		$input = str_ireplace("</script>", "<\/script>", $input);
@@ -2158,6 +2341,7 @@
 		$mt = explode(' ', microtime());
 		return ((int)$mt[1]) * 1000 + ((int)round($mt[0] * 1000));
 	}
+	/* Alias dari milliSecondsNow(); */
 	function microTimeStamp() {
 		return milliSecondsNow();
 	}
@@ -2169,7 +2353,7 @@
 			text-overflow: ellipsis;
 			display: block; 
 		}
-		{OR}
+		{-ATAU-}
 		.wrapLongTextInline {	
 			white-space: nowrap;
 			overflow: hidden;
@@ -2189,7 +2373,7 @@
 		}
 		return $result;
 	}
-	/* 	Function File Size translasi dari B (Byte) */
+	/* Function File Size translasi dari B (Byte) */
 	function fileSizeFrByToAll($fileSize, $fileSizeNumFor) {
 		/*
 			Ini manual, untuk dinamis gunakan POW atau ^ fungsi matematika
@@ -2217,7 +2401,12 @@
 		$fileSizeFinal = number_format($fileSizeNotFormatedNum, $fileSizeNumFor)." ".$fileSizeType;
 		return $fileSizeFinal;
 	}
-	/* 	Check PregMatch - Check PregMatch email dan username, nilai balik berupa boolean */
+	/* Check PregMatch - Check PregMatch email dan username, nilai balik berupa boolean 
+	 * memiliki 2 tipe = email & username
+	 * ------------------------
+	 * Validitas Email standard
+	 * Validitas Username dengan menggunakan angka atau huruf atau _ underscore
+	 */
 	function checkPregMatch($input, $type) {
 		if($type=="email") {
 			$emailn_regex = "/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/";
@@ -2241,129 +2430,7 @@
 			return false;
 		}
 	}
-	/* Dapatakan Hasil Render HTML */
-	function getRenderedHTML($path){
-		/* Render tidak global, dan tidak membaca variable lain, karena scope function */
-	    ob_start();
-	    include($path);
-	    $var = ob_get_contents(); 
-	    ob_end_clean();
-	    return $var;
-	}
-	/* Ambil SCRIPT (JS) lagi */
-	function getScriptAgain() {
-		$tzer = $_SESSION["globalSecureToken"];
-
-		$output = 'eval(sessionStorage.sCachedSinTaskFW);';
-
-		return $output;
-	}
-	/* SPA - Merender HTML menjadi JS + Enkripsi AES dari GibberishAES */
-	function renderHTMLToJSENC($input) {
-		$vars = toSingleLine($input);
-        $tzer = $_SESSION["globalSecureToken"];
-
-        $__AES_ENC_KEY__ 	= $tzer;
-        $__AES_ENC_OUTPUT__ = $vars;
-
-        $old_key_size = GibberishAES::size();
-		GibberishAES::size(256);
-		$encrypted_the_output = GibberishAES::enc($__AES_ENC_OUTPUT__, $__AES_ENC_KEY__);
-		GibberishAES::size($old_key_size);
-
-        $final = 'var checkingCache = pageCache.indexOf("'.$__BASE_URL__.'");';
-        $final .= 'if(checkingCache < 0) {';
-        $final .= 'pageCache.push("'.$__BASE_URL__.'");';
-        $final .= '};';
-        $final .= 'var sintaskGFV'.$tzer.' = "'.$encrypted_the_output.'";';
-        $final .= 'var decsintaskGFV'.$tzer.' = CryptoJS.AES.decrypt(sintaskGFV'.$tzer.', tokenizing);';
-        $final .= 'decsintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.'.toString(CryptoJS.enc.Utf8);';
-        $final .= 'sintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.';';
-        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
-        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
-        $final .= 'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');';
-        $final .= getScriptAgain();
-
-		return $final;
-	}
-	/* SPA Stay - Merender HTML menjadi JS + Enkripsi AES dari GibberishAES */
-	function renderHTMLToJSStayENC($content, $input) {
-		$vars = toSingleLine($input);
-        $tzer = $_SESSION["globalSecureToken"];
-        $tzer = $tzer.$content;
-
-        $__AES_ENC_KEY__ 	= $_SESSION["globalSecureToken"];
-        $__AES_ENC_OUTPUT__ = $vars;
-
-        $old_key_size = GibberishAES::size();
-		GibberishAES::size(256);
-		$encrypted_the_output = GibberishAES::enc($__AES_ENC_OUTPUT__, $__AES_ENC_KEY__);
-		GibberishAES::size($old_key_size);
-
-        $final = 'var checkingCache = pageCache.indexOf("'.$__BASE_URL__.'");';
-        $final .= 'if(checkingCache < 0) {';
-        $final .= 'pageCache.push("'.$__BASE_URL__.'");';
-        $final .= '};';
-        $final .= 'var sintaskGFV'.$tzer.' = "'.$encrypted_the_output.'";';
-        $final .= 'var decsintaskGFV'.$tzer.' = CryptoJS.AES.decrypt(sintaskGFV'.$tzer.', tokenizing);';
-        $final .= 'decsintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.'.toString(CryptoJS.enc.Utf8);';
-        $final .= 'sintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.';';
-        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
-        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
-        
-        if($content == "header") {
-        	$final .= 'sjqNoConflict("#headerStayContentSinTask").html(sintaskGFV'.$tzer.');';
-        } else if($content == "footer") {
-        	$final .= 'sjqNoConflict("#footerStayContentSinTask").html(sintaskGFV'.$tzer.');';
-      	} else if($content == "content") {
-        	$final .= 'sjqNoConflict("#stayContentSinTask").html(sintaskGFV'.$tzer.');';
-        }
-
-		return $final;
-	}
-	/* SPA - Merender HTML menjadi JS */
-	function renderHTMLToJS($input) {
-		$vars = toSingleLine($input);
-		$vars = tagSlash($vars);
-        $tzer = $_SESSION["globalSecureToken"];
-
-        $final = 'var checkingCache = pageCache.indexOf("'.$__BASE_URL__.'");';
-        $final .= 'if(checkingCache < 0) {';
-        $final .= 'pageCache.push("'.$__BASE_URL__.'");';
-        $final .= '};';
-        $final .= 'var sintaskGFV'.$tzer.' = "'.$vars.'";';
-        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
-        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
-        $final .= 'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');';
-        $final .= getScriptAgain();
-
-		return $final;
-	}
-	/* SPA Stay - Merender HTML menjadi JS */
-	function renderHTMLToJSStay($content, $input) {
-		$vars = toSingleLine($input);
-        $vars = tagSlash($vars);
-        $tzer = $_SESSION["globalSecureToken"];
-        $tzer = $tzer.$content;
-
-        $final = 'var checkingCache = pageCache.indexOf("'.$__BASE_URL__.'");';
-        $final .= 'if(checkingCache < 0) {';
-        $final .= 'pageCache.push("'.$__BASE_URL__.'");';
-        $final .= '};';
-        $final .= 'var sintaskGFV'.$tzer.' = "'.$vars.'";';
-        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
-        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
-        
-        if($content == "header") {
-        	$final .= 'sjqNoConflict("#headerStayContentSinTask").html(sintaskGFV'.$tzer.');';
-        } else if($content == "footer") {
-        	$final .= 'sjqNoConflict("#footerStayContentSinTask").html(sintaskGFV'.$tzer.');';
-      	} else if($content == "content") {
-        	$final .= 'sjqNoConflict("#stayContentSinTask").html(sintaskGFV'.$tzer.');';
-        }
-
-		return $final;
-	}
+	
 	/* Anti SQL Injection */
 	function antiInjection($input){
 		$filter = stripslashes(strip_tags(htmlspecialchars($input, ENT_QUOTES)));
@@ -2630,48 +2697,29 @@
 		}
 	}
 
+	/* Menghapus baris baru \r\n setelah fungsi nl2br */ 
 	function removeNewLine($input) {
 		$input = nl2br($input);
 		$input = preg_replace("/[\r\n]+/", "", $input);
 		return $input;
 	}
-	function removeNewLineExtra($input) {
-		$input = nl2br($input);
-		$input = preg_replace("/[\r\n]+/", "", $input);
-		/*$input = searchLink($input);*/
-		$input = searchDsTag($input);
-		$input = getEmoticon($input);
-		return $input;
-	}
+	/* Menghapus baris baru \r\n */ 
 	function removeNewLineTwo($input) {
 		$input = preg_replace("/[\r\n]+/", " ", $input);
 		return $input;
 	}
+	/* Menghapus &quot; pada html menjadi normal quot */ 
 	function replaceQuoteHtml($input) {
 		$input = str_replace("&quot;", "\"", $input);
 		return $input;
 	}
+	/* Menghapus slash single quot pada html menjadi normal single quot */ 
 	function replaceSingleQuote($input) {
 		$input = str_replace("\'", "'", $input);
 		return $input;
 	}
 
-	function colorRandSintask($input) {
-		$result = "";
-		if($input>-1 && $input<21) {
-			$result = "#2980B9";
-		} if($input>20 && $input<41) {
-			$result = "#27AE60";
-		} if($input>40 && $input<61) {
-			$result = "#34495E";
-		} if($input>60 && $input<81) {
-			$result = "#E74C3C";
-		} if($input>80 && $input<101) {
-			$result = "#F1C40F";
-		}
-		return $result;
-	}
-
+	/* Menghapus direktori secara rekursif beserta file */
 	function rrmdir($dir) {
         if (is_dir($dir)) {
             $objects = scandir($dir); 
@@ -2689,6 +2737,8 @@
     }
 
     /**
+     * Mengcopy file secara rekursi
+     * ----------------------------
      * -- Fungsi dari Aidan Lister --
 	 * Copy a file, or recursively copy a folder and its contents
 	 * @author      Aidan Lister <aidan@php.net>

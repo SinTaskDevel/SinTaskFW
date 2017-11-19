@@ -8,14 +8,15 @@
 	$__SEGMEN__ 		= siteSegmen("pure");
 	$__SEGMEN_NORMAL__ 	= siteSegmen("normal");
 	$__SEGMEN_PURE__	= siteSegmen("nofollow");
+	$__SEG_PURE__ 		= $__SEGMEN_PURE__;
 	
 	$__FILE_EXTENSION__ = ".php";
 	$__TOKENIZING__		= $_SESSION['globalSecureToken'];
 
-	$__VERSION__ 		= "SinTaskFW v1.0.6";
+	$__VERSION__ 		= "SinTaskFW v1.0.7";
 	$__CODENAME__ 		= "SinTask_Developer";
-	$__VERNAME__		= "1.0.6";
-	$__VERCOMPARE__		= "6";
+	$__VERNAME__		= "1.0.7";
+	$__VERCOMPARE__		= "7";
 	
 	$__IP_USER__      	= $_SERVER['REMOTE_ADDR'];
 
