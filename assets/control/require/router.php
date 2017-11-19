@@ -26,6 +26,12 @@
 		$_SESSION['postFILES'][$key]['tmp_name'] = $tmpFile;
 	}
 
+	if($_SESSION['sintaskFWActualURL'] == "" || $_SESSION['sintaskFWActualURL'] == null) {
+		$_SESSION['sintaskFWActualURL'] = "";
+	} else {
+		$__FULL_URL__ = $_SESSION['sintaskFWActualURL'];
+	}
+
 	/* Router Core */
 	switch ($__SEGMEN__[2]) {
 
@@ -124,6 +130,10 @@
 				$__END_SEGMEN_DOT__ != "stayfooter"			&&
 				$__FTOKEN__ 		== $__STOKEN__
 			) {
+				/* Menetapkan $__FULL_URL__ */
+				$_SESSION['sintaskFWActualURL'] = $__ACTUAL_URL__;
+				$__FULL_URL__ = $_SESSION['sintaskFWActualURL'];
+
 				/* [SPA] XHR / AJAX */
 				/* GENERAL FIRST */
 				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['general'], $thisReqPathLoginPrefix, $thisReqPath, 2, "") != $__ZERO__) {
@@ -135,6 +145,7 @@
 					<?php
 					die();
 				}
+				
 				/* SPA SECOND */
 				header("Content-type: application/json");
 				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, "") != $__ZERO__) {
@@ -312,6 +323,10 @@
 					echo invalidToken($__ERROR_INVALID_MSG__, $__FTOKEN__, $__STOKEN__);
 					die();
 				}
+
+				/* Menetapkan $__FULL_URL__ */
+				$_SESSION['sintaskFWActualURL'] = $__ACTUAL_URL__;
+				$__FULL_URL__ = $_SESSION['sintaskFWActualURL'];
 
 				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['general'], $thisReqPathLoginPrefix, $thisReqPath, 2, "") != $__ZERO__) {
 					/* General Blocker */

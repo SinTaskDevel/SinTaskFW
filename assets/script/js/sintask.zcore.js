@@ -97,7 +97,7 @@ loadAddScript = function(link, funcToRun, funcParamToRun) {
     if(funcToRun=="normal") {
         sjqNoConflict.ajax({
             type: "POST",
-            data: { tokenizing: tokenizingUser, get: JSGETJSON },
+            data: { tokenizing: tokenizingUser },
             cache: true,
             dataType: "script",
             url: link_,
@@ -114,7 +114,7 @@ loadAddScript = function(link, funcToRun, funcParamToRun) {
             afterLoadScript.push(link_);
             sjqNoConflict.ajax({
                 type: "POST",
-                data: { tokenizing: tokenizingUser, get: JSGETJSON },
+                data: { tokenizing: tokenizingUser },
                 cache: true,
                 dataType: "script",
                 url: link_,
@@ -134,7 +134,7 @@ loadAddScript = function(link, funcToRun, funcParamToRun) {
                 afterLoadScript.push(link_);
                 sjqNoConflict.ajax({
                     type: "POST",
-                    data: { tokenizing: tokenizingUser, get: JSGETJSON },
+                    data: { tokenizing: tokenizingUser },
                     cache: true,
                     dataType: "script",
                     url: link_,
@@ -170,7 +170,7 @@ loadAddStyle = function(link, id) {
         if(sjqNoConflict("."+idfinal).length>0) {
             sjqNoConflict.ajax({
                 type: "POST",
-                data: { tokenizing: tokenizingUser, get: JSGETJSON },
+                data: { tokenizing: tokenizingUser },
                 cache: true,
                 dataType: "html",
                 url: link,
@@ -408,7 +408,7 @@ universalHideContent();
 instructBodyObjectSinTask("hide", expectHiddenObject);
 xhrSinTaskMovePage.push( sjqNoConflict.ajax({
     type: "POST",
-    data: { tokenizing: tokenizingUser, part: "content", get: JSGETJSON },
+    data: { tokenizing: tokenizingUser, part: "content" },
     url: thisUrl,
     success: function (data) {
         fadeContentOne("", 200, "hide");
@@ -434,7 +434,7 @@ sjqNoConflict.loadContent = function () {
     instructBodyObjectSinTask("hide", expectHiddenObject);
     xhrSinTaskMovePage.push( sjqNoConflict.ajax({
         type: "POST",
-        data: { tokenizing: tokenizingUser, part: "content", get: JSGETJSON },
+        data: { tokenizing: tokenizingUser, part: "content" },
         url: homeUrl+sintaskSPA(pageUrl),
         success: function (data) {
             fadeContentOne("", 200, "hide");
@@ -466,8 +466,8 @@ sjqNoConflict.backForwardButtons = function () {
         instructBodyObjectSinTask("hide", expectHiddenObject);
         xhrSinTaskMovePage.push( sjqNoConflict.ajax({
             type: "POST",
-            data: { tokenizing: tokenizingUser, part: "content", get: JSGETJSON },
-            url: location.pathname,
+            data: { tokenizing: tokenizingUser, part: "content" },
+            url: document.URL,
             success: function (data) {
                 fadeContentOne("", 200, "hide");
                 sintaskSuccessGetData(data);

@@ -131,7 +131,7 @@
             ?>
             <script>
                 var homeUrl 	    = "<?php echo $__BASE_URL__;?>";
-                var thisUrl 	    = "<?php echo pureUrlPage($__BASE_URL__);?>";
+                var thisUrl 	    = "<?php echo $__ACTUAL_URL__;?>";
                 var tokenizing 	    = "<?php echo $__TOKENIZING__;?>";
                 var tokenizingUser 	= tokenizing;
                 var pageCache       = [];
@@ -140,25 +140,6 @@
                 var runH            = 0;
                 var runP            = 0;
 
-                /*BELOW CODE IS DEPRECATED*/
-                var JSGET           = [];
-				var JSPOST 			= [];
-                <?php
-                    /*
-                    DISABLED
-                    foreach($_GET as $key => $value) {
-                        ?>
-						JSGET.push("<?php echo $key;?>|<?php echo $value;?>");
-						JSPOST.<?php echo $key;?> = "<?php echo $value;?>";
-						<?php
-                    }
-                    */
-                ?>
-
-                var JSGETJSON       = JSON.stringify(JSGET);
-                JSGETJSON           = ""; /* DISABLED */
-                /*ABOVE CODE IS DEPRECATED*/
-
                 var locVal          = [];
 
                 locVal.url          = [];
@@ -166,22 +147,6 @@
                 locVal.url.thisis   = "<?php echo pureUrlPage($__BASE_URL__);?>";
                 
                 locVal.sitenowww    = "<?php echo SITENOWWW;?>";
-                
-                var thisUrl;
-
-                var urlNow = document.URL;
-                locVal.url.now = urlNow;
-
-                function urlRealTime() {
-                    setTimeout(function(){
-                        if(locVal.url.now != document.URL) {
-                            urlNow = document.URL;
-                            locVal.url.now = urlNow;
-                        }
-                        urlRealTime();
-                    },500);
-                }
-                urlRealTime();
             </script>
 
             <?php
