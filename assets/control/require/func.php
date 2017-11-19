@@ -2737,7 +2737,7 @@
     }
 
     /**
-     * Mengcopy file secara rekursi
+     * Mengcopy file secara rekursif
      * ----------------------------
      * -- Fungsi dari Aidan Lister --
 	 * Copy a file, or recursively copy a folder and its contents
