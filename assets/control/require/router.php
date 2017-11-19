@@ -131,7 +131,8 @@
 				$__FTOKEN__ 		== $__STOKEN__
 			) {
 				/* Menetapkan $__ACTUAL_URL__ */
-				$_SESSION['sintaskFWActualURL'] = $__ACTUAL_URL__;
+				$_SESSION['sintaskFWActualURL'] = $__DYN_ACTUAL_URL__;
+				$__ACTUAL_URL__ = $_SESSION['sintaskFWActualURL'];
 
 				/* [SPA] XHR / AJAX */
 				/* GENERAL FIRST */
@@ -324,7 +325,8 @@
 				}
 
 				/* Menetapkan $__ACTUAL_URL__ */
-				$_SESSION['sintaskFWActualURL'] = $__ACTUAL_URL__;
+				$_SESSION['sintaskFWActualURL'] = $__DYN_ACTUAL_URL__;
+				$__ACTUAL_URL__ = $_SESSION['sintaskFWActualURL'];
 
 				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['general'], $thisReqPathLoginPrefix, $thisReqPath, 2, "") != $__ZERO__) {
 					/* General Blocker */

@@ -48,7 +48,7 @@
 	$__DISPLAY_PORT__ 	= ($__BASE_PROTOCOL__ == 'http' && $__BASE_PORT__ == 80 || $__BASE_PROTOCOL__ == 'https' && $__BASE_PORT__ == 443) ? '' : ":$__BASE_PORT__";
 	$__BASE_DOMAIN__	= $_SERVER['SERVER_NAME'];
 	$__BASE_URL__  		= "${__BASE_PROTOCOL__}://${__BASE_DOMAIN__}${__DISPLAY_PORT__}${__TMP_BASE_URL__}";
-	$__ACTUAL_URL__		= $__BASE_URL__.$_SERVER[REQUEST_URI];
+	$__DYN_ACTUAL_URL__	= $__BASE_URL__.$_SERVER[REQUEST_URI];
 	
 	/* $__BASE_URL__ Custom, sehingga dapat diganti menjadi manual */
 	if($__MY_CORE__["CUSTOM_BASE_URL"] != null && $__MY_CORE__["CUSTOM_BASE_URL"] != "") {
