@@ -33,11 +33,11 @@
 	 *		- META Desc : My name is Author, My username is username1
 	 * Ganti $sintaskNewMeta->newDescription("META DESC ANDA");
 	 */
-	$sintaskNewMeta->newFileName("both.[].php");
+	$sintaskNewMeta->newFileName("notlogin.[].php");
 	$sintaskNewMeta->newTitle("Dynamic Page / ".$__SEGMEN_PURE__[2]);
 	$sintaskNewMeta->newSiteName("SinTaskFW");
-	$sintaskNewMeta->newKeywords("SinTask Framework is PHP - JS SPA Framework");
-	$sintaskNewMeta->newDescription("SinTask Framework is PHP - JS SPA Framework");
+	$sintaskNewMeta->newKeywords("SinTask Framework \" is PHP - JS SPA Framework");
+	$sintaskNewMeta->newDescription("SinTask Framework \" is PHP - JS SPA Framework");
 	$sintaskNewMeta->newImage($__BASE_URL__."/images/logo/sintask_logo_notlogin.png");
 	$sintaskNewMeta->addNew();
 

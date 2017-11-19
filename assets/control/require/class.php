@@ -23,7 +23,7 @@
 	/*
 	 *	SinTask META untuk SPA or N-SPA Page
 	 */
-	class MetaSPA extends SinTaskHQ {
+	class MetaSPA {
 		private $fileName	= "";
 		private $title 		= "";
 	    private $siteName	= "";
@@ -99,7 +99,7 @@
 	/*
 	 * 	SinTask Session
 	 */
-	class SessionSinTask extends SinTaskHQ {
+	class SessionSinTask {
 		private $countSession 	= 0;
 
 		function set($key, $value) {
@@ -140,7 +140,7 @@
 	/*
 	 *	SinTask Cookie
 	 */
-	class CookieSinTask extends SinTaskHQ {
+	class CookieSinTask {
 		function set($cookieName, $cookieValue = null, $cookieTime = null, $cookiePath = null, $cookieDomain = null, $opt1 = null, $opt2 = null) {
 
 			$cookieTimeExplode 	= preg_split("/[\s]+/", strtolower($cookieTime));
@@ -181,7 +181,7 @@
 	 *	-----------------
 	 * 	Digunakan untuk memanggil file pada direktori no_route
 	 */
-	class NoRoute extends SinTaskHQ {
+	class NoRoute {
 		private $thisPath = "";
 
 		public function __construct($path) {
