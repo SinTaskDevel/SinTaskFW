@@ -24,7 +24,6 @@
                     echo "<meta ".$__HTML_SETTING__["HTML_META_CUSTOM"][$metaCustom]." />";
                 }
             ?>
-			<!--cache0.1.1-->
 			<!--[if lt IE 9]>
                 <script src="<?php echo $__BASE_URL__;?>/assets/script/js/lib/html5shiv.js"></script>
 				<script src="<?php echo $__BASE_URL__;?>/assets/script/js/lib/html5shiv-printshiv.js"></script>

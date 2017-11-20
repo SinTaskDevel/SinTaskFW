@@ -77,16 +77,16 @@
 	    }
 
 	    function getTitleMeta($fileName) {
-	    	return $this->fileNameArr[$fileName]['title'];
+	    	return addslashesCustom($this->fileNameArr[$fileName]['title']);
 	    }
 
 	    function readingMeta($fileName) {
-	    	$this->metaReturn .= '<meta property="og:title" name="site_name" content="'.$this->fileNameArr[$fileName]['title'].'">
-    			<meta property="og:site_name" name="site_name" content="'.$this->fileNameArr[$fileName]['siteName'].'">
-    			<meta property="og:keywords" name="keywords" content="'.$this->fileNameArr[$fileName]['keywords'].'" />
-    			<meta property="og:description" name="description" content="'.$this->fileNameArr[$fileName]['description'].'"/>
-    			<meta property="og:image" name="image" content="'.$this->fileNameArr[$fileName]['image'].'"/>
-    			<title>'.$this->fileNameArr[$fileName]['title'].'</title>';
+	    	$this->metaReturn .= '<meta property="og:title" name="site_name" content="'.addslashesMeta($this->fileNameArr[$fileName]['title']).'">
+    			<meta property="og:site_name" name="site_name" content="'.addslashesMeta($this->fileNameArr[$fileName]['siteName']).'">
+    			<meta property="og:keywords" name="keywords" content="'.addslashesMeta($this->fileNameArr[$fileName]['keywords']).'" />
+    			<meta property="og:description" name="description" content="'.addslashesMeta($this->fileNameArr[$fileName]['description']).'"/>
+    			<meta property="og:image" name="image" content="'.addslashesMeta($this->fileNameArr[$fileName]['image']).'"/>
+    			<title>'.addslashesMeta($this->fileNameArr[$fileName]['title']).'</title>';
 	    	return $this->metaReturn;
 	    }
 	}

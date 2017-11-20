@@ -954,6 +954,21 @@
 		return $final;
 	}
 
+	/* addslashes tanpa menambah slash pada ' single quot */
+	function addslashesCustom($input) {
+		$input = addslashes($input);
+		$input = str_replace("\'", "'", $input);
+		return $input;
+	}
+	/* addslashes untuk meta (rendered page) */
+	function addslashesMeta($input) {
+		$input = addslashes($input);
+		$input = str_replace("\'", "'", $input);
+		$input = str_replace("\\\"", "&quot;", $input);
+		$input = str_replace("\\\\", "&bsol;", $input);
+		return $input;
+	}
+
 	/** 
 	 * ------------------------
 	 * SINTASKFW EXTRA FUNCTION
@@ -1440,12 +1455,7 @@
 		}
 		return $output;
 	}
-	/* addslashes tanpa menambah slash pada ' single quot */
-	function addslashesCustom($input) {
-		$input = addslashes($input);
-		$input = str_replace("\'", "'", $input);
-		return $input;
-	}
+	
 	/* addslash dengan menambahkan \ pada \" menjadi \\\" */
 	function addslashesCustomForLang($input) {
 		$input = addslashes($input);
