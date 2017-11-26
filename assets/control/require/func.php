@@ -849,7 +849,11 @@
 	function getScriptAgain() {
 		$tzer = $_SESSION["globalSecureToken"];
 
-		$output = 'eval(sessionStorage.sCachedSinTaskFW);';
+		/* $output = 'eval(sessionStorage.sCachedSinTaskFW);'; */
+		/* Metode lama menggunakan eval() JS */
+
+		$output = 'var sCachedSFW'.$tzer.' = new Function(sessionStorage.sCachedSinTaskFW);';
+		$output .= 'sCachedSFW'.$tzer.'();';
 
 		return $output;
 	}
