@@ -327,7 +327,7 @@
                             $varRender = ob_get_contents(); 
                             ob_end_clean();
 
-                            echo $varRender;
+                            echo removeScriptTag($varRender);
                         }
                     }
                 ?>

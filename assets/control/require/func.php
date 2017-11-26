@@ -532,6 +532,12 @@
 		}
 	}
 
+	/* Menghapus <SCRIPT> */
+	function removeScriptTag($output) {
+		$output = preg_replace("'<script[^>]*\>(.*?)</script>'si", "", $output);
+		return $output;
+	}
+
 	/* Membuat baris kode menjadi single line */
 	function toSingleLine($output) {
 		/* 
@@ -541,7 +547,7 @@
 		 */
 		$tzer = $_SESSION["globalSecureToken"];
 
-		/* <PRE> */
+		/* Mengubah <PRE> memiliki NewLine & Tab, lalu ditranslasikan menjadi singleline */
 		preg_match_all("'<pre[^>]*\>(.*?)</pre>'si", $output, $match);
 		preg_match_all('/<pre[^>]*\>/i', $output, $match2);
 		preg_match_all('/<\/pre[^>]*\>/i', $output, $match3);
@@ -564,7 +570,7 @@
 			$output
 		);
 
-		/* <CODE> */
+		/* Mengubah <CODE> memiliki NewLine & Tab, lalu ditranslasikan menjadi singleline */
 		preg_match_all("'<code[^>]*\>(.*?)</code>'si", $output, $match);
 		preg_match_all('/<code[^>]*\>/i', $output, $match2);
 		preg_match_all('/<\/code[^>]*\>/i', $output, $match3);
@@ -587,7 +593,7 @@
 			$output
 		);
 
-		/* <SCRIPT> */
+		/* Mengubah <SCRIPT> memiliki NewLine & Tab, lalu ditranslasikan menjadi singleline */
 		preg_match_all("'<script[^>]*\>(.*?)</script>'si", $output, $match);
 		preg_match_all('/<script[^>]*\>/i', $output, $match2);
 		preg_match_all('/<\/script[^>]*\>/i', $output, $match3);
