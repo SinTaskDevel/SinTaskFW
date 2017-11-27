@@ -21,7 +21,7 @@
 	function siteSegmen($type) {
 		$urlFeedback = [];
 
-		if($type=="pure") {
+		if($type == "pure") {
 			$url = explode("/", "System/".fixURI($_SERVER["REQUEST_URI"]));
 
 			$urlCount = count($url);
@@ -29,10 +29,10 @@
 				$urlexplode = explode("?", $url[$a]);
 				array_push($urlFeedback, $urlexplode[0]);
 			}
-		} else if($type=="normal" || $type=="" || $type==null) {
+		} else if($type == "normal" || $type == "" || $type == null) {
 			$url = explode("/", "System/".$_SERVER["REQUEST_URI"]);
 			$urlFeedback = $url;
-		} else if($type=="nofollow") {
+		} else if($type == "nofollow") {
 			$url = siteSegmen("pure");
 
 			$urlCount = count($url);
@@ -45,7 +45,7 @@
 				$finalurl = implode(".", $urlexplode);
 				array_push($urlFeedback, $finalurl);
 			}
-		} 
+		}
 
 		return $urlFeedback;
 	}
@@ -71,6 +71,26 @@
 	 */
 	function pureUrlPage($baseUrl) {
 		$thisUrl 	= siteSegmen("pure");
+		$result 	= $baseUrl;
+
+		$thisUrl[0] = "";
+		$thisUrl[1] = "";
+
+		foreach($thisUrl as $value) {
+			if($value!="" && $value!=null) {
+ 				$result = $result."/".$value;
+			}
+		}
+
+		return $result;
+	}
+
+	/*
+	 * Pure URL page + Get
+	 * digunakan di pageCache.push JS disetiap -> spa_template
+	 */
+	function pureUrlPageWithGet($baseUrl) {
+		$thisUrl 	= siteSegmen("normal");
 		$result 	= $baseUrl;
 
 		$thisUrl[0] = "";

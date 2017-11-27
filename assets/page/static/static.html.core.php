@@ -130,7 +130,8 @@
             ?>
             <script>
                 var homeUrl 	    = "<?php echo $__BASE_URL__;?>";
-                var thisUrl 	    = "<?php echo $__ACTUAL_URL__;?>";
+                var thisUrlActual   = "<?php echo $__ACTUAL_URL__;?>";
+                var thisUrl         = "<?php echo pureUrlPageWithGet($__BASE_URL__);?>";
                 var tokenizing 	    = "<?php echo $__TOKENIZING__;?>";
                 var tokenizingUser 	= tokenizing;
                 var pageCache       = [];
@@ -193,7 +194,7 @@
             if($__SEGMEN__[2]!="jsdisabled") {
                 ?>
                 <noscript>
-                    <meta http-equiv="Refresh" content="0; URL=<?php echo SITEADDR;?>/jsdisabled">
+                    <meta http-equiv="Refresh" content="0; URL=<?php echo $__BASE_URL__;?>/jsdisabled">
                 </noscript>
                 <?php
             }
@@ -201,7 +202,7 @@
                 ?>
                 <script>
 					/*If run - JS not Disabled*/
-                    location.assign("<?php echo SITEADDR;?>");
+                    location.assign("<?php echo $__BASE_URL__;?>");
 
                     document.title = "JavaScript Disabled";
                 </script>
@@ -228,7 +229,7 @@
 					}
 					
 					if(navigator.cookieEnabled == false || manCheckCookie() == false) {
-						location.assign("<?php echo SITEADDR;?>/kk");
+						location.assign("<?php echo $__BASE_URL__;?>/kk");
 					}
                 </script>
                 <?php
@@ -244,7 +245,7 @@
 					}
 					
 					if(navigator.cookieEnabled == true || manCheckCookie() == true) {
-						location.assign("<?php echo SITEADDR;?>");
+						location.assign("<?php echo $__BASE_URL__;?>");
 					}
 					
 					document.title = "Cookies Disabled";
