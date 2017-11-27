@@ -508,7 +508,9 @@ sjqNoConflict(document).on('click', '.s', function (e) {
 /**
  * Function for other operation changing page and run SPA
  */
-changingPageSPA = function(thisUrl = null) {
+changingPageSPA = function(thisUrl) {
+    var thisUrl = thisUrl || null;
+
     pageUrl = thisUrl;
     if(pageUrl == null || pageUrl == "") {
         pageUrl = window.location;

@@ -845,6 +845,42 @@
 	    ob_end_clean();
 	    return $var;
 	}
+	
+	/* Template untuk Try Catch */
+	function tryCatchTemplate($title, $tryContent) {
+		$final = "";
+
+		$theBrowser = getBrowser();
+
+        $final .= 'try{';
+		$final .= 		$tryContent;
+		$final .= '} catch(error) {';
+
+		$final .= 		'console.log("%c'.$title.'", "font-size: 16px; color: #EA4335;");';
+		
+		if($theBrowser["BR_NAME"] == "MOZ_FIRE") {
+			$final .= 		'console.log("%cError - "+error.message, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
+			$final .= 		'console.log("%cLine "+error.lineNumber, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
+			$final .= 		'console.log("%cColumn "+error.columnNumber, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
+
+			$final .= 'console.log("%cLine & Column numbers are calculated from the <script> tag in your SPA file\n", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
+		} else if($theBrowser["BR_NAME"] == "CHROME") {
+			$final .= 		'console.log("%cError - "+error.message, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
+			$final .= 		'console.log("%cStack "+error.stack, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
+
+			$final .= 'console.log("%cSorry, your browser is not supported Line & Column number detection (Try Mozilla Firefox 50+ or Browser with Developer Edition)", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
+			$final .= 'console.log("%cClient-Browser: '.$theBrowser["name"].' ver-'.$theBrowser["version"].'\n", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
+		} else {
+			$final .= 		'console.log("%cError - "+error.message, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
+
+			$final .= 'console.log("%cSorry, your browser is not supported Line & Column number detection (Try Mozilla Firefox 50+ or Browser with Developer Edition)", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
+			$final .= 'console.log("%cClient-Browser: '.$theBrowser["name"].' ver-'.$theBrowser["version"].'\n", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
+		}
+
+		$final .= '};';
+
+		return $final;
+	}
 	/* Ambil SCRIPT (JS) lagi */
 	function getScriptAgain() {
 		$tzer = $_SESSION["globalSecureToken"];
@@ -853,7 +889,11 @@
 		/* Metode lama menggunakan eval() JS */
 
 		$output = 'var sCachedSFW'.$tzer.' = new Function(sessionStorage.sCachedSinTaskFW);';
-		$output .= 'sCachedSFW'.$tzer.'();';
+
+		$output .= tryCatchTemplate(
+        	"SinTaskFW Javascript Error", 
+        	'sCachedSFW'.$tzer.'();'
+        );
 
 		return $output;
 	}
@@ -880,7 +920,12 @@
         $final .= 'sintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.';';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
-        $final .= 'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');';
+        
+        $final .= tryCatchTemplate(
+        	"SinTaskFW Javascript SPA Error - AES", 
+        	'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');'
+        );
+
         $final .= getScriptAgain();
 
 		return $final;
@@ -911,11 +956,20 @@
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
         
         if($content == "header") {
-        	$final .= 'sjqNoConflict("#headerStayContentSinTask").html(sintaskGFV'.$tzer.');';
+        	$final .= tryCatchTemplate(
+	        	"SinTaskFW Javascript SPA Stay-Header Error - AES", 
+	        	'sjqNoConflict("#headerStayContentSinTask").html(sintaskGFV'.$tzer.');'
+	        );
         } else if($content == "footer") {
-        	$final .= 'sjqNoConflict("#footerStayContentSinTask").html(sintaskGFV'.$tzer.');';
+        	$final .= tryCatchTemplate(
+	        	"SinTaskFW Javascript SPA Stay-Footer Error - AES", 
+	        	'sjqNoConflict("#footerStayContentSinTask").html(sintaskGFV'.$tzer.');'
+	        );
       	} else if($content == "content") {
-        	$final .= 'sjqNoConflict("#stayContentSinTask").html(sintaskGFV'.$tzer.');';
+      		$final .= tryCatchTemplate(
+	        	"SinTaskFW Javascript SPA Stay-Content Error - AES", 
+	        	'sjqNoConflict("#stayContentSinTask").html(sintaskGFV'.$tzer.');'
+	        );
         }
 
 		return $final;
@@ -933,7 +987,12 @@
         $final .= 'var sintaskGFV'.$tzer.' = "'.$vars.'";';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
-        $final .= 'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');';
+
+        $final .= tryCatchTemplate(
+        	"SinTaskFW Javascript SPA Error", 
+        	'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');'
+        );
+
         $final .= getScriptAgain();
 
 		return $final;
@@ -954,11 +1013,20 @@
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
         
         if($content == "header") {
-        	$final .= 'sjqNoConflict("#headerStayContentSinTask").html(sintaskGFV'.$tzer.');';
+        	$final .= tryCatchTemplate(
+	        	"SinTaskFW Javascript SPA Stay-Header Error", 
+	        	'sjqNoConflict("#headerStayContentSinTask").html(sintaskGFV'.$tzer.');'
+	        );
         } else if($content == "footer") {
-        	$final .= 'sjqNoConflict("#footerStayContentSinTask").html(sintaskGFV'.$tzer.');';
+        	$final .= tryCatchTemplate(
+	        	"SinTaskFW Javascript SPA Stay-Footer Error", 
+	        	'sjqNoConflict("#footerStayContentSinTask").html(sintaskGFV'.$tzer.');'
+	        );
       	} else if($content == "content") {
-        	$final .= 'sjqNoConflict("#stayContentSinTask").html(sintaskGFV'.$tzer.');';
+      		$final .= tryCatchTemplate(
+	        	"SinTaskFW Javascript SPA Stay-Content Error", 
+	        	'sjqNoConflict("#stayContentSinTask").html(sintaskGFV'.$tzer.');'
+	        );
         }
 
 		return $final;

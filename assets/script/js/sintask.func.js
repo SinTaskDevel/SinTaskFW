@@ -122,12 +122,14 @@ stringCounter = function(input) {
 /**
  * countEnter = Count enter contain from input
  */
-countEnter = function(input = '') {
+countEnter = function(input) {
+    var input = input || '';
     //return input.replace(/\r\n/g, '').length;
     return input.split(/<br>/g).length;
     /*Return 0 for false, return >0 true*/
 }
-publicFunction = function(ouput = 'default') {
+publicFunction = function(ouput) {
+    var ouput = ouput || 'default';
     return ouput;
 }
 /*_JS_TIMESTAMP_LOCALTIME_&_SERVERTIME_(DEVICE)_*/
@@ -355,7 +357,11 @@ strReplaceJs = function(search, replace, input) {
 
 /*_NUMER_FORMAT_PHP_EQUIVALEN_*/
 /* BUG */
-numberFormatJs = function(input, tofixed = 2, separator = ",", separatorTwo = ".") {
+numberFormatJs = function(input, tofixed, separator, separatorTwo) {
+    var tofixed = tofixed || 2;
+    var separator = separator || ",";
+    var separatorTwo = separatorTwo || ".";
+
     input = parseFloat(input).toFixed(tofixed);
 	input = input.toString();
 	var nstr = input.split(".");
