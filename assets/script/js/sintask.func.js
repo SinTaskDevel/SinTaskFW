@@ -250,8 +250,8 @@ sCached = function() {
     var it          = 0;
 
     sessionStorage[prefix] = "";
-    
-    for(it = 0; it < sAgainLen; it++) {
+
+    function getTheScript(it) {
         var srcNow  = sAgain.eq(it).attr("src");
 
         sjqNoConflict.ajax({
@@ -261,12 +261,19 @@ sCached = function() {
             url: srcNow,
             success: function (data) {
                 sessionStorage[prefix] += data;
+                
+                it = it+1;
+                if(it < sAgainLen) {
+                    getTheScript(it);
+                }
             },
             error: function(xhr, textStatus, errorThrown) {
                 /*NOTHING*/
             }
         });
     }
+
+    getTheScript(it);
 }
 /**
  * displayCountArrayContent = Return array how many same value on array().
