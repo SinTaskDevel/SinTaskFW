@@ -17,10 +17,26 @@
 	 * --
 	 */
 
-	/* HEADER CSS & JS */
+	/**
+	 * 	Terbagi menjadi 2 (Khusus JS) :
+	 * 		- Normal
+	 * 		- One-time Load
+	 *
+	 * 	1. Normal
+	 *		Akan di load ulang saat halaman SPA dijalankan, atau ada interaksi- 
+	 *		perpindahan halaman SPA.
+	 *
+	 *	2. One-time Load
+	 *		Hanya di load sekali saat awal halaman dibuka,
+	 *		selanjutnya (saat perpindahan SPA) tidak akan ada load lagi.
+	 *
+	 *	!! PERHATIAN !!
+	 *		Jenis 'One-time Load' akan lebih dulu dimuat sebelum 'Normal'
+	 */
+
 	if($__LOGIN_STATUS__ == true) {
 		/* Jika anda Login */
-
+		/* HEADER CSS & JS (Normal) */
 		$__MY_CSS_HEAD__ = [
 			"myassets/css/my.css",
 			"",
@@ -29,18 +45,29 @@
 			"",
 			"",
 		];
-		/* FOOTER CSS & JS */
+		/* FOOTER CSS & JS (Normal) */
 		$__MY_CSS_FOOT__ = [
 			"",
 			"",
 		];
 		$__MY_JS_FOOT__ = [
 			"myassets/js/my.js",
+			"",
+		];
+
+		/* HEADER CSS & JS (One-time Load) */
+		$__MY_JS_HEAD_OTL__ = [
+			"",
+			"",
+		];
+		/* FOOTER CSS & JS (One-time Load) */
+		$__MY_JS_FOOT_OTL__ = [
+			"",
 			"",
 		];
 	} else {
 		/* Jika anda tidak Login */
-
+		/* HEADER CSS & JS (Normal) */
 		$__MY_CSS_HEAD__ = [
 			"myassets/css/my.css",
 			"",
@@ -49,13 +76,24 @@
 			"",
 			"",
 		];
-		/* FOOTER CSS & JS */
+		/* FOOTER CSS & JS (Normal) */
 		$__MY_CSS_FOOT__ = [
 			"",
 			"",
 		];
 		$__MY_JS_FOOT__ = [
 			"myassets/js/my.js",
+			"",
+		];
+
+		/* HEADER CSS & JS (One-time Load) */
+		$__MY_JS_HEAD_OTL__ = [
+			"",
+			"",
+		];
+		/* FOOTER CSS & JS (One-time Load) */
+		$__MY_JS_FOOT_OTL__ = [
+			"",
 			"",
 		];
 	}
@@ -65,7 +103,7 @@
 	 * --
 	 */
 
-	/* EXTERNAL URL LINK HEADER CSS & JS */
+	/* EXTERNAL URL LINK HEADER CSS & JS (Normal) */
 	$__MY_EXT_CSS_HEAD__ = [
 		"",
 		"",
@@ -74,7 +112,7 @@
 		"",
 		"",
 	];
-	/* EXTERNAL URL LINK FOOTER CSS & JS */
+	/* EXTERNAL URL LINK FOOTER CSS & JS (Normal) */
 	$__MY_EXT_CSS_FOOT__ = [
 		"",
 		"",

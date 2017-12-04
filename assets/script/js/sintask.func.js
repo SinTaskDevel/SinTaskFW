@@ -244,15 +244,19 @@ saveSintCookiesAdv = function(sname, svalue, expiresDays, domain) {
 /** Bagian penting SinTaskFW untuk caching
  */
 sCached = function() {
-    var sAgain      = sjqNoConflict("script[s-again]");
+    var sAgain      = sjqNoConflict("fwscript[s-again]");
     var sAgainLen   = sAgain.length;
+
+    var otl         = sjqNoConflict("fwscript[otl]");
+    var otlLen      = otl.length;
+
     var prefix      = "sCachedSinTaskFW";
     var it          = 0;
 
     sessionStorage[prefix] = "";
 
-    function getTheScript(it) {
-        var srcNow  = sAgain.eq(it).attr("src");
+    function getTheScriptOTL(it) {
+        var srcNow  = otl.eq(it).attr("src");
 
         sjqNoConflict.ajax({
             type: "GET",
@@ -260,11 +264,37 @@ sCached = function() {
             dataType: "script",
             url: srcNow,
             success: function (data) {
+                it = it+1;
+                if(it < otlLen) {
+                    getTheScriptOTL(it);
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                console.log("%cError on get ("+srcNow+")", "color: red;");
+                console.log("%c"+errorThrown, "color: red;");
+            }
+        });
+    }
+
+    function getTheScript(it) {
+        var srcNow  = sAgain.eq(it).attr("src");
+
+        sjqNoConflict.ajax({
+            type: "GET",
+            cache: true,
+            dataType: "text",
+            url: srcNow,
+            success: function (data) {
                 sessionStorage[prefix] += data;
-                
+
                 it = it+1;
                 if(it < sAgainLen) {
                     getTheScript(it);
+                }
+
+                if(it == sAgainLen) {
+                    it = 0;
+                    getTheScriptOTL(it);
                 }
             },
             error: function(xhr, textStatus, errorThrown) {

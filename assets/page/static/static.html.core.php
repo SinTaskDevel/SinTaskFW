@@ -81,7 +81,15 @@
                 foreach($__MY_JS_HEAD__ as $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
                         $value = $__BASE_URL__."/".$value;
-                        ?><script s-again type="text/javascript" src="<?php echo $value;?>"></script><?php
+                        ?><fwscript s-again src="<?php echo $value;?>"></fwscript><?php
+                    }
+                }
+            }
+            if(count($__MY_JS_HEAD_OTL__) > 0) {
+                foreach($__MY_JS_HEAD_OTL__ as $value) {
+                    if($value != null && $value != "" && !ctype_space($value)) {
+                        $value = $__BASE_URL__."/".$value;
+                        ?><fwscript otl src="<?php echo $value;?>"></fwscript><?php
                     }
                 }
             }
@@ -97,7 +105,7 @@
             if(count($__MY_EXT_JS_HEAD__) > 0) {
                 foreach($__MY_EXT_JS_HEAD__ as $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
-                        ?><script s-again type="text/javascript" src="<?php echo $value;?>"></script><?php
+                        ?><fwscript s-again src="<?php echo $value;?>"></fwscript><?php
                     }
                 }
             }
@@ -403,7 +411,7 @@
 
             for($autoJsI = 2; $autoJsI < $count_auto_js; $autoJsI++) {
                 $value = $base_url_auto_js.$auto_js[$autoJsI];                   
-                ?><script s-again type="text/javascript" src="<?php echo $value;?>"></script><?php
+                ?><fwscript s-again src="<?php echo $value;?>"></fwscript><?php
             }
 
             /* CUSTOM JS & CSS */
@@ -419,10 +427,19 @@
                 foreach($__MY_JS_FOOT__ as $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
                         $value = $__BASE_URL__."/".$value;
-                        ?><script s-again type="text/javascript" src="<?php echo $value;?>"></script><?php
+                        ?><fwscript s-again src="<?php echo $value;?>"></fwscript><?php
                     }
                 }
             }
+            if(count($__MY_JS_FOOT_OTL__) > 0) {
+                foreach($__MY_JS_FOOT_OTL__ as $value) {
+                    if($value != null && $value != "" && !ctype_space($value)) {
+                        $value = $__BASE_URL__."/".$value;
+                        ?><fwscript otl src="<?php echo $value;?>"></fwscript><?php
+                    }
+                }
+            }
+
             /* CUSTOM EXT URL LINK JS & CSS */
             if(count($__MY_EXT_CSS_FOOT__) > 0) {
                 foreach($__MY_EXT_CSS_FOOT__ as $value) {
@@ -434,7 +451,7 @@
             if(count($__MY_EXT_JS_FOOT__) > 0) {
                 foreach($__MY_EXT_JS_FOOT__ as $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
-                        ?><script s-again type="text/javascript" src="<?php echo $value;?>"></script><?php
+                        ?><fwscript s-again src="<?php echo $value;?>"></fwscript><?php
                     }
                 }
             }
