@@ -941,12 +941,12 @@
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
         
+        $final .= getScriptAgain();
+        
         $final .= tryCatchTemplate(
         	"SinTaskFW Javascript SPA Error - AES", 
         	'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');'
         );
-
-        $final .= getScriptAgain();
 
 		return $final;
 	}
@@ -1008,12 +1008,12 @@
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
 
+        $final .= getScriptAgain();
+
         $final .= tryCatchTemplate(
         	"SinTaskFW Javascript SPA Error", 
         	'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');'
         );
-
-        $final .= getScriptAgain();
 
 		return $final;
 	}
