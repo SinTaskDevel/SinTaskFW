@@ -19,108 +19,86 @@
 
 	/**
 	 * 	Terbagi menjadi 2 (Khusus JS) :
+	 *		- Load-Again
 	 * 		- Normal
-	 * 		- One-time Load
 	 *
-	 * 	1. Normal
+	 * 	1. Load-Again
 	 *		Akan di load ulang saat halaman SPA dijalankan, atau ada interaksi- 
 	 *		perpindahan halaman SPA.
 	 *
-	 *	2. One-time Load
+	 *	2. Normal
 	 *		Hanya di load sekali saat awal halaman dibuka,
 	 *		selanjutnya (saat perpindahan SPA) tidak akan ada load lagi.
 	 *
 	 *	!! PERHATIAN !!
-	 *		Jenis 'One-time Load' akan lebih dulu dimuat sebelum 'Normal'
+	 *		Jenis 'Normal' akan lebih dulu dimuat sebelum 'Load-Again'
 	 */
 
 	if($__LOGIN_STATUS__ == true) {
-		/* Jika anda Login */
+		/* --- SEDANG LOGIN --- */
+
 		/* HEADER CSS & JS (Normal) */
 		$__MY_CSS_HEAD__ = [
-			"myassets/css/my.css",
-			"",
+			"internal"		=> "myassets/css/my.css",
+			"external"		=> "",
 		];
 		$__MY_JS_HEAD__ = [
-			"",
-			"",
+			"internal"		=> "",
+			"external"		=> "",
 		];
 		/* FOOTER CSS & JS (Normal) */
 		$__MY_CSS_FOOT__ = [
-			"",
-			"",
+			"internal"		=> "",
+			"external"		=> "",
 		];
 		$__MY_JS_FOOT__ = [
-			"myassets/js/my.js",
-			"",
+			"internal"		=> "myassets/js/my.js",
+			"external"		=> "",
 		];
 
-		/* HEADER CSS & JS (One-time Load) */
-		$__MY_JS_HEAD_OTL__ = [
-			"",
-			"",
+		/* HEADER JS (Load-Again) */
+		$__MY_AGAIN_JS_HEAD__ = [
+			"internal"		=> "",
+			"external"		=> "",
 		];
-		/* FOOTER CSS & JS (One-time Load) */
-		$__MY_JS_FOOT_OTL__ = [
-			"",
-			"",
+		/* FOOTER JS (Load-Again) */
+		$__MY_AGAIN_JS_FOOT__ = [
+			"internal"		=> "",
+			"external"		=> "",
 		];
 	} else {
-		/* Jika anda tidak Login */
+		/* --- TIDAK LOGIN --- */
+
 		/* HEADER CSS & JS (Normal) */
 		$__MY_CSS_HEAD__ = [
-			"myassets/css/my.css",
-			"",
+			"internal"		=> "myassets/css/my.css",
+			"external"		=> "",
 		];
 		$__MY_JS_HEAD__ = [
-			"",
-			"",
+			"internal"		=> "",
+			"external"		=> "",
 		];
 		/* FOOTER CSS & JS (Normal) */
 		$__MY_CSS_FOOT__ = [
-			"",
-			"",
+			"internal"		=> "",
+			"external"		=> "",
 		];
 		$__MY_JS_FOOT__ = [
-			"myassets/js/my.js",
-			"",
+			"internal"		=> "myassets/js/my.js",
+			"external"		=> "",
 		];
 
-		/* HEADER CSS & JS (One-time Load) */
-		$__MY_JS_HEAD_OTL__ = [
-			"",
-			"",
+		/* HEADER JS (Load-Again) */
+		$__MY_AGAIN_JS_HEAD__ = [
+			"internal"		=> "myassets/js/my-again-head.js",
+			"external"		=> "",
 		];
-		/* FOOTER CSS & JS (One-time Load) */
-		$__MY_JS_FOOT_OTL__ = [
-			"",
-			"",
+		/* FOOTER JS (Load-Again) */
+		$__MY_AGAIN_JS_FOOT__ = [
+			"internal"		=> "myassets/js/my-again-foot.js",
+			"external"		=> "",
 		];
 	}
-
-	/* JIKA CDN/EXTERNAL LINK
-	 * Isi dengan CDN/EXTERNAL Link anda
-	 * --
-	 */
-
-	/* EXTERNAL URL LINK HEADER CSS & JS (Normal) */
-	$__MY_EXT_CSS_HEAD__ = [
-		"",
-		"",
-	];
-	$__MY_EXT_JS_HEAD__ = [
-		"",
-		"",
-	];
-	/* EXTERNAL URL LINK FOOTER CSS & JS (Normal) */
-	$__MY_EXT_CSS_FOOT__ = [
-		"",
-		"",
-	];
-	$__MY_EXT_JS_FOOT__ = [
-		"",
-		"",
-	];
 
 	/* ICON FAVICON WEB ISI DENGAN FULL URL LINK ANDA */
 	$__IMAGE_FAV__ = "";

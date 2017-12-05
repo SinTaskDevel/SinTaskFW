@@ -244,40 +244,23 @@ saveSintCookiesAdv = function(sname, svalue, expiresDays, domain) {
 /** Bagian penting SinTaskFW untuk caching
  */
 sCached = function() {
-    var sAgain      = sjqNoConflict("fwscript[s-again]");
-    var sAgainLen   = sAgain.length;
+    var sAgainHead      = sjqNoConflict("again-script-head");
+    var sAgainHeadLen   = sAgainHead.length;
 
-    var otl         = sjqNoConflict("fwscript[otl]");
-    var otlLen      = otl.length;
+    var sAgainFoot      = sjqNoConflict("again-script-foot");
+    var sAgainFootLen   = sAgainFoot.length;
 
-    var prefix      = "sCachedSinTaskFW";
+    var prefixHead  = "sCachedSinTaskFWhead";
+    var prefixFoot  = "sCachedSinTaskFWfoot";
+    
     var it          = 0;
+    var jt          = 0;
 
-    sessionStorage[prefix] = "";
+    sessionStorage[prefixHead] = "";
+    sessionStorage[prefixFoot] = "";
 
-    function getTheScriptOTL(it) {
-        var srcNow  = otl.eq(it).attr("src");
-
-        sjqNoConflict.ajax({
-            type: "GET",
-            cache: true,
-            dataType: "script",
-            url: srcNow,
-            success: function (data) {
-                it = it+1;
-                if(it < otlLen) {
-                    getTheScriptOTL(it);
-                }
-            },
-            error: function(xhr, textStatus, errorThrown) {
-                console.log("%cError on get ("+srcNow+")", "color: red;");
-                console.log("%c"+errorThrown, "color: red;");
-            }
-        });
-    }
-
-    function getTheScript(it) {
-        var srcNow  = sAgain.eq(it).attr("src");
+    function getTheScriptHead(it) {
+        var srcNow  = sAgainHead.eq(it).attr("src");
 
         sjqNoConflict.ajax({
             type: "GET",
@@ -285,16 +268,32 @@ sCached = function() {
             dataType: "text",
             url: srcNow,
             success: function (data) {
-                sessionStorage[prefix] += data;
+                sessionStorage[prefixHead] += data;
 
                 it = it+1;
-                if(it < sAgainLen) {
-                    getTheScript(it);
+                if(it < sAgainHeadLen) {
+                    getTheScriptHead(it);
                 }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                /*NOTHING*/
+            }
+        });
+    }
+    function getTheScriptFoot(jt) {
+        var srcNow  = sAgainFoot.eq(jt).attr("src");
 
-                if(it == sAgainLen) {
-                    it = 0;
-                    getTheScriptOTL(it);
+        sjqNoConflict.ajax({
+            type: "GET",
+            cache: true,
+            dataType: "text",
+            url: srcNow,
+            success: function (data) {
+                sessionStorage[prefixFoot] += data;
+
+                jt = jt+1;
+                if(jt < sAgainFootLen) {
+                    getTheScriptFoot(jt);
                 }
             },
             error: function(xhr, textStatus, errorThrown) {
@@ -303,7 +302,8 @@ sCached = function() {
         });
     }
 
-    getTheScript(it);
+    getTheScriptHead(it);
+    getTheScriptFoot(jt);
 }
 /**
  * displayCountArrayContent = Return array how many same value on array().

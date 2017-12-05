@@ -68,44 +68,43 @@
                 ?><link rel="stylesheet" type="text/css" href="<?php echo $value;?>"/><?php
             }
 
-            /* CUSTOM JS & CSS */
+            /* CUSTOM INTERNAL JS & CSS */
             if(count($__MY_CSS_HEAD__) > 0) {
-                foreach($__MY_CSS_HEAD__ as $value) {
-                    if($value != null && $value != "" && !ctype_space($value)) {  
-                        $value = $__BASE_URL__."/".$value;                   
+                foreach($__MY_CSS_HEAD__ as $key => $value) {
+                    if($value != null && $value != "" && !ctype_space($value)) {
+                        $key = strtolower($key);
+                        if($key == "internal") {
+                            $value = $__BASE_URL__."/".$value;                   
+                        } else if($key == "external") {
+                            $value = $value;
+                        }
                         ?><link rel="stylesheet" type="text/css" href="<?php echo $value;?>"/><?php
                     }
                 }
             }
             if(count($__MY_JS_HEAD__) > 0) {
-                foreach($__MY_JS_HEAD__ as $value) {
+                foreach($__MY_JS_HEAD__ as $key => $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
-                        $value = $__BASE_URL__."/".$value;
-                        ?><fwscript s-again src="<?php echo $value;?>"></fwscript><?php
+                        $key = strtolower($key);
+                        if($key == "internal") {
+                            $value = $__BASE_URL__."/".$value;                   
+                        } else if($key == "external") {
+                            $value = $value;
+                        }
+                        ?><script type="text/javascript" src="<?php echo $value;?>"></script><?php
                     }
                 }
             }
-            if(count($__MY_JS_HEAD_OTL__) > 0) {
-                foreach($__MY_JS_HEAD_OTL__ as $value) {
+            if(count($__MY_AGAIN_JS_HEAD__) > 0) {
+                foreach($__MY_AGAIN_JS_HEAD__ as $key => $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
-                        $value = $__BASE_URL__."/".$value;
-                        ?><fwscript otl src="<?php echo $value;?>"></fwscript><?php
-                    }
-                }
-            }
-
-            /* CUSTOM EXTERNAL URL LINK JS & CSS */
-            if(count($__MY_EXT_CSS_HEAD__) > 0) {
-                foreach($__MY_EXT_CSS_HEAD__ as $value) {
-                    if($value != null && $value != "" && !ctype_space($value)) {                       
-                        ?><link rel="stylesheet" type="text/css" href="<?php echo $value;?>"></link><?php
-                    }
-                }
-            }
-            if(count($__MY_EXT_JS_HEAD__) > 0) {
-                foreach($__MY_EXT_JS_HEAD__ as $value) {
-                    if($value != null && $value != "" && !ctype_space($value)) {
-                        ?><fwscript s-again src="<?php echo $value;?>"></fwscript><?php
+                        $key = strtolower($key);
+                        if($key == "internal") {
+                            $value = $__BASE_URL__."/".$value;                   
+                        } else if($key == "external") {
+                            $value = $value;
+                        }
+                        ?><again-script-head type="text/javascript" src="<?php echo $value;?>"></again-script-head><?php
                     }
                 }
             }
@@ -411,47 +410,46 @@
 
             for($autoJsI = 2; $autoJsI < $count_auto_js; $autoJsI++) {
                 $value = $base_url_auto_js.$auto_js[$autoJsI];                   
-                ?><fwscript s-again src="<?php echo $value;?>"></fwscript><?php
+                ?><script type="text/javascript" src="<?php echo $value;?>"></script><?php
             }
 
             /* CUSTOM JS & CSS */
             if(count($__MY_CSS_FOOT__) > 0) {
-                foreach($__MY_CSS_FOOT__ as $value) {
+                foreach($__MY_CSS_FOOT__ as $key => $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
-                        $value = $__BASE_URL__."/".$value;
+                        $key = strtolower($key);
+                        if($key == "internal") {
+                            $value = $__BASE_URL__."/".$value;                   
+                        } else if($key == "external") {
+                            $value = $value;
+                        }
                         ?><link rel="stylesheet" type="text/css" href="<?php echo $value;?>"/><?php
                     }
                 }
             }
             if(count($__MY_JS_FOOT__) > 0) {
-                foreach($__MY_JS_FOOT__ as $value) {
+                foreach($__MY_JS_FOOT__ as $key => $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
-                        $value = $__BASE_URL__."/".$value;
-                        ?><fwscript s-again src="<?php echo $value;?>"></fwscript><?php
+                        $key = strtolower($key);
+                        if($key == "internal") {
+                            $value = $__BASE_URL__."/".$value;                   
+                        } else if($key == "external") {
+                            $value = $value;
+                        }
+                        ?><script type="text/javascript" src="<?php echo $value;?>"></script><?php
                     }
                 }
             }
-            if(count($__MY_JS_FOOT_OTL__) > 0) {
-                foreach($__MY_JS_FOOT_OTL__ as $value) {
+            if(count($__MY_AGAIN_JS_FOOT__) > 0) {
+                foreach($__MY_AGAIN_JS_FOOT__ as $key => $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
-                        $value = $__BASE_URL__."/".$value;
-                        ?><fwscript otl src="<?php echo $value;?>"></fwscript><?php
-                    }
-                }
-            }
-
-            /* CUSTOM EXT URL LINK JS & CSS */
-            if(count($__MY_EXT_CSS_FOOT__) > 0) {
-                foreach($__MY_EXT_CSS_FOOT__ as $value) {
-                    if($value != null && $value != "" && !ctype_space($value)) {
-                        ?><link rel="stylesheet" type="text/css" href="<?php echo $value;?>"/><?php
-                    }
-                }
-            }
-            if(count($__MY_EXT_JS_FOOT__) > 0) {
-                foreach($__MY_EXT_JS_FOOT__ as $value) {
-                    if($value != null && $value != "" && !ctype_space($value)) {
-                        ?><fwscript s-again src="<?php echo $value;?>"></fwscript><?php
+                        $key = strtolower($key);
+                        if($key == "internal") {
+                            $value = $__BASE_URL__."/".$value;                   
+                        } else if($key == "external") {
+                            $value = $value;
+                        }
+                        ?><again-script-foot type="text/javascript" src="<?php echo $value;?>"></again-script-foot><?php
                     }
                 }
             }
@@ -483,32 +481,27 @@
 
             /* CUSTOM JS & CSS */
             if(count($__MY_CSS_FOOT__) > 0) {
-                foreach($__MY_CSS_FOOT__ as $value) {
+                foreach($__MY_CSS_FOOT__ as $key => $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
-                        $value = $__BASE_URL__."/".$value;
+                        $key = strtolower($key);
+                        if($key == "internal") {
+                            $value = $__BASE_URL__."/".$value;                   
+                        } else if($key == "external") {
+                            $value = $value;
+                        }
                         ?><link rel="stylesheet" type="text/css" href="<?php echo $value;?>"/><?php
                     }
                 }
             }
             if(count($__MY_JS_FOOT__) > 0) {
-                foreach($__MY_JS_FOOT__ as $value) {
+                foreach($__MY_JS_FOOT__ as $key => $value) {
                     if($value != null && $value != "" && !ctype_space($value)) {
-                        $value = $__BASE_URL__."/".$value;
-                        ?><script type="text/javascript" src="<?php echo $value;?>"></script><?php
-                    }
-                }
-            }
-            /* CUSTOM EXT URL LINK JS & CSS */
-            if(count($__MY_EXT_CSS_FOOT__) > 0) {
-                foreach($__MY_EXT_CSS_FOOT__ as $value) {
-                    if($value != null && $value != "" && !ctype_space($value)) {
-                        ?><link rel="stylesheet" type="text/css" href="<?php echo $value;?>"/><?php
-                    }
-                }
-            }
-            if(count($__MY_EXT_JS_FOOT__) > 0) {
-                foreach($__MY_EXT_JS_FOOT__ as $value) {
-                    if($value != null && $value != "" && !ctype_space($value)) {
+                        $key = strtolower($key);
+                        if($key == "internal") {
+                            $value = $__BASE_URL__."/".$value;                   
+                        } else if($key == "external") {
+                            $value = $value;
+                        }
                         ?><script type="text/javascript" src="<?php echo $value;?>"></script><?php
                     }
                 }

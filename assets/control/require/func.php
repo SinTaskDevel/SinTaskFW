@@ -902,18 +902,27 @@
 		return $final;
 	}
 	/* Ambil SCRIPT (JS) lagi */
-	function getScriptAgain() {
+	function getScriptAgain($type = null) {
 		$tzer = $_SESSION["globalSecureToken"];
 
 		/* $output = 'eval(sessionStorage.sCachedSinTaskFW);'; */
 		/* Metode lama menggunakan eval() JS */
 
-		$output = 'var sCachedSFW'.$tzer.' = new Function(sessionStorage.sCachedSinTaskFW);';
+		if($type == "head") {
+			$output = 'var sCachedSFWhead'.$tzer.' = new Function(sessionStorage.sCachedSinTaskFWhead);';
 
-		$output .= tryCatchTemplate(
-        	"SinTaskFW Javascript Error", 
-        	'sCachedSFW'.$tzer.'();'
-        );
+			$output .= tryCatchTemplate(
+	        	"SinTaskFW Javascript Error - HEAD SCRIPT AGAIN", 
+	        	'sCachedSFWhead'.$tzer.'();'
+	        );
+		} else if($type == "foot") {
+			$output = 'var sCachedSFWfoot'.$tzer.' = new Function(sessionStorage.sCachedSinTaskFWfoot);';
+
+			$output .= tryCatchTemplate(
+	        	"SinTaskFW Javascript Error - FOOT SCRIPT AGAIN", 
+	        	'sCachedSFWfoot'.$tzer.'();'
+	        );
+		}
 
 		return $output;
 	}
@@ -941,12 +950,14 @@
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
         
-        $final .= getScriptAgain();
+        $final .= getScriptAgain("head");
         
         $final .= tryCatchTemplate(
         	"SinTaskFW Javascript SPA Error - AES", 
         	'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');'
         );
+
+        $final .= getScriptAgain("foot");
 
 		return $final;
 	}
@@ -1008,12 +1019,14 @@
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
 
-        $final .= getScriptAgain();
+        $final .= getScriptAgain("head");
 
         $final .= tryCatchTemplate(
         	"SinTaskFW Javascript SPA Error", 
         	'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');'
         );
+
+        $final .= getScriptAgain("foot");
 
 		return $final;
 	}
