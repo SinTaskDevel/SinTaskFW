@@ -902,11 +902,27 @@
 		return $final;
 	}
 	/* Ambil SCRIPT (JS) lagi */
+	/* Code dibawah menggunakan eval(); */
 	function getScriptAgain($type = null) {
 		$tzer = $_SESSION["globalSecureToken"];
 
-		/* $output = 'eval(sessionStorage.sCachedSinTaskFW);'; */
-		/* Metode lama menggunakan eval() JS */
+		if($type == "head") {
+			$output .= tryCatchTemplate(
+	        	"SinTaskFW Javascript Error - HEAD SCRIPT AGAIN", 
+	        	'eval(sessionStorage.sCachedSinTaskFWhead);'
+	        );
+		} else if($type == "foot") {
+			$output .= tryCatchTemplate(
+	        	"SinTaskFW Javascript Error - FOOT SCRIPT AGAIN", 
+	        	'eval(sessionStorage.sCachedSinTaskFWfoot);'
+	        );
+		}
+
+		return $output;
+	}
+	/* Code dibawah menggunakan new Function(); */
+	function getScriptAgainOther($type = null) {
+		$tzer = $_SESSION["globalSecureToken"];
 
 		if($type == "head") {
 			$output = 'var sCachedSFWhead'.$tzer.' = new Function(sessionStorage.sCachedSinTaskFWhead);';
