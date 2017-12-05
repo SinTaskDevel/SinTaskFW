@@ -70,7 +70,7 @@
 
             /* CUSTOM INTERNAL JS & CSS */
             if(count($__MY_CSS_HEAD__) > 0) {
-                foreach($__MY_CSS_HEAD__ as $key => $value) {
+                foreach($__MY_CSS_HEAD__ as $value => $key) {
                     if($value != null && $value != "" && !ctype_space($value)) {
                         $key = strtolower($key);
                         if($key == "internal") {
@@ -83,7 +83,7 @@
                 }
             }
             if(count($__MY_JS_HEAD__) > 0) {
-                foreach($__MY_JS_HEAD__ as $key => $value) {
+                foreach($__MY_JS_HEAD__ as $value => $key) {
                     if($value != null && $value != "" && !ctype_space($value)) {
                         $key = strtolower($key);
                         if($key == "internal") {
@@ -96,7 +96,7 @@
                 }
             }
             if(count($__MY_AGAIN_JS_HEAD__) > 0) {
-                foreach($__MY_AGAIN_JS_HEAD__ as $key => $value) {
+                foreach($__MY_AGAIN_JS_HEAD__ as $value => $key) {
                     if($value != null && $value != "" && !ctype_space($value)) {
                         $key = strtolower($key);
                         if($key == "internal") {
@@ -415,7 +415,7 @@
 
             /* CUSTOM JS & CSS */
             if(count($__MY_CSS_FOOT__) > 0) {
-                foreach($__MY_CSS_FOOT__ as $key => $value) {
+                foreach($__MY_CSS_FOOT__ as $value => $key) {
                     if($value != null && $value != "" && !ctype_space($value)) {
                         $key = strtolower($key);
                         if($key == "internal") {
@@ -428,7 +428,7 @@
                 }
             }
             if(count($__MY_JS_FOOT__) > 0) {
-                foreach($__MY_JS_FOOT__ as $key => $value) {
+                foreach($__MY_JS_FOOT__ as $value => $key) {
                     if($value != null && $value != "" && !ctype_space($value)) {
                         $key = strtolower($key);
                         if($key == "internal") {
@@ -441,7 +441,7 @@
                 }
             }
             if(count($__MY_AGAIN_JS_FOOT__) > 0) {
-                foreach($__MY_AGAIN_JS_FOOT__ as $key => $value) {
+                foreach($__MY_AGAIN_JS_FOOT__ as $value => $key) {
                     if($value != null && $value != "" && !ctype_space($value)) {
                         $key = strtolower($key);
                         if($key == "internal") {
@@ -481,7 +481,7 @@
 
             /* CUSTOM JS & CSS */
             if(count($__MY_CSS_FOOT__) > 0) {
-                foreach($__MY_CSS_FOOT__ as $key => $value) {
+                foreach($__MY_CSS_FOOT__ as $value => $key) {
                     if($value != null && $value != "" && !ctype_space($value)) {
                         $key = strtolower($key);
                         if($key == "internal") {
@@ -494,7 +494,7 @@
                 }
             }
             if(count($__MY_JS_FOOT__) > 0) {
-                foreach($__MY_JS_FOOT__ as $key => $value) {
+                foreach($__MY_JS_FOOT__ as $value => $key) {
                     if($value != null && $value != "" && !ctype_space($value)) {
                         $key = strtolower($key);
                         if($key == "internal") {

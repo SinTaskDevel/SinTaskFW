@@ -39,64 +39,64 @@
 
 		/* HEADER CSS & JS (Normal) */
 		$__MY_CSS_HEAD__ = [
-			"internal"		=> "myassets/css/my.css",
-			"external"		=> "",
+			"myassets/css/my.css"	=> "internal",
+			""						=> "external",
 		];
 		$__MY_JS_HEAD__ = [
-			"internal"		=> "",
-			"external"		=> "",
+			""						=> "internal",
+			""						=> "external",
 		];
 		/* FOOTER CSS & JS (Normal) */
 		$__MY_CSS_FOOT__ = [
-			"internal"		=> "",
-			"external"		=> "",
+			""						=> "internal",
+			""						=> "external",
 		];
 		$__MY_JS_FOOT__ = [
-			"internal"		=> "myassets/js/my.js",
-			"external"		=> "",
+			"myassets/js/my.js"		=> "internal",
+			""						=> "external",
 		];
 
 		/* HEADER JS (Load-Again) */
 		$__MY_AGAIN_JS_HEAD__ = [
-			"internal"		=> "",
-			"external"		=> "",
+			""						=> "internal",
+			""						=> "external",
 		];
 		/* FOOTER JS (Load-Again) */
 		$__MY_AGAIN_JS_FOOT__ = [
-			"internal"		=> "",
-			"external"		=> "",
+			""						=> "internal",
+			""						=> "external",
 		];
 	} else {
 		/* --- TIDAK LOGIN --- */
 
 		/* HEADER CSS & JS (Normal) */
 		$__MY_CSS_HEAD__ = [
-			"internal"		=> "myassets/css/my.css",
-			"external"		=> "",
+			"myassets/css/my.css"	=> "internal",
+			""						=> "external",
 		];
 		$__MY_JS_HEAD__ = [
-			"internal"		=> "",
-			"external"		=> "",
+			""						=> "internal",
+			""						=> "external",
 		];
 		/* FOOTER CSS & JS (Normal) */
 		$__MY_CSS_FOOT__ = [
-			"internal"		=> "",
-			"external"		=> "",
+			""						=> "internal",
+			""						=> "external",
 		];
 		$__MY_JS_FOOT__ = [
-			"internal"		=> "myassets/js/my.js",
-			"external"		=> "",
+			"myassets/js/my.js"		=> "internal",
+			""						=> "external",
 		];
 
 		/* HEADER JS (Load-Again) */
 		$__MY_AGAIN_JS_HEAD__ = [
-			"internal"		=> "myassets/js/my-again-head.js",
-			"external"		=> "",
+			"myassets/js/my-again-head.js"	=> "internal",
+			""								=> "external",
 		];
 		/* FOOTER JS (Load-Again) */
 		$__MY_AGAIN_JS_FOOT__ = [
-			"internal"		=> "myassets/js/my-again-foot.js",
-			"external"		=> "",
+			"myassets/js/my-again-foot.js"	=> "internal",
+			""								=> "external",
 		];
 	}
 
