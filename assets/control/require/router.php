@@ -177,15 +177,20 @@
 				header("Content-type: text/javascript");
 				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".jssintasktemplate") != $__ZERO__) {
 
-					/* Memuat Control */
-					$controlRender = fileDynamic($__SEGMEN_PURE__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['control'], $thisReqPathLoginPrefix, $thisReqPath, 2, "");
-
 					/* Custom Template */
 					$pathRender = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".jssintasktemplate");
 
+					/* Mengambil akhiran nama file */
+					$explodePath = explode("/", $pathRender);
+					$endPath = end($explodePath);
+
+					$controlRender = $__DOC_ROOT__.$requirePath['control']."/".$endPath;
+
 					/* HTML Rendering */
 					ob_start();
-					include($controlRender);
+					if(file_exists($controlRender)) {
+						include($controlRender);
+					}
 				    include($pathRender);
 				    $varRender = ob_get_contents(); 
 				    ob_end_clean();
@@ -332,24 +337,29 @@
 					/* General Blocker */
 					$generalBlocker = $__DOC_ROOT__.$requirePath['static']."/static.general.blocker.php";
 
-					/* Load Control */
-					$controlState = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['control'], $thisReqPathLoginPrefix, $thisReqPath, 2, "");
-
 					/* [OTHER] Jika halaman adalah General/Normal */
 					$generalState = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['general'], $thisReqPathLoginPrefix, $thisReqPath, 2, "");
 
+					/* Mengambil akhir akhir dari path (nama file) */
 					$explodeGeneralPath = explode("/", $generalState);
 					$endGeneralPath = end($explodeGeneralPath);
+
+					/* Menghilangkan .php untuk keperluan EXPECT_META_LIST dari user */
 					$explodeGeneralPathFileName = explode(".", $endGeneralPath);
 					array_pop($explodeGeneralPathFileName);
 					$expectFileName = implode(".", $explodeGeneralPathFileName);
 
+					/* Mencari apakah file ini termasuk EXPECT_META_LIST */
 					if(in_array($expectFileName, $__HTML_META_GENERAL__["EXPECT_META_LIST"])) {
 						$__HTML_META_GENERAL__["DEFAULT_META"] = false;
 					}
 
+					$controlState = $__DOC_ROOT__.$requirePath['control']."/".$endGeneralPath;
+
 					include($generalBlocker);
-					include($controlState);
+					if(file_exists($controlState)) {
+						include($controlState);
+					}
 
 					if($__HTML_META_GENERAL__["DEFAULT_META"] == true) {
 						$thisCoreGet = "doctype";
