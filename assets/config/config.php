@@ -137,17 +137,29 @@
 				$this->stmt->bindValue($param, $value, $type);
 			}
 			
-			public function exec(){
-				return $this->stmt->execute();
+			public function exec($param = null){
+				if($param == null || is_null($param)) {
+					return $this->stmt->execute();
+				} else {
+					return $this->stmt->execute($param);
+				}
 			}
 
-			public function rSingle(){
-				$this->exec();
+			public function rSingle($param = null){
+				if($param == null || is_null($param)) {
+					$this->exec();
+				} else {
+					$this->exec($param);
+				}
 				return $this->stmt->fetch(PDO::FETCH_ASSOC);
 			}
 			
-			public function rMany(){
-				$this->exec();
+			public function rMany($param = null){
+				if($param == null || is_null($param)) {
+					$this->exec();
+				} else {
+					$this->exec($param);
+				}
 				return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 			}
 			
