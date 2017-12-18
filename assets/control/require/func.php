@@ -696,8 +696,13 @@
 		/* Menghapus postGET & postPOST - karena terakhir di load */
 		unset($_SESSION['postGET']);
 		unset($_SESSION['postPOST']);
-		foreach($_SESSION['postFILES'] as $key => $value) {
-			unlink($_SESSION['postFILES'][$key]['tmp_name']);
+		if(count($_SESSION['postFILES']) > 0) {
+			foreach($_SESSION['postFILES'] as $key => $value) {
+				$thisPostFiles = $_SESSION['postFILES'][$key]['tmp_name'];
+				if(file_exists($thisPostFiles)) {
+					unlink($thisPostFiles);
+				}
+			}
 		}
 		unset($_SESSION['postFILES']);
 	}
