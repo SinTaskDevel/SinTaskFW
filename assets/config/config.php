@@ -188,7 +188,7 @@
 			}
 		}
 		/* DECLARE CLASS */
-		$sdb = new mySDB;
+		$sdb = new mySDB(0);
 		
 		/*
 			DB MYSQLI STYLE
