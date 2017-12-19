@@ -574,10 +574,8 @@ toastTwo = function(message, status, hideIn) {
 /**
  * PopUp SinTaskFW Default
  */
-var __SFW_nowScroll = sjqNoConflict("html").scrollTop();
 popUpOne = function(data) {
     sjqNoConflict("#fadeContentTwo").html("");
-    __SFW_nowScroll = sjqNoConflict("html").scrollTop();
 
     var title           = data.title || "";
     var message         = data.message || "";
@@ -620,10 +618,7 @@ popUpOne = function(data) {
             "sjqNoConflict(\"#footerStayContentSinTask\").css(\"filter\", \"\");"+
             "sjqNoConflict(\"#fadeContentTwo\").html(\"\");"+
             "sjqNoConflict(\"body\").css(\"overflow-y\", \"\");"+
-            "sjqNoConflict(\"body\").css(\"position\", \"\");"+
-            "sjqNoConflict(\"body\").css(\"top\", \"\");"+
-
-            "sjqNoConflict(\"html\").scrollTop(__SFW_nowScroll);"+
+            "sjqNoConflict(\"#popUpFadeInPar\").css(\"overflow-y\", \"\");"+
         "}"+
         "sjqNoConflict('#closePopUpFadeInTwo').on('click', closedPopUp);"+
         outerClickScript+
@@ -654,9 +649,8 @@ popUpOne = function(data) {
         sjqNoConflict("#stayContentSinTask").css("filter", "blur(3px)");
         sjqNoConflict("#footerStayContentSinTask").css("filter", "blur(3px)");
         sjqNoConflict("#fadeContentTwo").html(templatePopUpOne);
-        sjqNoConflict("body").css("overflow-y", "scroll");
-        sjqNoConflict("body").css("position", "fixed");
-        sjqNoConflict("body").css("top", "-"+__SFW_nowScroll+"px");
+        sjqNoConflict("body").css("overflow-y", "hidden");
+        sjqNoConflict("#popUpFadeInPar").css("overflow-y", "scroll");
 
         sjqNoConflict(document).off("click", "#onYesPopUp");
         sjqNoConflict(document).off("click", "#onNoPopUp");
@@ -683,10 +677,7 @@ removePopUp = function() {
     sjqNoConflict("#footerStayContentSinTask").css("filter", "");
     sjqNoConflict("#fadeContentTwo").html("");
     sjqNoConflict("body").css("overflow-y", "");
-    sjqNoConflict("body").css("position", "");
-    sjqNoConflict("body").css("top", "");
-
-    sjqNoConflict("html").scrollTop(__SFW_nowScroll);
+    sjqNoConflict("#popUpFadeInPar").css("overflow-y", "");
 }
 
 /**
