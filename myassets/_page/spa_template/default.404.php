@@ -12,7 +12,7 @@
             </div> 
             <div class="clearBoth"></div> 
             <div class="contentNotFound_1"> 
-                SinTask System is Not Found This Page
+                This page is Not Found 404
                 <br/>
                 <a class="s sintaskInlineBox" href="<?php echo $__BASE_URL__;?>">Back to Home</a>
                 <br/><br/><br/><br/><br/>

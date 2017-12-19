@@ -72,3 +72,20 @@ input[type='submit']:hover {
 ul {
 	margin-left: 20px;
 }
+
+input.toast {
+	padding: 5px 15px;
+	border-radius: 2px;
+	border: 1px solid #555;
+	width: 100%;
+	box-sizing: border-box;
+	margin-bottom: 2px;
+}
+button.toast {
+	border: 2px solid #555;
+	border-radius: 3px;
+	padding: 5px 15px;
+	display: inline-block;
+	margin-right: 5px;
+	margin-bottom: 2px;
+}

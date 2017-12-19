@@ -136,24 +136,23 @@
         if($thisCoreGet == "content") {
             ?>
             <script>
-                var homeUrl 	    = "<?php echo $__BASE_URL__;?>";
-                var thisUrlActual   = "<?php echo $__ACTUAL_URL__;?>";
-                var thisUrl         = "<?php echo pureUrlPageWithGet($__BASE_URL__);?>";
-                var tokenizing 	    = "<?php echo $__TOKENIZING__;?>";
-                var tokenizingUser 	= tokenizing;
-                var pageCache       = [];
-                var utoken          = "<?php echo $__UTOKEN__;?>";
+                var __SFW_homeUrl           = "<?php echo $__BASE_URL__;?>";
+                var __SFW_thisUrlActual     = "<?php echo $__ACTUAL_URL__;?>";
+                var __SFW_thisUrl           = "<?php echo pureUrlPageWithGet($__BASE_URL__);?>";
+                var __SFW_tokenizing        = "<?php echo $__TOKENIZING__;?>";
+                var __SFW_tokenizingUser    = __SFW_tokenizing;
+                var __SFW_utoken            = "<?php echo $__UTOKEN__;?>";
 
-                var runH            = 0;
-                var runP            = 0;
+                var __SFW_runH              = 0;
+                var __SFW_runP              = 0;
 
-                var locVal          = [];
+                var __SFW_locVal            = [];
 
-                locVal.url          = [];
-                locVal.url.home     = "<?php echo $__BASE_URL__;?>";
-                locVal.url.thisis   = "<?php echo pureUrlPage($__BASE_URL__);?>";
+                __SFW_locVal.url            = [];
+                __SFW_locVal.url.home       = "<?php echo $__BASE_URL__;?>";
+                __SFW_locVal.url.thisis     = "<?php echo pureUrlPage($__BASE_URL__);?>";
                 
-                locVal.sitenowww    = "<?php echo SITENOWWW;?>";
+                __SFW_locVal.sitenowww      = "<?php echo SITENOWWW;?>";
             </script>
 
             <?php

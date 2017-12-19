@@ -5,16 +5,16 @@
  * ----------------------------------------
  * SinTask, Inc (c) 2017
  */
-var globalScrollPage = [];
+var __SFW_globalScrollPage = [];
 
 sjqNoConflict(window).on('load', function() {
     sintaskLoaderIframeStop();
 });
 /**
- * expectHiddenObject variable = contain expect hidden element.
+ * __SFW_expectHiddenObject variable = contain expect hidden element.
  * this variable use in function instructBodyObjectSinTask below
  */
-var expectHiddenObject = ['#headerSinTask','#contentParSinTask','#popUpSinTask','#popUpSinTaskTwo','#popUpSinTaskThree','#sideSinTask','.sintaskTooltipInput'];
+var __SFW_expectHiddenObject = ['#headerSinTask','#contentParSinTask','#popUpSinTask','#popUpSinTaskTwo','#popUpSinTaskThree','#sideSinTask','.sintaskTooltipInput'];
 /**
  * sintaskLoaderIframeAgain = Iframe load or browser tab loading re-start.
  */
@@ -41,13 +41,13 @@ sintaskLoaderIframeStop = function() {
     setTimeout(function(){
 		checkCss = sjqNoConflict("style.styleAdd").html();
 		if(typeof checkCss != 'undefined' && checkCss != "" && ctypeSpace(checkCss) != 0) {
-			instructBodyObjectSinTask("show", expectHiddenObject);
+			instructBodyObjectSinTask("show", __SFW_expectHiddenObject);
 
             /*FIXED_THE_SCROLL*/
-            if(typeof globalScrollPage[document.URL] === "undefined") {
+            if(typeof __SFW_globalScrollPage[document.URL] === "undefined") {
                 sjqNoConflict(document).scrollTop(0);
             } else {
-                sjqNoConflict(document).scrollTop(globalScrollPage[document.URL]);
+                sjqNoConflict(document).scrollTop(__SFW_globalScrollPage[document.URL]);
             }
 		} else {
 			sintaskLoaderIframeStop();
@@ -88,77 +88,21 @@ instSinTask = function(input) {
 /**
  * loadAddScript = Load additional <script> (JS) with response from Server
  */
-var afterLoadScript = []; /*VAR_FOR_LINK_ALREADY_LOADED*/
-var funcToRunArr = []; /*FUNC_TO_RUN_ARRAY*/
-var funcParamToRunArr = []; /*FUNC_PARAMETER_TO_RUN_ARRAY*/
-var completeAllLoaded = 0; /*1_IF_COMPLETE_LOAD_ALL_DATA*/
-loadAddScript = function(link, funcToRun, funcParamToRun) {
+loadAddScript = function(link) {
     var link_ = link;
-    if(funcToRun=="normal") {
-        sjqNoConflict.ajax({
-            type: "POST",
-            data: { tokenizing: tokenizingUser },
-            cache: true,
-            dataType: "script",
-            url: link_,
-            success: function (data) {
-                /*NOTHING*/
-            },
-            error: function(xhr, textStatus, errorThrown) {
-                /*NOTHING*/
-            }
-        });
-    } else if(funcToRun=="noRand") {
-        var searchAfterLoadScript = afterLoadScript.indexOf(link_);
-        if(searchAfterLoadScript<0) {
-            afterLoadScript.push(link_);
-            sjqNoConflict.ajax({
-                type: "POST",
-                data: { tokenizing: tokenizingUser },
-                cache: true,
-                dataType: "script",
-                url: link_,
-                success: function (data) {
-                    /*NOTHING*/
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    /*NOTHING*/
-                }
-            });
+    sjqNoConflict.ajax({
+        type: "POST",
+        data: { tokenizing: __SFW_tokenizingUser },
+        cache: true,
+        dataType: "script",
+        url: link_,
+        success: function (data) {
+            /*NOTHING*/
+        },
+        error: function(xhr, textStatus, errorThrown) {
+            /*NOTHING*/
         }
-    } else {
-        if(link_!="null") {
-            var link__ = link_.split("/");
-            var searchAfterLoadScript = afterLoadScript.indexOf(link_);
-            if(searchAfterLoadScript<0 || (link__[4]=="core" && link__[5]=="controller")) {
-                afterLoadScript.push(link_);
-                sjqNoConflict.ajax({
-                    type: "POST",
-                    data: { tokenizing: tokenizingUser },
-                    cache: true,
-                    dataType: "script",
-                    url: link_,
-                    success: function () {
-                        if(link__[4]=="template") {
-                            var funcToRun_ = window[funcToRun];
-                            if (typeof funcToRun_ === "function") funcToRun_.apply(null, funcParamToRun);
-                        }
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        afterLoadScript.pop(link_);
-                    }
-                });
-            } else {
-                if(link__[4]=="template") {
-                    var funcToRun_ = window[funcToRun];
-                    if (typeof funcToRun_ === "function") funcToRun_.apply(null, funcParamToRun);
-                }
-            }
-        } else {
-            var funcToRun_ = window[funcToRun];
-            if (typeof funcToRun_ === "function") funcToRun_.apply(null, funcParamToRun);
-        }
-    }
+    });
     return true;
 }
 /**
@@ -170,7 +114,7 @@ loadAddStyle = function(link, id) {
         if(sjqNoConflict("."+idfinal).length>0) {
             sjqNoConflict.ajax({
                 type: "POST",
-                data: { tokenizing: tokenizingUser },
+                data: { tokenizing: __SFW_tokenizingUser },
                 cache: true,
                 dataType: "html",
                 url: link,
@@ -190,15 +134,15 @@ loadAddStyle = function(link, id) {
     return true;
 }
 /**
- * runH variable is Run Stay SPA Loader, 1 = True, else = False
+ * __SFW_runH variable is Run Stay SPA Loader, 1 = True, else = False
  */
-if(runH!=1) {
+if(__SFW_runH!=1) {
     var turnArray = ["stayheader", "staycontent", "stayfooter"];
     for(var turnIt = 0; turnIt < turnArray.length; turnIt++) {
         var nowTurn = turnArray[turnIt];
         if(nowTurn != null && nowTurn != "" && typeof nowTurn != 'undefined') {
-            var thisNowTurn = homeUrl+"/."+nowTurn;
-            loadAddScript(thisNowTurn, "normal", "");
+            var thisNowTurn = __SFW_homeUrl+"/."+nowTurn;
+            loadAddScript(thisNowTurn);
         }
     }
 }
@@ -208,7 +152,7 @@ if(runH!=1) {
  * sintaskSPA = replace if href="[BASE URL]/path/path" to be /path/path
  */
 sintaskSPA = function(input) {
-    var vars = input.replace(homeUrl, "");
+    var vars = input.replace(__SFW_homeUrl, "");
 
     var replacer = [
         "http://",
@@ -261,7 +205,7 @@ sintaskSuccessGetData = function(data) {
             var addScriptLen = addScript.length;
         }
         /*PURGE_CONTENT*/
-        purgeSideSinTask(runP);
+        purgeSideSinTask(__SFW_runP);
         purgeScriptAdd();
         /*LOAD_STYLE*/
         var loadAddStyleIt = 0;
@@ -274,7 +218,7 @@ sintaskSuccessGetData = function(data) {
         var loadAddScriptIt = 0;
         while(loadAddScriptIt<addScriptLen) {
             var scriptNow = addScript[loadAddScriptIt].script;
-            loadAddScript(scriptNow, "normal", "");
+            loadAddScript(scriptNow);
             loadAddScriptIt = loadAddScriptIt+1;
         }
         /*GET NEW TITLE*/
@@ -405,11 +349,11 @@ abortSinTaskMovePage = function() {
 sintaskLoaderIframe();
 abortSinTaskMovePage();
 universalHideContent();
-instructBodyObjectSinTask("hide", expectHiddenObject);
+instructBodyObjectSinTask("hide", __SFW_expectHiddenObject);
 xhrSinTaskMovePage.push( sjqNoConflict.ajax({
     type: "POST",
-    data: { tokenizing: tokenizingUser, part: "content" },
-    url: thisUrl,
+    data: { tokenizing: __SFW_tokenizingUser, part: "content" },
+    url: __SFW_thisUrl,
     success: function (data) {
         fadeContentOne("", 200, "hide");
         sintaskSuccessGetData(data);
@@ -431,11 +375,11 @@ sjqNoConflict.loadContent = function () {
     sintaskLoaderIframe();
     abortSinTaskMovePage();
     universalHideContent();
-    instructBodyObjectSinTask("hide", expectHiddenObject);
+    instructBodyObjectSinTask("hide", __SFW_expectHiddenObject);
     xhrSinTaskMovePage.push( sjqNoConflict.ajax({
         type: "POST",
-        data: { tokenizing: tokenizingUser, part: "content" },
-        url: homeUrl+sintaskSPA(pageUrl),
+        data: { tokenizing: __SFW_tokenizingUser, part: "content" },
+        url: __SFW_homeUrl+sintaskSPA(pageUrl),
         success: function (data) {
             fadeContentOne("", 200, "hide");
             sintaskSuccessGetData(data);
@@ -450,7 +394,7 @@ sjqNoConflict.loadContent = function () {
             sintaskLoaderIframeStop();
         }
     }) );
-    if (homeUrl+sintaskSPA(pageUrl) != window.location) {
+    if (__SFW_homeUrl+sintaskSPA(pageUrl) != window.location) {
         window.history.pushState('', '', pageUrl);
     }
 }
@@ -463,10 +407,10 @@ sjqNoConflict.backForwardButtons = function () {
         sintaskLoaderIframe();
         abortSinTaskMovePage();
         universalHideContent();
-        instructBodyObjectSinTask("hide", expectHiddenObject);
+        instructBodyObjectSinTask("hide", __SFW_expectHiddenObject);
         xhrSinTaskMovePage.push( sjqNoConflict.ajax({
             type: "POST",
-            data: { tokenizing: tokenizingUser, part: "content" },
+            data: { tokenizing: __SFW_tokenizingUser, part: "content" },
             url: document.URL,
             success: function (data) {
                 fadeContentOne("", 200, "hide");
@@ -495,7 +439,7 @@ sjqNoConflict.backForwardButtons = function () {
  * destination page get from atribute s-data-url on html element (<a href...></a>).
  */
 sjqNoConflict(document).on('click', '.s', function (e) {
-    globalScrollPage[document.URL] = sjqNoConflict(document).scrollTop();
+    __SFW_globalScrollPage[document.URL] = sjqNoConflict(document).scrollTop();
 
     pageUrl = sjqNoConflict(this).attr('href');
     if(pageUrl=="" || pageUrl==null || typeof pageUrl == 'undefined') {
@@ -508,10 +452,10 @@ sjqNoConflict(document).on('click', '.s', function (e) {
 /**
  * Function for other operation changing page and run SPA
  */
-changingPageSPA = function(thisUrl) {
-    var thisUrl = thisUrl || null;
+changingPageSPA = function(__SFW_thisUrl) {
+    var __SFW_thisUrl = __SFW_thisUrl || null;
 
-    pageUrl = thisUrl;
+    pageUrl = __SFW_thisUrl;
     if(pageUrl == null || pageUrl == "") {
         pageUrl = window.location;
     }

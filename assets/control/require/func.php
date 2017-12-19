@@ -1141,12 +1141,8 @@
 		$encrypted_the_output = GibberishAES::enc($__AES_ENC_OUTPUT__, $__AES_ENC_KEY__);
 		GibberishAES::size($old_key_size);
 
-        $final = 'var checkingCache = pageCache.indexOf("'.$__BASE_URL__.'");';
-        $final .= 'if(checkingCache < 0) {';
-        $final .= 'pageCache.push("'.$__BASE_URL__.'");';
-        $final .= '};';
         $final .= 'var sintaskGFV'.$tzer.' = "'.$encrypted_the_output.'";';
-        $final .= 'var decsintaskGFV'.$tzer.' = CryptoJS.AES.decrypt(sintaskGFV'.$tzer.', tokenizing);';
+        $final .= 'var decsintaskGFV'.$tzer.' = CryptoJS.AES.decrypt(sintaskGFV'.$tzer.', __SFW_tokenizing);';
         $final .= 'decsintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.'.toString(CryptoJS.enc.Utf8);';
         $final .= 'sintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.';';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
@@ -1177,12 +1173,8 @@
 		$encrypted_the_output = GibberishAES::enc($__AES_ENC_OUTPUT__, $__AES_ENC_KEY__);
 		GibberishAES::size($old_key_size);
 
-        $final = 'var checkingCache = pageCache.indexOf("'.$__BASE_URL__.'");';
-        $final .= 'if(checkingCache < 0) {';
-        $final .= 'pageCache.push("'.$__BASE_URL__.'");';
-        $final .= '};';
         $final .= 'var sintaskGFV'.$tzer.' = "'.$encrypted_the_output.'";';
-        $final .= 'var decsintaskGFV'.$tzer.' = CryptoJS.AES.decrypt(sintaskGFV'.$tzer.', tokenizing);';
+        $final .= 'var decsintaskGFV'.$tzer.' = CryptoJS.AES.decrypt(sintaskGFV'.$tzer.', __SFW_tokenizing);';
         $final .= 'decsintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.'.toString(CryptoJS.enc.Utf8);';
         $final .= 'sintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.';';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
@@ -1213,10 +1205,6 @@
 		$vars = tagSlash($vars);
         $tzer = $_SESSION["globalSecureToken"];
 
-        $final = 'var checkingCache = pageCache.indexOf("'.$__BASE_URL__.'");';
-        $final .= 'if(checkingCache < 0) {';
-        $final .= 'pageCache.push("'.$__BASE_URL__.'");';
-        $final .= '};';
         $final .= 'var sintaskGFV'.$tzer.' = "'.$vars.'";';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
@@ -1239,10 +1227,6 @@
         $tzer = $_SESSION["globalSecureToken"];
         $tzer = $tzer.$content;
 
-        $final = 'var checkingCache = pageCache.indexOf("'.$__BASE_URL__.'");';
-        $final .= 'if(checkingCache < 0) {';
-        $final .= 'pageCache.push("'.$__BASE_URL__.'");';
-        $final .= '};';
         $final .= 'var sintaskGFV'.$tzer.' = "'.$vars.'";';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
         $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';

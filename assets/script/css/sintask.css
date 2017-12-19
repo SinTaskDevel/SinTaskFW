@@ -173,7 +173,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     background: #000;
     opacity: 0.7;
     z-index: 10000;
-    /*margin-top: -50px;*/
     top: 0;
     bottom: 0;
 }
@@ -269,6 +268,12 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     z-index: 2;
 	top: -10px;
 	margin-left: 35px;
+}
+.optionArea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px 0px;
+    border-top: 1px solid #EAEAEA;
 }
 .typeOnePopUp {
     background: #333;

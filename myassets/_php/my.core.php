@@ -4,7 +4,7 @@
 	$__MY_CORE__ = [
 		"EXPOSE_PHP"			=> false,
 		"MAINTENANCE"			=> false,
-		"HIDE_WARNING_NOTICE" 	=> true,
+		"HIDE_WARNING_NOTICE" 	=> false,
 		"DISPLAY_PHP_ERROR"		=> true,
 		"AES_SECURE_SPA_TRANSF"	=> true,
 		"USE_DB"				=> false,

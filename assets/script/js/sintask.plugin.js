@@ -39,12 +39,17 @@ sjqNoConflict.fn.focusInputDivParent = function(css, code) {
 };
 /**
  * fn.sintaskHidePopUp = hide PopUp when out of PopUp area clicked by user.
+ * Plugin is migrate to function sintaskHideNotParamClicked();
  */
-sjqNoConflict.fn.sintaskHidePopUp = function(param, fadeTime) {
+sjqNoConflict.fn.sintaskHidePopUp = function(param, callback, fadeTime) {
     sjqNoConflict(document).mouseup(function (e) {
         var popUpName = sjqNoConflict(param);
         if (!sjqNoConflict(param).is(e.target) && !popUpName.is(e.target) && popUpName.has(e.target).length == 0) {
-            popUpName.hide(fadeTime);
+            if(callback && callback != "" && typeof callback != "undefined") {
+                callback();
+            } else {
+                popUpName.hide(fadeTime);
+            }
         }
     });
 };
