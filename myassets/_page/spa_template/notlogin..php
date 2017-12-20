@@ -181,13 +181,53 @@ popUpOne({
 	onNo: function(){
 		toastTwo("Anda mengklik kondisi onNo", "show", 8000);
 	},
-	onOuterClick: "hide"
+	onOuterClick: "hide",
+	animationFade: true
 });</code></pre>
 		</div>
 		<div class="borderSpaceMini"></div>
 		<span class="thisTagging">onNo</span> bersifat opsional, jika tidak didefinisikan akan menjalankan kondisi untuk menghilangkan PopUp (close PopUp).
 		<div class="borderSpaceMini"></div>
 		<span class="thisTagging">onOuterClick</span> memiliki value "hide" dengan tujuan saat anda ingin PopUp menghilang atau close jika wilayah luar PopUp (Wilayah gelap & blur) diklik. Parameter ini dapat dikosongkan atau bersifat opsional untuk hasil sebaliknya.
+		<div class="borderSpaceMini"></div>
+		<span class="thisTagging">animationFade</span> bernilai true atau false (boolean), jika true akan memunculkan PopUp dengan menyertakan efek animasi FadeIn-FadeOut
+
+		<div class="borderSpace"></div>
+		<b>Pop Up</b> &mdash; function <span class="thisTagging">popUpTwo</span> &mdash; Javascript
+		<div class="borderSpaceMini"></div>
+		Pop Up bawaan SinTaskFW hanya dapat dijalankan pada halaman SinTaskFW yang berbasiskan SPA (Single Page Application), perbedaan dengan popUpOne adalah Pop Up ini hanya memiliki 1 pilihan tombol.
+		<div class="borderSpaceMini"></div>
+		<input id="popUpTitle2" class="toast" type="text" placeholder="Pop Up Title">
+		<br>
+		<input id="popUpMessage2" class="toast" type="text" placeholder="Pop Up Message">
+		<br>
+		<input id="popUpOkButton2" class="toast" type="text" placeholder="Nama tombol Pop Up kondisi Ok">
+		<div class="borderSpaceMini"></div>
+		<button id="showPopUpSinTask2" class="toast c_pointer">Munculkan PopUp 2</button>
+		<div class="borderSpaceMini"></div>
+		Contoh <span class="thisTagging">&lt;script&gt;</span> memunculkan PopUp
+		<div class="borderSpaceMini"></div>
+		<div class="noted">
+			<pre><code>var thisTitle = "Ini PopUp"; 	// Judul PopUp
+var thisMessage = "Test test test test?"; 		// Isi Pesan PopUp
+var thisButtonOk = "Ok";		// Nama tombol Pop Up kondisi "Ok"
+popUpTwo({
+	title: thisTitle, 
+	message: thisMessage, 
+	okButton: thisButtonOk,
+	onOk: function(){
+		toastTwo("Anda mengklik kondisi onOk", "show", 8000);
+	},
+	onOuterClick: "hide",
+	animationFade: true
+});</code></pre>
+		</div>
+
+		<div class="borderSpace"></div>
+		<b>Hilangkan Pop Up</b> &mdash; function <span class="thisTagging">removePopUp</span> & <span class="thisTagging">removePopUpFade</span> &mdash; Javascript
+		<div class="borderSpaceMini"></div>
+		Terdapat 2 function (global) untuk menghilangkan Pop Up bawaan SinTaskFW yaitu <span class="thisTagging">removePopUp</span> & <span class="thisTagging">removePopUpFade</span>, khusus untuk <span class="thisTagging">removePopUpFade</span> akan menghilangkan Pop Up dengan tambahan animasi fadeOut.
+		<div class="borderSpaceMini"></div>
 	</div>
 	<div class="borderSpaceMini"></div>
 	<div class="borderLine"></div>
@@ -241,7 +281,8 @@ popUpOne({
 				onYes: function(){
 					toastTwo("Anda mengklik kondisi onYes, untuk keluar klik tombol 'Keluar' atau silang pada pojok kanan atas PopUp ini", "show", 15000);
 				},
-				onOuterClick: "hide"
+				onOuterClick: "hide",
+				animationFade: true
 			});
 		} else if(thisPopUpDefault == false) {
 			popUpOne({
@@ -254,6 +295,45 @@ popUpOne({
 				},
 				onNo: function(){
 					toastTwo("Anda mengklik kondisi onNo, untuk keluar klik tombol silang pada pojok kanan atas PopUp ini", "show", 8000);
+				},
+				onOuterClick: "hide"
+			});
+		}
+	});
+
+	sjqNoConflict("#showPopUpSinTask2").on("click", function(){
+		var thisTitle = sjqNoConflict("#popUpTitle2").val();
+		var thisMessage = sjqNoConflict("#popUpMessage2").val();
+		var thisButtonOk = sjqNoConflict("#popUpOkButton2").val();
+		
+		var thisPopUpDefault = true;
+
+		if(
+			(thisMessage != "" && ctypeSpace(thisMessage) > 0) 		&&
+			(thisTitle != "" && ctypeSpace(thisTitle) > 0) 			&&
+			(thisButtonOk != "" && ctypeSpace(thisButtonOk) > 0)
+		) {
+			thisPopUpDefault = false;
+		}
+
+		if(thisPopUpDefault == true) {
+			popUpTwo({
+				title: "Ada yang kurang", 
+				message: "Wajib mengisi ke-tiga kolom input di atas tombol <span class=\"thisTagging\">Munculkan PopUp 2</span> untuk membuat contoh PopUp anda sendiri", 
+				okButton: "Oke",
+				onOk: function(){
+					toastTwo("Anda mengklik kondisi onOk dan PopUp tipe 2 ini langsung menghilang", "show", 15000);
+				},
+				onOuterClick: "hide",
+				animationFade: true
+			});
+		} else if(thisPopUpDefault == false) {
+			popUpTwo({
+				title: thisTitle, 
+				message: thisMessage, 
+				okButton: thisButtonOk,
+				onOk: function(){
+					toastTwo("Anda mengklik kondisi onOk dan PopUp tipe 2 ini langsung menghilang", "show", 15000);
 				},
 				onOuterClick: "hide"
 			});
