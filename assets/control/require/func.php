@@ -3081,5 +3081,31 @@
         $dir->close();
         return true;
     }
+
+    /* Membuat konten/tulisan ke dalam 1 baris */
+    function toOneLine($input) {
+    	$breaks = array("\r\n", "\r");
+		$input = str_replace($breaks, "\n", $input);
+		$lines = explode("\n", $input);
+		$new_lines = array();
+
+		foreach ($lines as $i => $line) {
+			if(!empty($line)) {
+				$fix_lines = trim($line);
+				$fix_lines = trim(preg_replace('/\t+/', '', $fix_lines));
+				
+				$new_lines[] = $fix_lines;
+			}
+		}
+		return implode($new_lines);
+    }
+
+    /* Membuat konten menjadi aman dari error JSON/XML dan dapat ditampilkan ke HTML melalui JS */
+    function safeGetToJsonXmlHtml($input) {
+    	$input = nl2br($input);
+    	$input = toOneLine(addslashesCustom($input));
+
+    	return $input;
+    }
 	 
 ?>
