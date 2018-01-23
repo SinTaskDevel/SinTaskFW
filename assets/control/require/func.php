@@ -3100,10 +3100,18 @@
 		return implode($new_lines);
     }
 
-    /* Membuat konten menjadi aman dari error JSON/XML dan dapat ditampilkan ke HTML melalui JS */
+    /* Membuat konten menjadi bebas dari error JSON/XML dan dapat ditampilkan ke HTML melalui JS */
     function safeGetToJsonXmlHtml($input) {
     	$input = nl2br($input);
     	$input = toOneLine(addslashesCustom($input));
+
+    	return $input;
+    }
+
+    /* Membuat konten menjadi bebas dari error PHP/DB */
+    function safePostToPhpDb($input) {
+    	$input = toOneLine(addslashes($input));
+    	$input = br2nl($input);
 
     	return $input;
     }
