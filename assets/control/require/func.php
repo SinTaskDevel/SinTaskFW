@@ -1163,6 +1163,7 @@
 	function renderHTMLToJSStayENC($content, $input) {
 		$vars = toSingleLine($input);
         $tzer = $_SESSION["globalSecureToken"];
+        $tzeo = $tzer;
         $tzer = $tzer.$content;
 
         $__AES_ENC_KEY__ 	= $_SESSION["globalSecureToken"];
@@ -1177,8 +1178,8 @@
         $final .= 'var decsintaskGFV'.$tzer.' = CryptoJS.AES.decrypt(sintaskGFV'.$tzer.', __SFW_tokenizing);';
         $final .= 'decsintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.'.toString(CryptoJS.enc.Utf8);';
         $final .= 'sintaskGFV'.$tzer.' = decsintaskGFV'.$tzer.';';
-        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
-        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
+        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzeo.'NewLine}}/g, "\n");';
+        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzeo.'Tab}}/g, "\t");';
         
         if($content == "header") {
         	$final .= tryCatchTemplate(
@@ -1225,11 +1226,12 @@
 		$vars = toSingleLine($input);
         $vars = tagSlash($vars);
         $tzer = $_SESSION["globalSecureToken"];
+        $tzeo = $tzer;
         $tzer = $tzer.$content;
 
         $final .= 'var sintaskGFV'.$tzer.' = "'.$vars.'";';
-        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
-        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
+        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzeo.'NewLine}}/g, "\n");';
+        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzeo.'Tab}}/g, "\t");';
         
         if($content == "header") {
         	$final .= tryCatchTemplate(
