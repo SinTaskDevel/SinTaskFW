@@ -859,6 +859,14 @@ base64ToBlob = function(base64, mime) {
     return new Blob(byteArrays, {type: mime});
 }
 
+sintaskResetFormat = function(id) {
+    document.querySelector(id).addEventListener("paste", function(e) {
+        e.preventDefault();
+        var text = e.clipboardData.getData("text/plain");
+        document.execCommand("insertTEXT", false, text);
+    });
+}
+
 /*MOBILE_DETECTION*/
 /**
  * __SFW_mobileDeviceDetect variable = if user open SinTask from Mobile Device,

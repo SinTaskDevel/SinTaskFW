@@ -1793,7 +1793,7 @@ input.sintaskInputNoBorder::placeholder {
 .c_wait {
 	cursor: wait !important;
 }
-c_disabled {
+.c_disabled {
 	cursor: no-drop !important;
 }
 
@@ -2356,8 +2356,7 @@ c_disabled {
 /* DIV PLACEHOLDER */
 .typeDivPlaceholder {
     position: absolute;
-    padding: 3px 10px;
     opacity: 0.8;
-    border: 1px solid transparent;
+    cursor: text;
 }
 /* END BASIC SINTASK CSS */

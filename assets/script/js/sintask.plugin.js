@@ -425,3 +425,59 @@ sjqNoConflict.fn.sintaskGoto = function() {
         e.preventDefault();
     });
 };
+/**
+ * fn.sintaskDivPlaceholder = Div element placeholder
+ */
+sjqNoConflict.fn.sintaskDivPlaceholder = function() {
+    var checkThisPlaceholder = sjqNoConflict(this).parent().find(".typeDivPlaceholder").length;
+    var thisPlaceholder = sjqNoConflict(this).attr("placeholder");
+    var thisId = this;
+
+    showOrHidePlaceholder = function(thisId) {
+        var element     = sjqNoConflict(thisId);
+        var elemText    = element.text();
+        var elemHtml    = element.html();
+        var elemTextLen = elemText.length;
+
+        if(countEnter(elemHtml)<3 && elemTextLen==0) {
+            sjqNoConflict(thisId).parent().find(".typeDivPlaceholder").show();
+        } else {
+            sjqNoConflict(thisId).parent().find(".typeDivPlaceholder").hide();
+        }
+    }
+
+    if(checkThisPlaceholder<1) {
+        sjqNoConflict(this).parent().prepend("<div class='typeDivPlaceholder unSelectAble' contenteditable='true'>"+thisPlaceholder+"</div>");
+    }
+
+    sjqNoConflict(this).on("focusout", function(){
+        var element = sjqNoConflict(this);        
+        if (!element.text().replace(" ", "").length) {
+            element.empty();
+            sjqNoConflict(this).parent().find(".typeDivPlaceholder").css("opacity", "0.8");
+        }
+        showOrHidePlaceholder(thisId);
+    });
+    sjqNoConflict(this).on("focusin", function(){
+        sjqNoConflict(this).parent().find(".typeDivPlaceholder").css("opacity", "0.4");
+    });
+    sjqNoConflict(this).parent().on("click mousedown", function(){
+        sjqNoConflict(thisId).focus();
+    });
+    sjqNoConflict(this).parent().on("contextmenu", function(e){
+        sjqNoConflict(thisId).focus();
+    });
+
+    setInterval(function(){
+        var checkFocus = sjqNoConflict(thisId).is(':focus');
+        if(checkFocus == true) {
+            showOrHidePlaceholder(thisId);
+        } else {
+            var checkDisplay = sjqNoConflict(this).parent().find(".typeDivPlaceholder").is(':visible');
+            if(checkDisplay == false) {
+                sjqNoConflict(this).parent().find(".typeDivPlaceholder").css("opacity", "0.8");
+                showOrHidePlaceholder(thisId);
+            }
+        }
+    },20);
+};
