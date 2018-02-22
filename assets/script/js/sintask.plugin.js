@@ -433,6 +433,8 @@ sjqNoConflict.fn.sintaskDivPlaceholder = function() {
     var thisPlaceholder = sjqNoConflict(this).attr("placeholder");
     var thisId = this;
 
+    var randomValue = getRandomOnSinTask(2);
+
     showOrHidePlaceholder = function(thisId) {
         var element     = sjqNoConflict(thisId);
         var elemText    = element.text();
@@ -447,7 +449,7 @@ sjqNoConflict.fn.sintaskDivPlaceholder = function() {
     }
 
     if(checkThisPlaceholder<1) {
-        sjqNoConflict(this).parent().prepend("<div class='typeDivPlaceholder unSelectAble' contenteditable='true'>"+thisPlaceholder+"</div>");
+        sjqNoConflict(this).parent().prepend("<div id='placeholder"+randomValue+"' class='typeDivPlaceholder unSelectAble' contenteditable='true'>"+thisPlaceholder+"</div>");
     }
 
     sjqNoConflict(this).on("focusout", function(){
@@ -460,6 +462,7 @@ sjqNoConflict.fn.sintaskDivPlaceholder = function() {
     });
     sjqNoConflict(this).on("focusin", function(){
         sjqNoConflict(this).parent().find(".typeDivPlaceholder").css("opacity", "0.4");
+        sjqNoConflict("#placeholder"+randomValue).html(thisPlaceholder);
     });
     sjqNoConflict(this).parent().on("click mousedown", function(){
         sjqNoConflict(thisId).focus();
