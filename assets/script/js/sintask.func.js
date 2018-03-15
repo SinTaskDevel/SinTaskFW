@@ -879,3 +879,8 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 if(__SFW_mobileDeviceDetect == true) {
     fadeContentOne("Web is not optimal, open mobile web version", 200, "show");
 }
+
+/* A TAG PREVENT DEFAULT ON CLICK */
+sjqNoConflict(document).on("click", "a.prevent", function(e){
+    e.preventDefault();
+});

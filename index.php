@@ -24,6 +24,9 @@
 	 *			- Jika menggunakan NGINX coba : https://winginx.com/en/htaccess
 	 *			- Atau baca dokumentasi pada https://fw.sintask.com/docs
 	 *
+	 * 	CODE STYLE
+	 *		K&R Style (Kernighan & Ritchie)
+	 *
 	 * 	DOKUMENTASI SINGKAT :
 	 * 	Petunjuk sebelum menggunakan framework, perhatikan langkah-langkah berikut :
 	 * 		- Ubah konfigurasi DB pada /myassets/_dbconfig/my.db.config.php
