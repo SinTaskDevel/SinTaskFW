@@ -227,7 +227,35 @@ sintaskSuccessGetData = function(data) {
         /*LOAD_FUNC_SCRIPT_AGAIN*/
         sintaskLoaderIframeStop();
     } else {
-        sjqNoConflict("body").html("ERROR: 205-INVALID_TOKEN -> https://fw.sintask.com/docs/error");
+        var htmlContent = ''+
+        '<style type="text/css">'+
+            'body {font-size:14px; color:#777777; font-family:arial; text-align:center;}'+
+            'h1 {font-size:180px; color:#99A7AF; margin: 70px 0 0 0;}'+
+            'h2 {color: #DE6C5D; font-family: arial; font-size: 20px; font-weight: bold; letter-spacing: -1px; margin: -3px 0 39px;}'+
+            'p {width:375px; text-align:center; margin-left:auto;margin-right:auto; margin-top: 30px }'+
+            'div {width:375px; text-align:center; margin-left:auto;margin-right:auto;}'+
+            'a:link {color: #34536A;}'+
+            'a:visited {color: #34536A;}'+
+            'a:active {color: #34536A;}'+
+            'a:hover {color: #34536A;}'+
+            '#logos {'+
+                'background-image: url(sintask_logo_notlogin.png);'+
+                'background-size: contain;'+
+                'background-repeat: no-repeat;'+
+                'background-position: center;'+
+                'height: 50px;'+
+            '}'+
+        '</style>'+
+        '<h1>250</h1>'+
+        '<h2>Kesalahan Tokenizing</h2>'+
+        '<div>'+
+            'Ini adalah Error yang menandakan :'+
+            '<br>'+
+            'INVALID TOKEN - Code 250 Error.'+
+            '<br><br>'+
+            'Selengkapnya buka <a class="ft_style_u" href="https:\/\/fw.sintask.com\/docs\/error">Dokumentasi Error SinTaskFW<\/a>'+
+        '</div>';
+        sjqNoConflict("body").html(htmlContent);
     }
 }
 /**
