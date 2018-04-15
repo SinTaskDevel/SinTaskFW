@@ -123,201 +123,31 @@
 	}
 
 	/* SinTaskFW Routing Algorithm */
-	/* v3 Terakhir dimodifikasi 07/Des/2017 [BETA] - Aditya Wikardiyan - Web Dev
-	 * v2 Terakhir dimodifikasi 26/Mar/2017 - Aditya Wikardiyan - Web Dev
+	/* v4 Terakhir dimodifikasi 15/Apr/2018 [Release]			Aditya Wikardiyan - Web Dev
+	 * v3 Terakhir dimodifikasi 07/Des/2017 [Drop/Cancel] 		Aditya Wikardiyan - Web Dev
+	 * v2 Terakhir dimodifikasi 26/Mar/2017 [Deprecated]		Aditya Wikardiyan - Web Dev
 	 *
 	 * Ubah nama function menjadi 'fileDynamic' yang akan diaktifkan (Ready) 
 	 */
-	$activeFileDynamic = "v2";
-	function oneOneSortCount($input) {
-		$return = 0;
-
-		if($input > 2) {
-			while($input > 1) {
-				$return = $return+$input;
-				$input = $input-1;
-			}
-		} else {
-			$return = $input;
-		}
-
-		return $return;
-	}
+	$activeFileDynamic = "v4";
 	
-	if($activeFileDynamic == "v3") {
-		/* (v3) dari fileDynamic - mengutamakan both -> login/notlogin 
-		 * Knwon Issues : 
-		 *	- Tidak dapat _POST, _GET, FILES
-		 *	- Control pada halaman tidak dapat dijalankan (View-Controller)
+	if($activeFileDynamic == "v2") {
+		/* 	(v2) dari fileDynamic - mengutamakan login/notlogin -> both 
 		 */
-		function fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath, $thisReqPathLoginPrefix, $thisReqPath, $startIterationFrom, $replacement = "") {
-			$thisReqPathDefault = $thisReqPath;
-			$thisReqPathLoginPrefixFirst = "both";
+		function oneOneSortCount($input) {
+			$return = 0;
 
-			$scanPath = $thisReqPathDefault.$requirePath."/";
-			$scandirPath = scandir($scanPath);
-
-			$urlFile = "";
-			for( $sg = $startIterationFrom; $sg < count($__SEGMEN__); $sg++ ) {
-				$urlFile .= ".".$__SEGMEN__[$sg];
-			}
-			
-			/* Hapus dobel ekstensi file */
-			if($replacement != "" && $replacement != null) {
-				$urlFile = str_replace($replacement, "", $urlFile);
-			}
-
-			$urlFileNotChange = $urlFile;
-			$resultArrayScan = "";
-
-			$__SEGMEN_ABS__ = siteSegmen("pure");
-
-			$sgCount 	= count($__SEGMEN_ABS__);
-			$sgminOne 	= (count($__SEGMEN__)-1);
-			$sgminTwo 	= (count($__SEGMEN__)-2);
-
-			/* First-Loop Algorithm */
-			$arrayChild = $startIterationFrom;
-			$stateChild = -1;
-			for( $ss = 1; $ss <= ($sgminOne*$sgminOne); $ss++ ) {
-
-				if( ($ss > 2) && ($ss % $sgminTwo)==0 ) {
-					if($arrayChild > $startIterationFrom) {
-						$arrayChild = $arrayChild+1;
-					} else {
-						$arrayChild = $startIterationFrom;
-						$stateChild = $stateChild+1;
-					}
+			if($input > 2) {
+				while($input > 1) {
+					$return = $return+$input;
+					$input = $input-1;
 				}
-				if( ($ss > 2) && ($ss % $sgminTwo)!=0 ) {
-					$arrayChild = $arrayChild+1;
-				}
-				
-				$urlFile = "";
-				for( $sg = $startIterationFrom; $sg < count($__SEGMEN__); $sg++ ) {
-					if($ss > 2 && $arrayChild > $sgminOne) {
-						$arrayChild = $startIterationFrom;
-						$__SEGMEN__[$sg+$stateChild] = "[]";
-						$stateChild = $stateChild+1;
-
-						$urlFile .= ".".$__SEGMEN__[$sg];
-					} else if($ss > 2 && $arrayChild == $sg) {
-						$urlFile .= ".[]";
-					} else {
-						$urlFile .= ".".$__SEGMEN__[$sg];
-					}
-				}
-
-				/* Hapus dobel ekstensi file */
-				if($replacement != "" && $replacement != null) {
-					$urlFile = str_replace($replacement, "", $urlFile);
-				}
-
-				if($stateChild >= $sgminTwo) {
-					if($thisReqPathLoginPrefixFirst != $thisReqPathLoginPrefix) {
-						/* Kembalikan ke normal jika tidak ditemukan
-						 * Ganti dari login -> both file prefix
-						 */
-						$thisReqPathLoginPrefixFirst = $thisReqPathLoginPrefix;
-						$ss = 1;
-						$arrayChild = $startIterationFrom;
-						$stateChild = -1;
-						$__SEGMEN__ = siteSegmen("pure");
-						continue;
-					} else {
-						/* Menghentikan iterasi $ss */
-						$ss = ($sgminOne*$sgminOne);
-						break;
-					}
-				}
-
-				$urlFile = $thisReqPathLoginPrefixFirst.$urlFile.$__FILE_EXTENSION__;
-				$searchResult = array_search($urlFile, $scandirPath);
-
-				if($searchResult == null) {
-					$urlFile = $urlFileNotChange;
-				} else {
-					$resultArrayScan = $searchResult;
-					break;
-				}
-			}
-
-			if(file_exists( $scanPath.$scandirPath[$resultArrayScan]) && ($resultArrayScan!=null || $resultArrayScan!="" ) ) {
-				return $scanPath.$scandirPath[$resultArrayScan];
 			} else {
-
-				/* First-Loop 2 Algorithm */
-				$thisReqPathLoginPrefixFirst = $thisReqPathLoginPrefix;
-				$urlFileOneOne = ".";
-				$resultArrayScanOneOne = "";
-				$oneOneLen = oneOneSortCount($sgminTwo);
-
-				$segmenOneOneLoop = 1;
-				$lenOneOneLoop = 0;
-				$turnOneOneLoop = $startIterationFrom;
-				$borderOneOneLoop = $sgminTwo;
-				
-				for( $sz = 0; $sz < $oneOneLen; $sz++ ) {
-					for( $sx = $startIterationFrom; $sx < $sgCount; $sx++ ) {
-						if($sx == $turnOneOneLoop) {
-							for($sxx = 0; $sxx < $segmenOneOneLoop; $sxx++) {
-								$urlFileOneOne .= "[]";
-								if(($sxx+1) < $segmenOneOneLoop) {
-									$urlFileOneOne .= ".";
-								}
-							}
-							$sx = $sx+($segmenOneOneLoop-1);
-						} else {
-							$urlFileOneOne .= $__SEGMEN_ABS__[$sx];
-						}
-						
-						if($sx < ($sgCount-1)) {
-							$urlFileOneOne .= ".";
-						}
-					}
-					$urlFileOneOne = $thisReqPathLoginPrefixFirst.$urlFileOneOne.$__FILE_EXTENSION__;
-					$searchResult = array_search($urlFileOneOne, $scandirPath);
-
-					if($searchResult == null) {
-						$urlFileOneOne = ".";
-					} else {
-						$resultArrayScanOneOne = $searchResult;
-						break;
-					}
-					
-					$lenOneOneLoop = $lenOneOneLoop+1;
-					if($lenOneOneLoop >= $borderOneOneLoop) {
-						$segmenOneOneLoop = $segmenOneOneLoop+1;
-						$lenOneOneLoop = 0;
-						$turnOneOneLoop = $startIterationFrom;
-						$borderOneOneLoop = $borderOneOneLoop-1;
-					} else {
-						$turnOneOneLoop = $turnOneOneLoop+1;
-					}
-
-					
-					if($sz == ($oneOneLen)) {
-						if($thisReqPathLoginPrefixFirst != $thisReqPathLoginPrefix) {
-							$sz = 0;
-							$thisReqPathLoginPrefixFirst = $thisReqPathLoginPrefix;
-
-							$segmenOneOneLoop = 1;
-							$lenOneOneLoop = 0;
-							$turnOneOneLoop = $startIterationFrom;
-							$borderOneOneLoop = $sgminTwo;
-						}
-					}
-				}
-
-				if(file_exists( $scanPath.$scandirPath[$resultArrayScanOneOne]) && ($resultArrayScanOneOne!=null || $resultArrayScanOneOne!="" ) ) {
-					return $scanPath.$scandirPath[$resultArrayScanOneOne];
-				} else {
-					return $__ZERO__;
-				}
+				$return = $input;
 			}
+
+			return $return;
 		}
-	} else if($activeFileDynamic == "v2") {
-		/* (v2) dari fileDynamic - mengutamakan login/notlogin -> both */
 		function fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath, $thisReqPathLoginPrefix, $thisReqPath, $startIterationFrom, $replacement = "") {
 			$thisReqPathDefault = $thisReqPath;
 			$thisReqPathLoginPrefixDefault = $thisReqPathLoginPrefix;
@@ -484,211 +314,553 @@
 				}
 			}
 		}
-	}
-	/* Digunakan Sebagai Debugger (v2) */
-	function fileDynamicDebug($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath, $thisReqPathLoginPrefix, $thisReqPath, $startIterationFrom, $replacement = "") {
-		echo "\n<br>";
-		echo "BEGIN FILE DYNAMIC DEBUGGER...";
-		echo "\n<br>";
-		echo "\n<br>";
+	} else if($activeFileDynamic == "v3") {
+		/* 	(v3) dari fileDynamic - mengutamakan both -> login/notlogin 
+		 * 		Knwon Issues : 
+		 *			- Tidak dapat _POST, _GET, FILES
+		 *			- Control pada halaman tidak dapat dijalankan (View-Controller)
+		 * 	[ BUG + ERROR ]
+		 */
+		function oneOneSortCount($input) {
+			$return = 0;
 
-		$thisReqPathDefault = $thisReqPath;
-		$thisReqPathLoginPrefixDefault = $thisReqPathLoginPrefix;
-
-		$scanPath = $thisReqPathDefault.$requirePath."/";
-		$scandirPath = scandir($scanPath);
-
-		print_r($scandirPath);
-		echo "\n<br>";
-
-		$urlFile = "";
-		for( $sg = $startIterationFrom; $sg < count($__SEGMEN__); $sg++ ) {
-			$urlFile .= ".".$__SEGMEN__[$sg];
-		}
-		
-		/* Hapus dobel ekstensi file */
-		if($replacement != "" && $replacement != null) {
-			$urlFile = str_replace($replacement, "", $urlFile);
-		}
-
-		$urlFileNotChange = $urlFile;
-		$resultArrayScan = "";
-
-		$__SEGMEN_ABS__ = siteSegmen("pure");
-
-		$sgCount 	= count($__SEGMEN_ABS__);
-		$sgminOne 	= (count($__SEGMEN__)-1);
-		$sgminTwo 	= (count($__SEGMEN__)-2);
-
-		/* First-Loop Algorithm */
-		$arrayChild = $startIterationFrom;
-		$stateChild = -1;
-
-		echo "\n<br>";
-		echo "[1] LOOPING FOR ".($sgminOne*$sgminOne);
-		echo "\n<br>";
-
-		for( $ss = 1; $ss <= ($sgminOne*$sgminOne); $ss++ ) {
-
-			if( ($ss > 2) && ($ss % $sgminTwo)==0 ) {
-				if($arrayChild > $startIterationFrom) {
-					$arrayChild = $arrayChild+1;
-				} else {
-					$arrayChild = $startIterationFrom;
-					$stateChild = $stateChild+1;
+			if($input > 2) {
+				while($input > 1) {
+					$return = $return+$input;
+					$input = $input-1;
 				}
-			}
-			if( ($ss > 2) && ($ss % $sgminTwo)!=0 ) {
-				$arrayChild = $arrayChild+1;
+			} else {
+				$return = $input;
 			}
 
-			echo "\n<br>";
-			echo "[1][1] Looping For ".count($__SEGMEN__)." - ON [".$ss."]";
-			echo "\n<br>";
-			
+			return $return;
+		}
+		function fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath, $thisReqPathLoginPrefix, $thisReqPath, $startIterationFrom, $replacement = "") {
+			$thisReqPathDefault = $thisReqPath;
+			$thisReqPathLoginPrefixFirst = "both";
+
+			$scanPath = $thisReqPathDefault.$requirePath."/";
+			$scandirPath = scandir($scanPath);
+
 			$urlFile = "";
 			for( $sg = $startIterationFrom; $sg < count($__SEGMEN__); $sg++ ) {
-				if($ss > 2 && $arrayChild > $sgminOne) {
-					$arrayChild = $startIterationFrom;
-					$__SEGMEN__[$sg+$stateChild] = "[]";
-					$stateChild = $stateChild+1;
-
-					$urlFile .= ".".$__SEGMEN__[$sg];
-				} else if($ss > 2 && $arrayChild == $sg) {
-					$urlFile .= ".[]";
-				} else {
-					$urlFile .= ".".$__SEGMEN__[$sg];
-				}
-				echo "\n<br>";
-				echo "RESULT [1][1] ON [".$ss."] ON [".$sg."] = ".$urlFile;
-				echo "\n<br>";
+				$urlFile .= ".".$__SEGMEN__[$sg];
 			}
-
-			echo "\n<br>";
-			echo "END [1][1] WITH = ".$urlFile;
-			echo "\n<br>";
-
+			
 			/* Hapus dobel ekstensi file */
 			if($replacement != "" && $replacement != null) {
 				$urlFile = str_replace($replacement, "", $urlFile);
 			}
 
-			echo "\n<br>";
-			echo "AFTER REPLACEMENT = ".$urlFile;
-			echo "\n<br>";
+			$urlFileNotChange = $urlFile;
+			$resultArrayScan = "";
 
-			if($stateChild >= $sgminTwo) {
-				if($thisReqPathLoginPrefix != "both") {
-					/* Kembalikan ke normal jika tidak ditemukan
-					 * Ganti dari login -> both file prefix
-					 */
-					$thisReqPathLoginPrefix = "both";
-					$ss = 1;
-					$arrayChild = $startIterationFrom;
-					$stateChild = -1;
-					$__SEGMEN__ = siteSegmen("pure");
-					continue;
-				} else {
-					/* Menghentikan iterasi $ss */
-					$ss = ($sgminOne*$sgminOne);
-					break;
-				}
-			}
+			$__SEGMEN_ABS__ = siteSegmen("pure");
 
-			$urlFile = $thisReqPathLoginPrefix.$urlFile.$__FILE_EXTENSION__;
-			$searchResult = array_search($urlFile, $scandirPath);
+			$sgCount 	= count($__SEGMEN_ABS__);
+			$sgminOne 	= (count($__SEGMEN__)-1);
+			$sgminTwo 	= (count($__SEGMEN__)-2);
 
-			echo "\n<br>";
-			echo "___RESULTING[".$ss."] = ".$urlFile;
-			echo "\n<br>";
+			/* First-Loop Algorithm */
+			$arrayChild = $startIterationFrom;
+			$stateChild = -1;
+			for( $ss = 1; $ss <= ($sgminOne*$sgminOne); $ss++ ) {
 
-			if($searchResult == null) {
-				$urlFile = $urlFileNotChange;
-			} else {
-				$resultArrayScan = $searchResult;
-				break;
-			}
-		}
-
-		if(file_exists( $scanPath.$scandirPath[$resultArrayScan]) && ($resultArrayScan!=null || $resultArrayScan!="" ) ) {
-			echo $scanPath.$scandirPath[$resultArrayScan];
-			echo "\n<br>";
-		} else {
-
-			/* First-Loop 2 Algorithm */
-			$thisReqPathLoginPrefix = $thisReqPathLoginPrefixDefault;
-			$urlFileOneOne = ".";
-			$resultArrayScanOneOne = "";
-			$oneOneLen = oneOneSortCount($sgminTwo);
-
-			$segmenOneOneLoop = 1;
-			$lenOneOneLoop = 0;
-			$turnOneOneLoop = $startIterationFrom;
-			$borderOneOneLoop = $sgminTwo;
-			
-			for( $sz = 0; $sz < $oneOneLen; $sz++ ) {
-				for( $sx = $startIterationFrom; $sx < $sgCount; $sx++ ) {
-					if($sx == $turnOneOneLoop) {
-						for($sxx = 0; $sxx < $segmenOneOneLoop; $sxx++) {
-							$urlFileOneOne .= "[]";
-							if(($sxx+1) < $segmenOneOneLoop) {
-								$urlFileOneOne .= ".";
-							}
-						}
-						$sx = $sx+($segmenOneOneLoop-1);
+				if( ($ss > 2) && ($ss % $sgminTwo)==0 ) {
+					if($arrayChild > $startIterationFrom) {
+						$arrayChild = $arrayChild+1;
 					} else {
-						$urlFileOneOne .= $__SEGMEN_ABS__[$sx];
-					}
-					
-					if($sx < ($sgCount-1)) {
-						$urlFileOneOne .= ".";
+						$arrayChild = $startIterationFrom;
+						$stateChild = $stateChild+1;
 					}
 				}
-				$urlFileOneOne = $thisReqPathLoginPrefix.$urlFileOneOne.$__FILE_EXTENSION__;
-				$searchResult = array_search($urlFileOneOne, $scandirPath);
+				if( ($ss > 2) && ($ss % $sgminTwo)!=0 ) {
+					$arrayChild = $arrayChild+1;
+				}
+				
+				$urlFile = "";
+				for( $sg = $startIterationFrom; $sg < count($__SEGMEN__); $sg++ ) {
+					if($ss > 2 && $arrayChild > $sgminOne) {
+						$arrayChild = $startIterationFrom;
+						$__SEGMEN__[$sg+$stateChild] = "[]";
+						$stateChild = $stateChild+1;
+
+						$urlFile .= ".".$__SEGMEN__[$sg];
+					} else if($ss > 2 && $arrayChild == $sg) {
+						$urlFile .= ".[]";
+					} else {
+						$urlFile .= ".".$__SEGMEN__[$sg];
+					}
+				}
+
+				/* Hapus dobel ekstensi file */
+				if($replacement != "" && $replacement != null) {
+					$urlFile = str_replace($replacement, "", $urlFile);
+				}
+
+				if($stateChild >= $sgminTwo) {
+					if($thisReqPathLoginPrefixFirst != $thisReqPathLoginPrefix) {
+						/* Kembalikan ke normal jika tidak ditemukan
+						 * Ganti dari login -> both file prefix
+						 */
+						$thisReqPathLoginPrefixFirst = $thisReqPathLoginPrefix;
+						$ss = 1;
+						$arrayChild = $startIterationFrom;
+						$stateChild = -1;
+						$__SEGMEN__ = siteSegmen("pure");
+						continue;
+					} else {
+						/* Menghentikan iterasi $ss */
+						$ss = ($sgminOne*$sgminOne);
+						break;
+					}
+				}
+
+				$urlFile = $thisReqPathLoginPrefixFirst.$urlFile.$__FILE_EXTENSION__;
+				$searchResult = array_search($urlFile, $scandirPath);
 
 				if($searchResult == null) {
-					$urlFileOneOne = ".";
+					$urlFile = $urlFileNotChange;
 				} else {
-					$resultArrayScanOneOne = $searchResult;
+					$resultArrayScan = $searchResult;
 					break;
 				}
-				
-				$lenOneOneLoop = $lenOneOneLoop+1;
-				if($lenOneOneLoop >= $borderOneOneLoop) {
-					$segmenOneOneLoop = $segmenOneOneLoop+1;
-					$lenOneOneLoop = 0;
-					$turnOneOneLoop = $startIterationFrom;
-					$borderOneOneLoop = $borderOneOneLoop-1;
-				} else {
-					$turnOneOneLoop = $turnOneOneLoop+1;
-				}
+			}
 
-				
-				if($sz == ($oneOneLen)) {
-					if($thisReqPathLoginPrefix != "both") {
-						$sz = 0;
-						$thisReqPathLoginPrefix = "both";
+			if(file_exists( $scanPath.$scandirPath[$resultArrayScan]) && ($resultArrayScan!=null || $resultArrayScan!="" ) ) {
+				return $scanPath.$scandirPath[$resultArrayScan];
+			} else {
 
-						$segmenOneOneLoop = 1;
+				/* First-Loop 2 Algorithm */
+				$thisReqPathLoginPrefixFirst = $thisReqPathLoginPrefix;
+				$urlFileOneOne = ".";
+				$resultArrayScanOneOne = "";
+				$oneOneLen = oneOneSortCount($sgminTwo);
+
+				$segmenOneOneLoop = 1;
+				$lenOneOneLoop = 0;
+				$turnOneOneLoop = $startIterationFrom;
+				$borderOneOneLoop = $sgminTwo;
+				
+				for( $sz = 0; $sz < $oneOneLen; $sz++ ) {
+					for( $sx = $startIterationFrom; $sx < $sgCount; $sx++ ) {
+						if($sx == $turnOneOneLoop) {
+							for($sxx = 0; $sxx < $segmenOneOneLoop; $sxx++) {
+								$urlFileOneOne .= "[]";
+								if(($sxx+1) < $segmenOneOneLoop) {
+									$urlFileOneOne .= ".";
+								}
+							}
+							$sx = $sx+($segmenOneOneLoop-1);
+						} else {
+							$urlFileOneOne .= $__SEGMEN_ABS__[$sx];
+						}
+						
+						if($sx < ($sgCount-1)) {
+							$urlFileOneOne .= ".";
+						}
+					}
+					$urlFileOneOne = $thisReqPathLoginPrefixFirst.$urlFileOneOne.$__FILE_EXTENSION__;
+					$searchResult = array_search($urlFileOneOne, $scandirPath);
+
+					if($searchResult == null) {
+						$urlFileOneOne = ".";
+					} else {
+						$resultArrayScanOneOne = $searchResult;
+						break;
+					}
+					
+					$lenOneOneLoop = $lenOneOneLoop+1;
+					if($lenOneOneLoop >= $borderOneOneLoop) {
+						$segmenOneOneLoop = $segmenOneOneLoop+1;
 						$lenOneOneLoop = 0;
 						$turnOneOneLoop = $startIterationFrom;
-						$borderOneOneLoop = $sgminTwo;
+						$borderOneOneLoop = $borderOneOneLoop-1;
+					} else {
+						$turnOneOneLoop = $turnOneOneLoop+1;
 					}
+
+					
+					if($sz == ($oneOneLen)) {
+						if($thisReqPathLoginPrefixFirst != $thisReqPathLoginPrefix) {
+							$sz = 0;
+							$thisReqPathLoginPrefixFirst = $thisReqPathLoginPrefix;
+
+							$segmenOneOneLoop = 1;
+							$lenOneOneLoop = 0;
+							$turnOneOneLoop = $startIterationFrom;
+							$borderOneOneLoop = $sgminTwo;
+						}
+					}
+				}
+
+				if(file_exists( $scanPath.$scandirPath[$resultArrayScanOneOne]) && ($resultArrayScanOneOne!=null || $resultArrayScanOneOne!="" ) ) {
+					return $scanPath.$scandirPath[$resultArrayScanOneOne];
+				} else {
+					return $__ZERO__;
+				}
+			}
+		}
+	} else if($activeFileDynamic == "v4") {
+		/* 	(v4) dari fileDynamic - mengutamakan both -> login/notlogin 
+ 		 * 		Lebih simple dan elegan
+		 */
+		function createFileDynamicMatrix($col, $row, $segmen) {
+			$row = $row;
+			$col = $col;
+
+			$a = $row;
+			$b = $col;
+
+			$array = [];
+			$stayVal = [];
+
+			for($azs = 0; $azs < $b; $azs++) {
+			    array_push($stayVal, 0);
+			}  
+
+			/*
+				$azz = ROW
+				$azx = COLUMN
+			*/
+
+			for($azz = 0; $azz < $a; $azz++) {
+			    $azzm = $azz+1;
+			    for($azx = 0; $azx < $b; $azx++) {
+			        if($azx == 0) {
+			        	$modding 	= $azzm%2;
+			        	$resultmod 	= "";
+
+			        	if($modding == 0) {
+			        		$resultmod = "[]";
+			        	} else {
+			        		$resultmod = $segmen[$azx];
+			        	}
+
+			            $array[$azz][$azx] = $resultmod;
+			        } else {
+			            $tmod   	= pow(2, $azx);
+			            $resultmod 	= "";
+			            
+			            if($azz%$tmod == 0) {
+			                if($stayVal[$azx] == 0) {
+			                    $stayVal[$azx] 	= 1;
+			                } else {
+			                    $stayVal[$azx] 	= 0;
+			                }
+			            }
+
+			            if($stayVal[$azx] == 0) {
+			        		$resultmod = "[]";
+			        	} else {
+			        		$resultmod = $segmen[$azx];
+			        	}
+			            
+			            $array[$azz][$azx] = $resultmod;
+			        }
+			    }
+			}
+
+			/* 
+				1 = Real URL
+				0 = []
+			 */
+
+			return $array;
+		}
+		function searchTheFileDynamic($arrMatrix, $scanDir, $extension, $pathPrefix) {
+			$arrMatrixLen 	= count($arrMatrix);
+			$urlTranslate 	= [];
+			$result 		= "";
+
+			for($a = 0; $a < $arrMatrixLen; $a++) {
+				$thisMatrix = $arrMatrix[$a];
+				$implodeMatrix = implode(".", $thisMatrix);
+
+				$aVal = $pathPrefix.".".$implodeMatrix.$extension;
+				$bVal = "both.".$implodeMatrix.$extension;
+
+				array_push($urlTranslate, $aVal);
+				array_push($urlTranslate, $bVal);
+			}
+
+			$urlTranslateLen = count($urlTranslate);
+
+			for($b = 0; $b < $urlTranslateLen; $b++) { 
+				$result = array_search($urlTranslate[$b], $scanDir);
+
+				if($result != false && $result != null && $result != "") {
+					$b = $urlTranslateLen;
+					return $scanDir[$result];
 				}
 			}
 
-			if(file_exists( $scanPath.$scandirPath[$resultArrayScanOneOne]) && ($resultArrayScanOneOne!=null || $resultArrayScanOneOne!="" ) ) {
-				echo $scanPath.$scandirPath[$resultArrayScanOneOne];
-				echo "\n<br>";
+			return false;
+		}
+		function fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath, $thisReqPathLoginPrefix, $thisReqPath, $startIterationFrom, $replacement = "") {
+			$newSegmen 		= [];
+			$segmenPure		= siteSegmen("pure");
+			$segmenCount	= count($segmenPure);
+			$segmenCountMin	= $segmenCount-$startIterationFrom;
+			$rowCount 		= pow(2, $segmenCountMin);
+
+			$thisPath 		= $thisReqPath.$requirePath."/";
+			$scanThisPath 	= scandir($thisPath);
+
+			for($az = $startIterationFrom; $az < $segmenCount; $az++) {
+				$thisSegmenPure = str_replace($replacement, "", $segmenPure[$az]);
+				array_push($newSegmen, $thisSegmenPure);
+			}
+
+			$newMatrix 		= createFileDynamicMatrix($segmenCountMin, $rowCount, $newSegmen);
+			$returnResult 	= searchTheFileDynamic($newMatrix, $scanThisPath, $__FILE_EXTENSION__, $thisReqPathLoginPrefix);
+
+			$finalResult 	= $thisPath.$returnResult;
+
+			if(file_exists($finalResult) && !is_dir($finalResult)) {
+				return $finalResult;
 			} else {
-				echo $__ZERO__;
-				echo "\n<br>";
+				return $__ZERO__;
 			}
 		}
-		echo "\n<br>";
-		echo "\n<br>";
-		echo "...END FILE DYNAMIC DEBUGGER";
+	} else if($activeFileDynamic == "debug_v2") {
+		/* Digunakan Sebagai Debugger (v2) */
+		function fileDynamicDebug($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath, $thisReqPathLoginPrefix, $thisReqPath, $startIterationFrom, $replacement = "") {
+			$time_start = microtime(true); 
+
+			echo "\n<br>";
+			echo "\n<br>";
+
+			echo "- \$__SEGMEN__ : "; print_r($__SEGMEN__); echo "\n<br>";
+			echo "- \$__SEGMEN2__ : "; print_r(siteSegmen("pure")); echo "\n<br>";
+			echo "- \$__FILE_EXTENSION__ : ".$__FILE_EXTENSION__."\n<br>";
+			echo "- \$__ZERO__ : ".$__ZERO__."\n<br>";
+			echo "- \$requirePath : ".$requirePath."\n<br>";
+			echo "- \$thisReqPathLoginPrefix : ".$thisReqPathLoginPrefix."\n<br>";
+			echo "- \$thisReqPath : ".$thisReqPath."\n<br>";
+			echo "- \$startIterationFrom : ".$startIterationFrom."\n<br>";
+			echo "- \$replacement : ".$replacement."\n<br>";
+
+			echo "\n<br>";
+			echo "\n<hr>";
+
+			echo "\n<br>";
+			echo "\n<br>";
+			echo "BEGIN FILE DYNAMIC DEBUGGER...";
+			echo "\n<br>";
+			echo "\n<br>";
+
+			$thisReqPathDefault = $thisReqPath;
+			$thisReqPathLoginPrefixDefault = $thisReqPathLoginPrefix;
+
+			$scanPath = $thisReqPathDefault.$requirePath."/";
+			$scandirPath = scandir($scanPath);
+
+			print_r($scandirPath);
+			echo "\n<br>";
+
+			$urlFile = "";
+			for( $sg = $startIterationFrom; $sg < count($__SEGMEN__); $sg++ ) {
+				$urlFile .= ".".$__SEGMEN__[$sg];
+			}
+			
+			/* Hapus dobel ekstensi file */
+			if($replacement != "" && $replacement != null) {
+				$urlFile = str_replace($replacement, "", $urlFile);
+			}
+
+			$urlFileNotChange = $urlFile;
+			$resultArrayScan = "";
+
+			$__SEGMEN_ABS__ = siteSegmen("pure");
+
+			$sgCount 	= count($__SEGMEN_ABS__);
+			$sgminOne 	= (count($__SEGMEN__)-1);
+			$sgminTwo 	= (count($__SEGMEN__)-2);
+
+			/* First-Loop Algorithm */
+			$arrayChild = $startIterationFrom;
+			$stateChild = -1;
+
+			echo "\n<br>";
+			echo "[1] LOOPING FOR ".($sgminOne*$sgminOne);
+			echo "\n<br>";
+
+			for( $ss = 1; $ss <= ($sgminOne*$sgminOne); $ss++ ) {
+
+				if( ($ss > 2) && ($ss % $sgminTwo)==0 ) {
+					if($arrayChild > $startIterationFrom) {
+						$arrayChild = $arrayChild+1;
+					} else {
+						$arrayChild = $startIterationFrom;
+						$stateChild = $stateChild+1;
+					}
+				}
+				if( ($ss > 2) && ($ss % $sgminTwo)!=0 ) {
+					$arrayChild = $arrayChild+1;
+				}
+
+				echo "\n<br>";
+				echo "[1][1] Looping For ".count($__SEGMEN__)." - ON [".$ss."]";
+				echo "\n<br>";
+				
+				$urlFile = "";
+				for( $sg = $startIterationFrom; $sg < count($__SEGMEN__); $sg++ ) {
+					if($ss > 2 && $arrayChild > $sgminOne) {
+						$arrayChild = $startIterationFrom;
+						$__SEGMEN__[$sg+$stateChild] = "[]";
+						$stateChild = $stateChild+1;
+
+						$urlFile .= ".".$__SEGMEN__[$sg];
+					} else if($ss > 2 && $arrayChild == $sg) {
+						$urlFile .= ".[]";
+					} else {
+						$urlFile .= ".".$__SEGMEN__[$sg];
+					}
+					echo "\n<br>";
+					echo "RESULT [1][1] ON [".$ss."] ON [".$sg."] = ".$urlFile;
+					echo "\n<br>";
+				}
+
+				echo "\n<br>";
+				echo "END [1][1] WITH = ".$urlFile;
+				echo "\n<br>";
+
+				/* Hapus dobel ekstensi file */
+				if($replacement != "" && $replacement != null) {
+					$urlFile = str_replace($replacement, "", $urlFile);
+				}
+
+				echo "\n<br>";
+				echo "AFTER REPLACEMENT = ".$urlFile;
+				echo "\n<br>";
+
+				if($stateChild >= $sgminTwo) {
+					if($thisReqPathLoginPrefix != "both") {
+						/* Kembalikan ke normal jika tidak ditemukan
+						 * Ganti dari login -> both file prefix
+						 */
+						$thisReqPathLoginPrefix = "both";
+						$ss = 1;
+						$arrayChild = $startIterationFrom;
+						$stateChild = -1;
+						$__SEGMEN__ = siteSegmen("pure");
+						continue;
+					} else {
+						/* Menghentikan iterasi $ss */
+						$ss = ($sgminOne*$sgminOne);
+						break;
+					}
+				}
+
+				$urlFile = $thisReqPathLoginPrefix.$urlFile.$__FILE_EXTENSION__;
+				$searchResult = array_search($urlFile, $scandirPath);
+
+				echo "\n<br>";
+				echo "___RESULTING[".$ss."] = ".$urlFile;
+				echo "\n<br>";
+
+				if($searchResult == null) {
+					$urlFile = $urlFileNotChange;
+				} else {
+					$resultArrayScan = $searchResult;
+					break;
+				}
+			}
+
+			if(file_exists( $scanPath.$scandirPath[$resultArrayScan]) && ($resultArrayScan!=null || $resultArrayScan!="" ) ) {
+				echo $scanPath.$scandirPath[$resultArrayScan];
+				echo "\n<br>";
+			} else {
+
+				/* First-Loop 2 Algorithm */
+				$thisReqPathLoginPrefix = $thisReqPathLoginPrefixDefault;
+				$urlFileOneOne = ".";
+				$resultArrayScanOneOne = "";
+				$oneOneLen = oneOneSortCount($sgminTwo);
+
+				$segmenOneOneLoop = 1;
+				$lenOneOneLoop = 0;
+				$turnOneOneLoop = $startIterationFrom;
+				$borderOneOneLoop = $sgminTwo;
+				
+				for( $sz = 0; $sz < $oneOneLen; $sz++ ) {
+					for( $sx = $startIterationFrom; $sx < $sgCount; $sx++ ) {
+						if($sx == $turnOneOneLoop) {
+							for($sxx = 0; $sxx < $segmenOneOneLoop; $sxx++) {
+								$urlFileOneOne .= "[]";
+								if(($sxx+1) < $segmenOneOneLoop) {
+									$urlFileOneOne .= ".";
+								}
+							}
+							$sx = $sx+($segmenOneOneLoop-1);
+						} else {
+							$urlFileOneOne .= $__SEGMEN_ABS__[$sx];
+						}
+						
+						if($sx < ($sgCount-1)) {
+							$urlFileOneOne .= ".";
+						}
+					}
+					$urlFileOneOne = $thisReqPathLoginPrefix.$urlFileOneOne.$__FILE_EXTENSION__;
+					$searchResult = array_search($urlFileOneOne, $scandirPath);
+
+					if($searchResult == null) {
+						$urlFileOneOne = ".";
+					} else {
+						$resultArrayScanOneOne = $searchResult;
+						break;
+					}
+					
+					$lenOneOneLoop = $lenOneOneLoop+1;
+					if($lenOneOneLoop >= $borderOneOneLoop) {
+						$segmenOneOneLoop = $segmenOneOneLoop+1;
+						$lenOneOneLoop = 0;
+						$turnOneOneLoop = $startIterationFrom;
+						$borderOneOneLoop = $borderOneOneLoop-1;
+					} else {
+						$turnOneOneLoop = $turnOneOneLoop+1;
+					}
+
+					
+					if($sz == ($oneOneLen)) {
+						if($thisReqPathLoginPrefix != "both") {
+							$sz = 0;
+							$thisReqPathLoginPrefix = "both";
+
+							$segmenOneOneLoop = 1;
+							$lenOneOneLoop = 0;
+							$turnOneOneLoop = $startIterationFrom;
+							$borderOneOneLoop = $sgminTwo;
+						}
+					}
+				}
+
+				if(file_exists( $scanPath.$scandirPath[$resultArrayScanOneOne]) && ($resultArrayScanOneOne!=null || $resultArrayScanOneOne!="" ) ) {
+					echo $scanPath.$scandirPath[$resultArrayScanOneOne];
+					echo "\n<br>";
+				} else {
+					echo $__ZERO__;
+					echo "\n<br>";
+				}
+			}
+			echo "\n<br>";
+			echo "\n<br>";
+			echo "...END FILE DYNAMIC DEBUGGER";
+			echo "\n<br>";
+			$time_end = microtime(true);
+
+			$execution_time = ($time_end - $time_start);
+			echo "WAKTU PROSES : <b>".number_format($execution_time, 6)."</b> Detik";
+		}
+		function fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath, $thisReqPathLoginPrefix, $thisReqPath, $startIterationFrom, $replacement = "") {
+			if($requirePath != "/myassets/_page/general") {
+				return fileDynamicDebug($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath, $thisReqPathLoginPrefix, $thisReqPath, $startIterationFrom, $replacement);
+				die();
+			} else {
+				return $__ZERO__;
+			}
+		}
 	}
 
 	/* Menghapus semua session untuk POST, GET, FILES */

@@ -310,9 +310,15 @@
 				}
 			} else if($__END_SEGMEN_DOT__ == "jsd") {
 				/* [OTHER] Jika halaman adalah .jsd (JavaSciprt Dynamic) */
+				$__SFW_thisIteration = 2;
+
+				if($activeFileDynamic == "v4") {
+					$__SFW_thisIteration = 3;
+				}
+
 				header("Content-type: text/javascript");
-				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['jsd'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".jsd") != $__ZERO__) {
-					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['jsd'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".jsd"));
+				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['jsd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".jsd") != $__ZERO__) {
+					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['jsd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".jsd"));
 				} else {
 					/* Tidak menemukan SPA tidak ke $__ZERO__ */
 					$__SEGMEN__ 	= [];
