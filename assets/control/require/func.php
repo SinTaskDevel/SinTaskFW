@@ -2855,7 +2855,7 @@
 		return $result;
 	}
 	/* Function File Size translasi dari B (Byte) */
-	function fileSizeFrByToAll($fileSize, $fileSizeNumFor) {
+	function fileSizeFrByToAll($fileSize, $fileSizeNumFor = "") {
 		/*
 			Ini manual, untuk dinamis gunakan POW atau ^ fungsi matematika
 			lalu dibagikan oleh $fileSize & nilai pendekatan
