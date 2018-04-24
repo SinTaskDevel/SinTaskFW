@@ -1665,6 +1665,21 @@
 
 		return $input;
 	}
+	/* Mengubah /s atau space pada HTML/Raw Content menjadi &nbsp; */
+	function space2nbsp($input) {
+		$data = $input;
+
+		$exp = "/((?:<\\/?\\w+)(?:\\s+\\w+(?:\\s*=\\s*(?:\\\".*?\\\"|'.*?'|[^'\\\">\\s]+)?)+\\s*|\\s*)\\/?>)([^<]*)?/";
+		$ex1 = "/^([^<>]*)(<?)/i";
+		$ex2 = "/(>)([^<>]*)$/i";
+
+		$data = preg_replace_callback($exp, create_function('$matches','return $matches[1].str_replace(" ","&nbsp;",$matches[2]);'), $data);
+		$data = preg_replace_callback($ex1, create_function('$matches','return str_replace(" ","&nbsp;",$matches[1]).$matches[2];'), $data);
+		$data = preg_replace_callback($ex2, create_function('$matches','return $matches[1].str_replace(" ","&nbsp;",$matches[2]);'), $data);
+
+		return $data;
+	}
+	
 	/* Menghapus Slash dari ' misalnya \' menjadi hanya ' saja */
 	function removeSlashOneQuot($input) {
 		$breaks = array("\'");  

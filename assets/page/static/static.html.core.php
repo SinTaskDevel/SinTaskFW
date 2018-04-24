@@ -394,6 +394,7 @@
             $footer_js      = [
                 "sintask.func.js",
                 "sintask.plugin.js",
+                "sintask.plugin.2.js",
                 "sintask.zcore.js",
             ];
 
