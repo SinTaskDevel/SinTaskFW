@@ -9,21 +9,24 @@
 	}
 	/* Pindahkan FILES Param ke SESSION */
 	foreach($_FILES as $key => $value) {
-		$__TMP_DIR_FILE__ = $__DOC_ROOT__."/protected/data/tmp";
-		
-		/* Check Directory EXIST */
-		if(!is_dir($__TMP_DIR_FILE__)) {
-		    mkdir($__TMP_DIR_FILE__, 0755, true);
-		}
+		/* Deprecated Code
+			$__TMP_DIR_FILE__ = $__DOC_ROOT__."/protected/data/tmp";
+			
+			/* Check Directory EXIST
+			if(!is_dir($__TMP_DIR_FILE__)) {
+			    mkdir($__TMP_DIR_FILE__, 0755, true);
+			}
 
-		/* Pindahkan FILES ke tmp Directory */
-		$tmpFile = $__TMP_DIR_FILE__.getRandomPlusDate(5).".tmp";
-		move_uploaded_file($_FILES[$key]['tmp_name'], $tmpFile);
+			/* Pindahkan FILES ke tmp Directory
+			$tmpFile = $__TMP_DIR_FILE__.getRandomPlusDate(5).".tmp";
+			move_uploaded_file($_FILES[$key]['tmp_name'], $tmpFile);
 
-		/* Rename tmp_name menjadi Value baru */
-		$_FILES[$key]['tmp_name'] = $tmpFile;
+			/* Rename tmp_name menjadi Value baru
+			$_FILES[$key]['tmp_name'] = $tmpFile;
+			$_SESSION['postFILES'][$key] = $value;
+			$_SESSION['postFILES'][$key]['tmp_name'] = $tmpFile;
+		*/
 		$_SESSION['postFILES'][$key] = $value;
-		$_SESSION['postFILES'][$key]['tmp_name'] = $tmpFile;
 	}
 
 	if($_SESSION['sintaskFWActualURL'] == "" || $_SESSION['sintaskFWActualURL'] == null) {
