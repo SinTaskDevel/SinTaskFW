@@ -7,14 +7,26 @@
 		public function __construct() {
 			
 		}
-		function get($key) {
-			return $_SESSION["postGET"][$key];
+		function get($key = null) {
+			if($key == null) {
+				return $_SESSION["postGET"];
+			} else {
+				return $_SESSION["postGET"][$key];
+			}
 		}
-		function post($key) {
-			return $_SESSION["postPOST"][$key];
+		function post($key = null) {
+			if($key == null) {
+				return $_SESSION["postPOST"];
+			} else {
+				return $_SESSION["postPOST"][$key];
+			}
 		}
-		function files($key) {
-			return $_SESSION["postFILES"][$key];
+		function files($key = null) {
+			if($key == null) {
+				return $_SESSION["postFILES"];
+			} else {
+				return $_SESSION["postFILES"][$key];
+			}
 		}
 	}
 	/* $sintaskFW */

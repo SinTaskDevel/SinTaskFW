@@ -115,6 +115,56 @@
 
 			break;
 
+		case "s-404":
+			if(
+				$__XHR_STATUS__ 	== true 				&& 
+				$__END_SEGMEN_DOT__ == "jssintasktemplate" 	&&
+				$__FTOKEN__ 		== $__STOKEN__
+			) {
+				/* 404 JS-Template */
+				$pathRender = $__DOC_ROOT__.$requirePath['template']."/default.404.php";
+
+				/* Mengambil akhiran nama file */
+				$explodePath = explode("/", $pathRender);
+				$endPath = end($explodePath);
+
+				$controlRender = $__DOC_ROOT__.$requirePath['control']."/".$endPath;
+
+				/* HTML Rendering */
+				ob_start();
+				if(file_exists($controlRender)) {
+					include($controlRender);
+				}
+			    include($pathRender);
+			    $varRender = ob_get_contents(); 
+			    ob_end_clean();
+
+			    /* Tunjukan HTML rendering ke JS SinTask Standard Format */
+				if($_GET['type'] == 'content') {
+					if($__MY_CORE__["AES_SECURE_SPA_TRANSF"] == true) {
+						echo renderHTMLToJSENC($varRender);
+					} else {
+						echo renderHTMLToJS($varRender);
+					}
+				}
+			} else if(
+				$__XHR_STATUS__ 	== true 		&& 
+				$__END_SEGMEN_DOT__ == "latecss" 	&&
+				$__FTOKEN__ 		== $__STOKEN__
+			) {
+				/* 404 CSS-Template */
+				$pathRender = $__DOC_ROOT__.$requirePath['latecss']."/default.404.php";
+					
+				/* Render CSS - LateCSS agar ukuran lebih kecil */
+				ob_start();
+			    include($pathRender);
+			    $varRender = ob_get_contents(); 
+				ob_end_clean();
+				
+				echo toSingleLine($varRender);
+			}
+			break;
+
 		default :
 			$__FTOKEN__ = $sintaskSess->get("globalSecureToken");
 			$__STOKEN__ = $sintaskFW->post("tokenizing");
@@ -140,7 +190,7 @@
 					/* [OTHER] Jika halaman Normal-General */
 					header("Content-type: text/javascript");
 					?>
-						$("html").remove();
+						sjqNoConflict("html").remove();
 						location.assign(document.URL);
 					<?php
 					die();
@@ -205,12 +255,20 @@
 					}
 				} else {
 					/* Tidak menemukan SPA tidak ke $__ZERO__ */
-					$__SEGMEN__ 	= [];
-					$__SEGMEN__ 	= ["System", "GoTo", "404"];
-					$pathRender = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], "default", $thisReqPath, 2, ".jssintasktemplate");
+					/* 404 JS-Template */
+					$pathRender = $__DOC_ROOT__.$requirePath['template']."/default.404.php";
+
+					/* Mengambil akhiran nama file */
+					$explodePath = explode("/", $pathRender);
+					$endPath = end($explodePath);
+
+					$controlRender = $__DOC_ROOT__.$requirePath['control']."/".$endPath;
 
 					/* HTML Rendering */
 					ob_start();
+					if(file_exists($controlRender)) {
+						include($controlRender);
+					}
 				    include($pathRender);
 				    $varRender = ob_get_contents(); 
 				    ob_end_clean();
@@ -242,9 +300,16 @@
 					echo toSingleLine($varRender);
 				} else {
 					/* Tidak menemukan SPA tidak ke $__ZERO__ */
-					$__SEGMEN__ 	= [];
-					$__SEGMEN__ 	= ["System", "GoTo", "404"];
-					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['latecss'], "default", $thisReqPath, 2, ".latecss"));
+					/* 404 CSS-Template */
+					$pathRender = $__DOC_ROOT__.$requirePath['latecss']."/default.404.php";
+						
+					/* Render CSS - LateCSS agar ukuran lebih kecil */
+					ob_start();
+				    include($pathRender);
+				    $varRender = ob_get_contents(); 
+					ob_end_clean();
+					
+					echo toSingleLine($varRender);
 				}
 
 				clearAllSessInput();
@@ -321,9 +386,8 @@
 					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['jsd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".jsd"));
 				} else {
 					/* Tidak menemukan SPA tidak ke $__ZERO__ */
-					$__SEGMEN__ 	= [];
-					$__SEGMEN__ 	= ["System", "GoTo", "404"];
-					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['jsd'], "default", $thisReqPath, 2, ".jsd"));
+					/* Not Found 404 - JS Dynamic */
+					echo "console.log('%cJSD-404 / Sumber JS ini tidak ditemukan, baca selengkapnya https://fw.sintask.com/docs/error [ 3. Notice JSD-404 ]', 'font-size: 14px; color: #EA4335;');";
 				}
 			} else {
 				if(

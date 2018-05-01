@@ -1117,7 +1117,7 @@
 		header('SinTask-Author: SinTask Web Developer');
 		header('SinTask-License: Framework is under MIT License');
 		header('SinTask-Company: PT. SinTask Digital');
-		header('SinTask-Framework: fw@sintask.com');
+		header('SinTask-Framework: hi@sintask.com');
 	}
 
 	/* Template loading pada web */
@@ -1133,7 +1133,11 @@
 		</div>';
 		return $output;
 	}
-	/* JSON initial - awal template */
+	/* 
+		JSON initial - awal template.
+
+		[!] JSON secara Manual, tidak menggunakan JSON_ENCODE dan sejenis.
+	 */
 	function initialJson($title, $style, $script, $inst = "null", $msg = "OK") {
 		$output = "[
 						{\"content\":[
@@ -1201,14 +1205,14 @@
 							{\"title\":\"".$title."\"}
 						]},
 						{\"addStyle\":[
-							{\"style\":\"".$GLOBALS["__BASE_URL__"]."/404/404.latecss\"}
+							{\"style\":\"".$GLOBALS["__BASE_URL__"]."/s-404/.latecss\"}
 						]},
 						{\"addScript\":[
-							{\"script\":\"".$GLOBALS["__BASE_URL__"]."/404/404.jssintasktemplate?type=content\"}
+							{\"script\":\"".$GLOBALS["__BASE_URL__"]."/s-404/.jssintasktemplate?type=content\"}
 						]}
 					]},
 					{\"sts\":200},
-					{\"inst\":\"_[inst]_hide|#headerTwoSinTask_[inst]_removeClass|loginRegForgotBackgroundHNL|#contentSinTask\"},
+					{\"inst\":\"null\"},
 					{\"msg\":\"Ok!\"}
 				]";
 		return fixStJson($output);
