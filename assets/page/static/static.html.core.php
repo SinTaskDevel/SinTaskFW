@@ -296,16 +296,16 @@
             if($__SEGMEN__[2]=="html5") {
                 ?>
                 <script>
-					var h5s 		= [];
-	
-					h5s.fileApi 	= typeof FileReader != 'undefined';
-					h5s.video 		= !!document.createElement('video').canPlayType;
-					h5s.canvas 		= !!document.createElement('canvas').getContext;
-					h5s.audio 		= !!document.createElement('audio').canPlayType;
-					h5s.historyApi 	= !!(window.history && window.history.pushState);
-					h5s.formData 	= !!window.FormData;
+                    var h5s         = [];
+
+                    h5s.fileApi     = typeof FileReader != 'undefined';
+                    h5s.video       = !!document.createElement('video').canPlayType;
+                    h5s.canvas      = !!document.createElement('canvas').getContext;
+                    h5s.audio       = !!document.createElement('audio').canPlayType;
+                    h5s.historyApi  = !!(window.history && window.history.pushState);
+                    h5s.formData    = !!window.FormData;
                 </script>
-                <?php 
+                <?php
                 require($__DOC_ROOT__.$requirePath['error']."/html5_not_supported.php");
                 ?>
                 </BODY></HTML>

@@ -57,7 +57,7 @@
 		if ($uploadOk == 0) {
 		    echo "Sorry, your file was not uploaded.";
 		} else {
-		    if (move_uploaded_file($fileToUpload["tmp_name"], $target_file)) {
+		    if (sfwUploadFile($fileToUpload["tmp_name"], $target_file)) {
 		        echo "The file ". basename( $fileToUpload["name"]). " has been uploaded.";
 		    } else {
 		        echo "Sorry, there was an error uploading your file.";

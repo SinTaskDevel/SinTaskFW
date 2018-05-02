@@ -1,32 +1,35 @@
+<h2 class="head">
+	Welcome Coders,
+</h2>
 <div class="contentArea">
-	<b class="fontSize25px">The Begining of your <u><?php echo $__BASE_URL__;?></u></b>
-	<div class="borderSpaceMini"></div>
 	Selamat, anda sudah berhasil menggunakan SinTaskFW.
 	<div class="borderSpaceMini"></div>
-	SinTaskFW atau SinTask Framework dikembangkan oleh Divisi Web SinTask, yang dimana SinTask adalah Startup Teknologi yang juga mengembangkan <a href="http://www.sintask.com" target="_blank">SinTask Productive & Fun</a>.
+	SinTaskFW atau SinTask Framework adalah <i>Simple & Light PHP Micro Framework built-in SPA</i>, dikembangkan oleh Divisi Web SinTask, yang dimana SinTask adalah Startup Teknologi yang juga mengembangkan <a href="http://www.sintask.com" target="_blank">SinTask Productive & Fun</a>.
+	<div class="borderSpaceMini"></div>
+	Versi &mdash; <?php echo $__VERSION__;?>
 	<div class="borderSpaceMini"></div>
 	<div class="borderLine"></div>
 
-	<h3>Memulai.</h3>
+	<h2 class="title">Memulai.</h2>
 	<div class="borderSpaceMini"></div>
 	<div class="contentTwo">
 		<ul>
 			<li>
 				Saat baru mulai menggunakan SinTaskFW, silahkan konfigurasi pada direktori <span class="thisTagging">myassets/_php/my.core.php</span>
 				<br>
-				Silahkan baca dokumentasi lengkap di <a href="https://fw.sintask.com/docs/1.1.0/3" target="_blank">fw.sintask.com</a> untuk keterangan lebih lengkap. 
+				Silahkan baca dokumentasi lengkap di <a href="https://fw.sintask.com/docs/1.2.0/3" target="_blank">fw.sintask.com</a> untuk keterangan lebih lengkap. 
 			</li>
 			<div class="borderSpaceMini"></div>
 			<li>
 				Membuat halaman baru cukup dengan menambahkan file baru pada <span class="thisTagging">myassets/_page/spa_template</span> dan <span class="thisTagging">myassets/_page/spa_latecss</span>
 				<br>
-				Format penulisan nama file terdapat pada <a href="https://fw.sintask.com/docs/1.1.0/5" target="_blank">fw.sintask.com</a>
+				Format penulisan nama file terdapat pada <a href="https://fw.sintask.com/docs/1.2.0/5" target="_blank">fw.sintask.com</a>
 			</li>
 			<div class="borderSpaceMini"></div>
 			<li>
 				Jika anda menggunakan Database, silahkan konfigurasi pada direktori <span class="thisTagging">myassets/_dbconfig/my.db.config.php</span>
 				<br>
-				Silahkan baca dokumentasi lengkap di <a href="https://fw.sintask.com/docs/1.1.0/4" target="_blank">fw.sintask.com</a> untuk penggunaan $sdb.
+				Silahkan baca dokumentasi lengkap di <a href="https://fw.sintask.com/docs/1.2.0/4" target="_blank">fw.sintask.com</a> untuk penggunaan $sdb.
 				<br>
 				&mdash; $sdb ini untuk menjalankan Query Database anda. 
 			</li>
@@ -46,6 +49,10 @@
 			</li>
 			<div class="borderSpaceMini"></div>
 			<li>
+				Fungsi default <span class="thisTagging">move_uploaded_file</span> tidak dapat digunakan untuk beberapa kondisi, agar saat proses mengupload file tetap lancar, mohon gunakan fungsi <span class="thisTagging">rename</span> atau <span class="thisTagging">sfwUploadFile</span> dengan parameter input yang sama dengan <span class="thisTagging">move_uploaded_file</span>.
+			</li>
+			<div class="borderSpaceMini"></div>
+			<li>
 				Ingin mengembangkan SinTaskFW lebih lanjut? kami terbuka untuk siapa saja yang ingin mengembangkan SinTaskFW
 				<div class="borderSpaceMini"></div>
 				<div class="noted">
@@ -56,52 +63,78 @@
 			</li>
 			<div class="borderSpaceMini"></div>
 			<li>
-				Silahkan baca dokumentasi lengkap di <a href="https://fw.sintask.com/docs/1.1.0" target="_blank">fw.sintask.com</a> (Sangat Disarankan) 
+				Silahkan baca dokumentasi lengkap di <a href="https://fw.sintask.com/docs/1.2.0" target="_blank">fw.sintask.com</a> (Sangat Disarankan) 
 			</li>
 		</ul>
 	</div>
 	<div class="borderSpaceMini"></div>
 	<div class="borderLine"></div>
 	
-	<h3>Contoh Page.</h3>
+	<h2 class="title">Contoh Page.</h2>
 	<div class="borderSpaceMini"></div>
 	<div class="contentTwo">
-		<span class="s ft_style_u c_pointer" s-data-url="<?php echo $__BASE_URL__;?>/true/div">
+		<span class="s ft_style_u c_pointer" spa-url="<?php echo $__BASE_URL__;?>/true/div">
 			Tidak menggunakan a href (SPA - 404)
 		</span>
 		<div class="borderSpaceMini"></div>
-		<a href="<?php echo $__BASE_URL__;?>/true/href" class="s ft_style_u">
+		<a spa href="<?php echo $__BASE_URL__;?>/true/href" class="ft_style_u">
 			Menggunakan href biasa (SPA - 404)
 		</a>
 		<div class="borderSpaceMini"></div>
-		<a href="<?php echo $__BASE_URL__;?>/test?src=HOMEPAGES" class="s ft_style_u">
+		<a spa href="<?php echo $__BASE_URL__;?>/test?src=HOMEPAGES" class="ft_style_u">
 			Halaman test (SPA)
 		</a>
-		<div class="borderSpaceMini"></div>
-		<a href="<?php echo $__BASE_URL__;?>/general" class="s ft_style_u">
-			Halaman general -> akan menghasilkan halaman SINTASK_ERROR (NON-SPA)
-		</a>
-		<div class="borderSpaceMini"></div>
-		<div class="noted">
-			Jangan memberi <span class="thisTagging">class="s"</span> untuk perpindahan dari halaman SPA ke NON-SPA.
-		</div>
 		<div class="borderSpaceMini"></div>
 		<a href="<?php echo $__BASE_URL__;?>/general" class="ft_style_u">
 			Halaman general (NON-SPA)
 		</a>
 		<div class="borderSpaceMini"></div>
-		<a href="<?php echo $__BASE_URL__;?>/dynamic1" class="s ft_style_u">
+		<a spa href="<?php echo $__BASE_URL__;?>/my/dynamic1" class="ft_style_u">
 			Halaman dinamis 1 (SPA)
 		</a>
 		<div class="borderSpaceMini"></div>
-		<a href="<?php echo $__BASE_URL__;?>/dynamic2" class="s ft_style_u">
+		<a spa href="<?php echo $__BASE_URL__;?>/my/dynamic2" class="ft_style_u">
 			Halaman dinamis 2 (SPA)
 		</a>
+		<div class="borderSpaceMini"></div>
+		<div class="noted">
+			Perhatikan Source Code dari baris kode Link-link di atas ini agar memahami bagaimana penggunaan tag &lt;a&gt; untuk berpindah ke halaman berbasis SPA dan halaman biasa.
+		</div>
 	</div>
 	<div class="borderSpaceMini"></div>
 	<div class="borderLine"></div>
 
-	<h3>Extra.</h3>
+	<h2 class="title">Latihan & Panduan Singkat.</h2>
+	<div class="borderSpaceMini"></div>
+	<div class="contentTwo">
+		<div class="ft_style_b">1. Panduan singkat, menambah halaman/page.</div>
+		<div class="borderSpaceMini"></div>
+		Silahkan tambahkan file .php pada <span class="thisTagging">/myassets/_page/spa_template</span> dengan nama <span class="thisTagging">notlogin.my-firstpage.php</span> lalu isi dengan kode PHP/HTML/JS anda secara bebas, setelah itu coba buka Link di bawah ini, jika tidak menghasilkan 404 artinya anda berhasil membuat Page SPA Pertama anda menggunakan SinTaskFW.
+		<div class="borderSpaceMini"></div>
+		<a spa href="<?php echo $__BASE_URL__;?>/my-firstpage" class="ft_style_u">
+			Halaman SPA Pertama-ku &mdash; <b><?php echo $__BASE_URL__;?>/my-firstpage</b>
+		</a>
+		<div class="borderSpace"></div>
+
+		<div class="ft_style_b">2. Panduan singkat, mengubah/menghilangkan header & footer.</div>
+		<div class="borderSpaceMini"></div>
+		Silahkan edit file .php pada <span class="thisTagging">/myassets/_page/stay</span> terdapat 3 file dengan nama <span class="thisTagging">stay_content.php</span>, <span class="thisTagging">stay_header.php</span>, <span class="thisTagging">stay_footer.php</span> di mana file-file ini berfungsi untuk menampilkan Header, Footer dan Content. File ini berguna saat anda ingin mengurangi beban load / memuat halaman SPA anda dari Header, Footer dan Content, juga agar mempermudah anda agar tidak perlu membuat header pada setiap Page secara manual. Anda juga tentu dapat mengosongkan ke-tiga file ini jika tidak ingin menggunakan fitur stay content SPA SinTaskFW, lalu membuat Header & Footer secara manual pada setiap Page (Not-Recomended).
+		<div class="borderSpace"></div>
+
+		<div class="ft_style_b">3. Baca dokumentasi dan pahami, serta temukan hal menariknya.</div>
+		<div class="borderSpaceMini"></div>
+		Kami menyarankan anda untuk membaca dokumentasi kami secara menyeluruh agar paham dan mudah dalam membangun web anda menggunakan SinTaskFW.
+		<div class="borderSpaceMini"></div>
+		&mdash; <a href="https://fw.sintask.com/docs/" class="ft_style_u" target="_blank">Buka Dokumentasi SinTaskFW</a>
+		<br>
+		&mdash; Jika ada kendala hubungi kami melalui <b>hi@sintask.com</b> dengan menyertakan tulisan [SinTaskFW] pada subject anda.
+		<br>
+		&mdash; Menemui masalah lain dan butuh respon lebih cepat? kirim Issue ke <a href="https://github.com/SinTaskDevel/SinTaskFW" class="ft_style_u" target="_blank">Github SinTaskFW</a>
+	</div>
+	<div class="borderSpaceMini"></div>
+	<div class="borderLine"></div>
+
+	<h2 class="title">Extra JavaScript.</h2>
 	<div class="borderSpaceMini"></div>
 	<div class="contentTwo">
 		<b>Toast 1</b> &mdash; function <span class="thisTagging">toastOne</span> &mdash; Javascript

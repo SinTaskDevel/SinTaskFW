@@ -6,8 +6,27 @@ body {
     background-attachment: fixed;
     line-height: 1.4em;
 }
+h2.head {
+    color: #45898F;
+    background: #FFFFFF;
+    font-family: Arial;
+    font-size: 22px;
+    border-bottom: 1px solid #45898F;
+    font-weight: lighter;
+    letter-spacing: -1px;
+    padding: 2% 15%;
+}
+h2.title {
+	color: #FFFFFF;
+    background: #45898F;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: -1px;
+    padding: 20px 20px;
+}
 div.contentArea {
-	padding: 20px 200px 20px 200px;
+	padding: 2% 15%;
 	margin: 0px auto;
 	font-size: 16px;
 	color: #222;

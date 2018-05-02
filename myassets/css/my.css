@@ -5,8 +5,8 @@
 .theFooter {
     border-top: 1px solid #EAEAEA;
     position: absolute;
-    text-align: center;
-    padding: 10px;
+    text-align: left;
+    padding: 2% 15%;
     background: #FFF;
     font-size: 13px;
     width: 100%;

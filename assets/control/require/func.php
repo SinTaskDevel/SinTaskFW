@@ -1113,7 +1113,8 @@
 	function headerSinTaskHQ() {
 		header('Content-Type: text/html; charset=UTF-8');
 		header('Cache-Control: max-age=3600, must-revalidate');
-		header('SinTask-Framework-Info: fw.sintask.com');
+		header('SinTask-Framework-Web: fw.sintask.com');
+		header('SinTask-Framework-Ver: '.$__VERSION__);
 		header('SinTask-Author: SinTask Web Developer');
 		header('SinTask-License: Framework is under MIT License');
 		header('SinTask-Company: PT. SinTask Digital');
@@ -1442,6 +1443,10 @@
 		$input = str_replace("\\\"", "&quot;", $input);
 		$input = str_replace("\\\\", "&bsol;", $input);
 		return $input;
+	}
+	/* alias dari fungsi rename() */
+	function sfwUploadFile($oldname, $newname) {
+		return rename($oldname, $newname);
 	}
 
 	/** 

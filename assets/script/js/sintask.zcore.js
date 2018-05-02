@@ -490,12 +490,12 @@ sjqNoConflict.backForwardButtons = function () {
  * Other Tag
  * destination page get from atribute s-data-url on html element (<a href...></a>).
  */
-sjqNoConflict(document).on('click', '.s', function (e) {
+sjqNoConflict(document).on('click', '.s, a[spa]', function (e) {
     __SFW_globalScrollPage[document.URL] = sjqNoConflict(document).scrollTop();
 
     pageUrl = sjqNoConflict(this).attr('href');
     if(pageUrl=="" || pageUrl==null || typeof pageUrl == 'undefined') {
-        pageUrl = sjqNoConflict(this).attr('s-data-url');
+        pageUrl = sjqNoConflict(this).attr('s-data-url') || sjqNoConflict(this).attr('spa-url');
     }
     sjqNoConflict.loadContent();
     e.preventDefault();

@@ -57,7 +57,7 @@
 		    echo "Sorry, your file was not uploaded.";
 		} else {
 			/* Anda tidak dapat menggunakan move_uploaded_file(), dan diganti menjadi rename() */
-		    if (rename($fileData["tmp_name"], $target_file)) {
+		    if (sfwUploadFile($fileData["tmp_name"], $target_file)) {
 		        echo "The file ". basename( $fileData["name"]). " has been uploaded.";
 		    } else {
 		        echo "Sorry, there was an error uploading your file (".$fileData["tmp_name"]." => ".$target_file.").";
