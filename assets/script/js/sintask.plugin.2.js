@@ -489,3 +489,36 @@ sjqNoConflict.fn.realtimeTimeLimitP2 = function() {
     timeOutRealtimeTimeLimit();
 }
 /* END LINE */
+
+/**
+ * SinTask Bytes -> ALL
+ */
+sjqNoConflict.fn.sintaskFileSize = function() {
+    var thisId = this;
+    var thisBytes = sjqNoConflict(thisId).attr("this-bytes");
+    var thisFixed = sjqNoConflict(thisId).attr("behind-commas");
+
+    thisBytes = parseInt(thisBytes);
+    thisFixed = parseInt(thisFixed);
+
+    var stdBytes = 1024;
+    var byteName = ["B", "KB", "MB", "GB", "TB", "PB"];
+    var byteState = 0;
+
+    if(thisFixed==null || thisFixed=="") {
+        thisFixed = 2;
+    }
+
+    function translateBytes() {
+        if(thisBytes>stdBytes && byteState<byteName.length-1) {
+            byteState = byteState+1;
+            thisBytes = thisBytes/stdBytes;
+            translateBytes();
+        } else {
+            thisBytes = thisBytes.toFixed(thisFixed);
+            var finalBytes = thisBytes+" "+byteName[byteState];
+            sjqNoConflict(thisId).html(finalBytes);
+        }
+    }
+    translateBytes();
+}
