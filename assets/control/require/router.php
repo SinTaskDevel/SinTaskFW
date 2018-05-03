@@ -17,7 +17,7 @@
 		}
 
 		/* Pindahkan FILES ke tmp Directory */
-		$tmpFile = $__TMP_DIR_FILE__.getRandomPlusDate(5).".tmp";
+		$tmpFile = $__TMP_DIR_FILE__."/".getRandomPlusDate(5).".tmp";
 		move_uploaded_file($_FILES[$key]['tmp_name'], $tmpFile);
 
 		/* Rename tmp_name menjadi Value baru */
