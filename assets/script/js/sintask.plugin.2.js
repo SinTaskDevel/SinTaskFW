@@ -510,7 +510,7 @@ sjqNoConflict.fn.sintaskFileSize = function() {
     }
 
     function translateBytes() {
-        if(thisBytes>stdBytes && byteState<byteName.length-1) {
+        if(thisBytes >= stdBytes && byteState < byteName.length-1) {
             byteState = byteState+1;
             thisBytes = thisBytes/stdBytes;
             translateBytes();
@@ -522,3 +522,15 @@ sjqNoConflict.fn.sintaskFileSize = function() {
     }
     translateBytes();
 }
+/**
+ * fn.sintaskHidePopUp = hide PopUp when out of PopUp area clicked by user.
+ * Plugin is migrate to function sintaskHideNotParamClicked();
+ */
+sjqNoConflict.fn.sintaskHidePopUpP2 = function(param, fadeTime) {
+    sjqNoConflict(document).mouseup(function (e) {
+        var popUpName = sjqNoConflict(param);
+        if (!sjqNoConflict(param).is(e.target) && !popUpName.is(e.target) && popUpName.has(e.target).length == 0) {
+            popUpName.hide(fadeTime);
+        }
+    });
+};

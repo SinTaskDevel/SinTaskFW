@@ -112,15 +112,23 @@
         }
 
         if($thisCoreGet == "headend") {
+            if($__FAV_TYPE__ != null && $__FAV_TYPE__ != "" && !ctype_space($__FAV_TYPE__)) {
+                $__FT_HTML__ = "type=\"".$__FAV_TYPE__."\"";
+            } else {
+                $__FT_HTML__ = "";
+            }
+
             if($__IMAGE_FAV__ != null && $__IMAGE_FAV__ != "" && !ctype_space($__IMAGE_FAV__)) {
                 ?>
-                <link rel="Shortcut Icon" type="image/png" href="<?php echo $__IMAGE_FAV__;?>" />
+                <link rel="shortcut icon" <?php echo $__FT_HTML__;?> href="<?php echo $__IMAGE_FAV__;?>" />
+                <link rel="icon" <?php echo $__FT_HTML__;?> href="<?php echo $__IMAGE_FAV__;?>" />
                 </HEAD>
                 <?php
             } else {
-                $imagefavicon = $__BASE_URL__."/images/logo/sintasklogo.png";
+                $imagefavicon = $__BASE_URL__."/images/logo/sintasklogo.ico";
                 ?>
-                <link rel="Shortcut Icon" type="image/png" href="<?php echo $imagefavicon;?>" />
+                <link rel="shortcut icon" <?php echo $__FT_HTML__;?> href="<?php echo $imagefavicon;?>" />
+                <link rel="icon" <?php echo $__FT_HTML__;?> href="<?php echo $imagefavicon;?>" />
                 </HEAD>
                 <?php
             }

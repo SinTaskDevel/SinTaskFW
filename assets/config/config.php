@@ -59,6 +59,7 @@
 			private $dbh;
 			private $error;
 			private $stmt;
+			private $temp;
 
 			protected $dbstate;
 		 
@@ -86,6 +87,10 @@
 				catch(PDOException $e){
 					$this->error = $e->getMessage();
 				}
+			}
+
+			public function __destruct() {
+				$this->dbh = null;
 			}
 
 			public function useDb($dbdata) {
@@ -139,10 +144,11 @@
 			
 			public function exec($param = null){
 				if($param == null || is_null($param)) {
-					return $this->stmt->execute();
+					$this->temp = $this->stmt->execute();
 				} else {
-					return $this->stmt->execute($param);
+					$this->temp = $this->stmt->execute($param);
 				}
+				return $this->temp;
 			}
 
 			public function rSingle($param = null){
@@ -151,7 +157,8 @@
 				} else {
 					$this->exec($param);
 				}
-				return $this->stmt->fetch(PDO::FETCH_ASSOC);
+				$this->temp = $this->stmt->fetch(PDO::FETCH_ASSOC);
+				return $this->temp;
 			}
 			
 			public function rMany($param = null){
@@ -160,31 +167,42 @@
 				} else {
 					$this->exec($param);
 				}
-				return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+				$this->temp = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+				return $this->temp;
 			}
 			
 			public function rAffect(){
-				return $this->stmt->rowCount();
+				$this->temp = $this->stmt->rowCount();
+				return $this->temp;
 			}
 			
 			public function lastInId(){
-				return $this->dbh->lastInsertId();
+				$this->temp = $this->dbh->lastInsertId();
+				return $this->temp;
 			}
 			
 			public function aTrans(){
-				return $this->dbh->beginTransaction();
+				$this->temp = $this->dbh->beginTransaction();
+				return $this->temp;
 			}
 			
 			public function zTrans(){
-				return $this->dbh->commit();
+				$this->temp = $this->dbh->commit();
+				return $this->temp;
 			}
 			
 			public function xTrans(){
-				return $this->dbh->rollBack();
+				$this->temp = $this->dbh->rollBack();
+				return $this->temp;
 			}
 			
 			public function debugDumpPar(){
-				return $this->stmt->debugDumpParams();
+				$this->temp = $this->stmt->debugDumpParams();
+				return $this->temp;
+			}
+
+			public function manualClose() {
+				return $this->dbh = null;
 			}
 		}
 		/* DECLARE CLASS */

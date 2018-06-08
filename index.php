@@ -4,7 +4,7 @@
 	 * ---------------
 	 * 	GENERAL INFO :
 	 *		SinTask Framework
-	 *		(c) 2016 - 2017 CV. SinTask
+	 *		(c) 2016 - 2018 CV. SinTask
 	 * 		SinTask, Ltd. / SinTask Web Developer / SinTask Engineering
 	 *
 	 *	AUTHOR :
@@ -107,6 +107,7 @@
 	 */
 
 	/* Mulai Session */
+	session_name('sfwSession');
     session_start();
     
 	/* Inisialisasi untuk membuka part-part SPA */
@@ -141,9 +142,9 @@
 	/* Daftar Inisialisasi require - urutan require tidak dapat di ubah */
 	require($__DOC_ROOT__.$requirePath['controlreq']."/class.php");
 	require($__DOC_ROOT__.$requirePath['controlreq']."/sec.class.php");
+	require($__DOC_ROOT__.$requirePath['controlreq']."/func.php");
 	require($__DOC_ROOT__.$requirePath['controlreq']."/core.php");
     require($__DOC_ROOT__.$requirePath['config']."/config.php");
-	require($__DOC_ROOT__.$requirePath['controlreq']."/func.php");
 	require($__DOC_ROOT__.$requirePath['controlreq']."/initial.php");
 
 	/* Setelah ini dapat menggunakan $__DOC_ROOT__ sebagai pengganti $_SERVER['DOCUMENT_ROOT'] */
@@ -168,7 +169,7 @@
 		* fungsi terdapat di " root > assets > control > func.php "
 		*/
 	
-	headerSinTaskHQ();
+	headerSinTaskHQ(["__VERSION__" => $__VERSION__]);
 
 	/* Jika tidak gangguan & maintenance */
 	
@@ -237,4 +238,15 @@
 		* 		-> /myassets/_page/general
 		*/
 	require($__DOC_ROOT__.$requirePath['controlreq']."/router.php");
+
+	if($__WITHOUT_DB__ == false) {
+		$koneksiLen = count($koneksi);
+
+		for($a = 0; $a < $koneksiLen; $a++) {
+			$koneksiNow = $GLOBALS['gc'][$a];
+			$koneksiNow->close();
+		}
+	}
+
+	/* Adorc Piaxdbùan */
 ?>

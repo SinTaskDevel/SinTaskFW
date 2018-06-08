@@ -1110,7 +1110,9 @@
 		}
 	}
 	/* Header tambahan SinTaskFW */
-	function headerSinTaskHQ() {
+	function headerSinTaskHQ($__DATA__) {
+		$__VERSION__ = $__DATA__["__VERSION__"];
+		
 		header('Content-Type: text/html; charset=UTF-8');
 		header('Cache-Control: max-age=3600, must-revalidate');
 		header('SinTask-Framework-Web: fw.sintask.com');
@@ -3238,8 +3240,27 @@
                 } 
             }
             rmdir($dir); 
-        } 
+        } else {
+        	unlink($dir);
+        }
     }
+
+    /* Memeriksa direktori apakah kosong atau tidak
+     * --------------------------------------------
+	 * @link  		https://stackoverflow.com/a/7497848
+     * @return 		boolean
+     * 				-> True = Empty dir
+     *				-> False = Not empty dir
+     */
+    function dirIsEmpty($dir) {
+	  	$handle = opendir($dir);
+	  	while (false !== ($entry = readdir($handle))) {
+	    	if ($entry != "." && $entry != "..") {
+	      		return FALSE;
+	    	}
+	  	}
+	  	return TRUE;
+	}
 
     /**
      * Mengcopy file secara rekursif
@@ -3313,5 +3334,20 @@
 
     	return $input;
     }
-	 
+	
+	/* getRootBaseURL */
+    function getRootBaseURL($inputURL) {
+		$base 	= $inputURL;
+		
+		$a 		= str_replace("/", 		"", 	$base);
+		$a 		= str_replace("https", 	"", 	$a);
+		$a 		= str_replace("http", 	"", 	$a);
+		$a 		= str_replace(":", 		"", 	$a);
+
+		$explodeRootBaseURL 	= explode(".", $a);
+		$countExplode 			= count($explodeRootBaseURL);
+		$getRootBaseURL 		= ".".$explodeRootBaseURL[$countExplode-2].".".$explodeRootBaseURL[$countExplode-1];
+
+		return $getRootBaseURL;
+	}
 ?>

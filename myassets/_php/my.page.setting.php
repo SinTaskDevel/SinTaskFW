@@ -100,8 +100,17 @@
 		];
 	}
 
-	/* ICON FAVICON WEB ISI DENGAN FULL URL LINK ANDA */
-	$__IMAGE_FAV__ = "";
+	/* ICON FAVICON WEB ISI DENGAN FULL URL LINK ANDA 
+		- $__IMAGE_FAV__ isi dengan URL untuk Icon anda
+			> Jika dikosongkan maka akan memakai FAVICON default SinTaskFW
+		- $__FAV_TYPE__ isi dengan MIME type dari icon anda
+				image/x-icon untuk .ico
+				image/png untuk .png
+				dll
+			> Jika dikosongkan maka tidak memiliki MIME type
+	 */
+	$__IMAGE_FAV__ 	= "";
+	$__FAV_TYPE__	= "";
 
 	/* PESAN ERROR UNTUK INVALID TOKEN */
 	$__ERROR_INVALID_MSG__ = "Token anda salah";

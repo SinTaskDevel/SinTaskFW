@@ -1,6 +1,33 @@
 <?php
 
-	/* My Core */
+	/* 	My Core 
+		-------
+		EXPOSE_PHP 				- Jika 'true' menampilkan data PHP pada Header
+		MAINTENANCE 			- Jika 'true' menampilkan halaman Maintenance
+		HIDE_WARNING_NOTICE 	- Jika 'true' akan menyembunyikan Notice (Warning PHP)
+		DISPLAY_PHP_ERROR		- Jika 'true' akan menampilkan Error Notice
+								  Note: Fatal Error tetap tampil walau 'false'
+		AES_SECURE_SPA_TRANSF	- Khusus halaman SPA jika 'true' akan mengenkripsi request Halaman
+								  Note: Tidak semua, tetapi hanya HTML halaman yang dibuka saat itu.
+		USE_DB					- Jika web menggunakan DB/BasisData ubah menjadi 'true'
+		FORCE_HTTPS 			- Jika ingin tetap mengakses HTTPS ubah menjadi 'true'
+		FORCE_WWW				- Jika ingin Web anda diakses harus dari WWW ubah menjadi 'true'
+		FORCE_NOT_WWW			- Jika ingin Web anda diakses harus tidak menggunakan WWW 
+								  ubah menjadi 'true'
+		MAX_EXEC_TIME_PHP		- Nilai maksimum eksekusi script PHP, nilai dalam Detik
+								  Note: Anda mungkin juga harus mengubah PHP.INI/Konfigurasi PHP
+		TIMEZONE 				- Nilai timezone untuk server saat ini (Default WITA/UTC+08 - Asia/Makassar)
+		DEFAULT_CHARSET			- Charset untuk encoding HTML Web anda
+		UPLOAD_MAX_FILESIZE		- Maksimal ukuran upload (Nilai dalam MByte)
+								  Note: Anda mungkin juga harus mengubah PHP.INI/Konfigurasi PHP
+		POST_UPLOAD_MAX_SIZE	- Maksimal ukuran metode POST upload (Nilai dalam MByte)
+								  Note: Anda mungkin juga harus mengubah PHP.INI/Konfigurasi PHP
+		MAX_FILE_UPLOADS		- Maksimal upload multi file dalam satu waktu (Nilai dalam MByte)
+								  Note: Anda mungkin juga harus mengubah PHP.INI/Konfigurasi PHP
+		CUSTOM_BASE_URL			- Kami menggunakan URL AutoDetection, jika anda merasa ada yang salah
+								  silahkan isi dengan Full URL anda. (Mempengaruhi $__BASE_URL__)
+								  Note: Isi dengan HTTP/S (Protokol)
+	 */
 	$__MY_CORE__ = [
 		"EXPOSE_PHP"			=> false,
 		"MAINTENANCE"			=> false,
@@ -9,6 +36,8 @@
 		"AES_SECURE_SPA_TRANSF"	=> true,
 		"USE_DB"				=> false,
 		"FORCE_HTTPS"			=> false,
+		"FORCE_WWW"				=> false,
+		"FORCE_NOT_WWW"			=> false,
 		"MAX_EXEC_TIME_PHP"		=> 300,
 		"TIMEZONE" 				=> "Asia/Makassar",
 		"DEFAULT_CHARSET"		=> "UTF-8",
@@ -17,6 +46,10 @@
 		"MAX_FILE_UPLOADS" 		=> "200",
 		"CUSTOM_BASE_URL"		=> "",
 	];
+	/* 
+		NOTE: 	Jika FORCE_WWW dan FORCE_NOT_WWW keduanya bernilai 'true' maka 
+				yang akan berlaku adalah FORCE_NOT_WWW
+	 */
 
 	/* SinTaskFW Auto Update Page
 	 * --------------------------
@@ -37,8 +70,8 @@
 		"HTML_HEADER_TAG"			=> "lang='id-ID'",
 		"HTML_META_CHARSET"			=> "UTF-8",
 		"HTML_META_CONTENT_TYPE"	=> "text/html; charset=UTF-8",
-		"HTML_META_VIEWPORT"		=> "width=device-width, initial-scale=1",
-		"HTML_META_CUSTOM"			=> [
+		"HTML_META_VIEWPORT"	=> "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0",
+		"HTML_META_CUSTOM"		=> [
 			"http-equiv='pragma' content='no-cache'",
 			"http-equiv='X-UA-Compatible' content='IE=edge'",
 		],

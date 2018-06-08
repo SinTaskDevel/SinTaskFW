@@ -30,6 +30,7 @@
 
 	/* Deteksi otomatis Protokol */
 	$__BASE_PROTOCOL__ 	= isset($_SERVER["HTTPS"]) ? 'https' : 'http';
+	$__RBASE_PROTOCOL__ = $__BASE_PROTOCOL__;
 	
 	/* Inisialisasi awal login status */
 	$__LOGIN_STATUS__ 	= false;
@@ -38,7 +39,7 @@
 	include($__DOC_ROOT__.$requirePath['mycontrol']."/my.core.php");
 
 	/* Force HTTPS - memaksakan protokol, jika tidak terbaca Deteksi otomatis */
-	if($__MY_CORE__["FORCE_HTTPS"] == true) {
+	if(isset($__MY_CORE__["FORCE_HTTPS"]) && $__MY_CORE__["FORCE_HTTPS"] == true) {
 		$__BASE_PROTOCOL__	= "https";
 	}
 	
@@ -47,16 +48,110 @@
 	$__BASE_PORT__		= $_SERVER['SERVER_PORT'];
 	$__DISPLAY_PORT__ 	= ($__BASE_PROTOCOL__ == 'http' && $__BASE_PORT__ == 80 || $__BASE_PROTOCOL__ == 'https' && $__BASE_PORT__ == 443) ? '' : ":$__BASE_PORT__";
 	$__BASE_DOMAIN__	= $_SERVER['SERVER_NAME'];
-	$__BASE_URL__  		= "${__BASE_PROTOCOL__}://${__BASE_DOMAIN__}${__DISPLAY_PORT__}${__TMP_BASE_URL__}";
-	$__DYN_ACTUAL_URL__	= $__BASE_URL__.$_SERVER["REQUEST_URI"];
-	$__ACTUAL_URL__ 	= $__DYN_ACTUAL_URL__;
+	$__BASE_URL_PORT__  = "${__BASE_PROTOCOL__}://${__BASE_DOMAIN__}${__DISPLAY_PORT__}${__TMP_BASE_URL__}";
+	$__BASE_URL__  		= "${__BASE_PROTOCOL__}://${__BASE_DOMAIN__}${__TMP_BASE_URL__}";
 	
 	/* $__BASE_URL__ Custom, sehingga dapat diganti menjadi manual */
-	if($__MY_CORE__["CUSTOM_BASE_URL"] != null && $__MY_CORE__["CUSTOM_BASE_URL"] != "") {
+	if(
+		isset($__MY_CORE__["CUSTOM_BASE_URL"]) && 
+		$__MY_CORE__["CUSTOM_BASE_URL"] != null && 
+		$__MY_CORE__["CUSTOM_BASE_URL"] != ""
+	) {
+		$__TBASE_URL_PROTOCOL__ 	= strtoupper(substr($__MY_CORE__["CUSTOM_BASE_URL"], 0, 5));
+		$__TBASE_URL_HOST__			= getDomainURL($__MY_CORE__["CUSTOM_BASE_URL"], "host");
+
+		if($__TBASE_URL_PROTOCOL__ == "HTTPS") {
+			$__MY_CORE__["CUSTOM_BASE_URL"] = strtolower($__TBASE_URL_PROTOCOL__)."://".$__TBASE_URL_HOST__;
+			
+			/* Custom URL (HTTPS) + FORCE_WWW */
+			if(isset($__MY_CORE__["FORCE_WWW"]) && $__MY_CORE__["FORCE_WWW"] == true) {
+				if(strtoupper(substr($__MY_CORE__["CUSTOM_BASE_URL"], 8, 3)) != "WWW") {
+					$__MY_CORE__["CUSTOM_BASE_URL"] = strtolower($__TBASE_URL_PROTOCOL__)."://www.".$__TBASE_URL_HOST__;
+				} else {
+					$__MY_CORE__["CUSTOM_BASE_URL"] = strtolower($__TBASE_URL_PROTOCOL__)."://".$__TBASE_URL_HOST__;
+				}
+			}
+			/* Custom URL (HTTPS) + FORCE_NOT_WWW */
+			if(isset($__MY_CORE__["FORCE_NOT_WWW"]) && $__MY_CORE__["FORCE_NOT_WWW"] == true) {
+				if(strtoupper(substr($__BASE_URL__, 8, 3)) == "WWW" && $__BASE_PROTOCOL__ == "http") {
+					$__MY_CORE__["CUSTOM_BASE_URL"] = $__BASE_PROTOCOL__."://".$__TBASE_URL_HOST__;
+
+					$__VAL1__ = substr($__MY_CORE__["CUSTOM_BASE_URL"], 0, 8);
+					$__VAL2__ = substr($__MY_CORE__["CUSTOM_BASE_URL"], (8+4), strlen($__MY_CORE__["CUSTOM_BASE_URL"]));
+
+					$__MY_CORE__["CUSTOM_BASE_URL"] = $__VAL1__.$__VAL2__;
+				} else {
+					$__MY_CORE__["CUSTOM_BASE_URL"] = $__BASE_PROTOCOL__."://".$__TBASE_URL_HOST__;
+				}
+			}
+		} else {
+			$__MY_CORE__["CUSTOM_BASE_URL"] = $__BASE_PROTOCOL__."://".$__TBASE_URL_HOST__;
+
+			/* Custom URL (HTTP) + FORCE_WWW */
+			if(isset($__MY_CORE__["FORCE_WWW"]) && $__MY_CORE__["FORCE_WWW"] == true) {
+				if(strtoupper(substr($__MY_CORE__["CUSTOM_BASE_URL"], 7, 3)) != "WWW") {
+					$__MY_CORE__["CUSTOM_BASE_URL"] = $__BASE_PROTOCOL__."://www.".$__TBASE_URL_HOST__;
+				} else {
+					$__MY_CORE__["CUSTOM_BASE_URL"] = $__BASE_PROTOCOL__."://".$__TBASE_URL_HOST__;
+				}
+			}
+			/* Custom URL (HTTP) + FORCE_NOT_WWW */
+			if(isset($__MY_CORE__["FORCE_NOT_WWW"]) && $__MY_CORE__["FORCE_NOT_WWW"] == true) {
+				if(strtoupper(substr($__BASE_URL__, 7, 3)) == "WWW" && $__BASE_PROTOCOL__ == "http") {
+					$__MY_CORE__["CUSTOM_BASE_URL"] = $__BASE_PROTOCOL__."://".$__TBASE_URL_HOST__;
+
+					$__VAL1__ = substr($__MY_CORE__["CUSTOM_BASE_URL"], 0, 7);
+					$__VAL2__ = substr($__MY_CORE__["CUSTOM_BASE_URL"], (7+4), strlen($__MY_CORE__["CUSTOM_BASE_URL"]));
+
+					$__MY_CORE__["CUSTOM_BASE_URL"] = $__VAL1__.$__VAL2__;
+				} else {
+					$__MY_CORE__["CUSTOM_BASE_URL"] = $__BASE_PROTOCOL__."://".$__TBASE_URL_HOST__;
+				}
+			}
+		}
+
 		$__BASE_URL__ = $__MY_CORE__["CUSTOM_BASE_URL"];
+	/* Deteksi Force WWW pada URL AutoDetection */
+	} else {
+		/* URL AutoDetection & FORCE_WWW */
+		if(isset($__MY_CORE__["FORCE_WWW"]) && $__MY_CORE__["FORCE_WWW"] == true) {
+			$__TBASE_URL_HOST__	= getDomainURL($__BASE_URL__, "host");
+
+			if(strtoupper(substr($__BASE_URL__, 7, 3)) != "WWW" && $__BASE_PROTOCOL__ == "http") {
+				$__BASE_URL__ = $__BASE_PROTOCOL__."://www.".$__TBASE_URL_HOST__;
+			} else if(strtoupper(substr($__BASE_URL__, 8, 3)) != "WWW" && $__BASE_PROTOCOL__ == "https") {
+				$__BASE_URL__ = $__BASE_PROTOCOL__."://www.".$__TBASE_URL_HOST__;
+			} else {
+				$__BASE_URL__ = $__BASE_PROTOCOL__."://".$__TBASE_URL_HOST__;
+			}
+		}
+		/* AutoDetection & FORCE_NOT_WWW */
+		if(isset($__MY_CORE__["FORCE_NOT_WWW"]) && $__MY_CORE__["FORCE_NOT_WWW"] == true) {
+			$__TBASE_URL_HOST__	= getDomainURL($__BASE_URL__, "host");
+
+			if(strtoupper(substr($__BASE_URL__, 7, 3)) == "WWW" && $__BASE_PROTOCOL__ == "http") {
+				$__BASE_URL__ = $__BASE_PROTOCOL__."://".$__TBASE_URL_HOST__;
+
+				$__VAL1__ = substr($__BASE_URL__, 0, 7);
+				$__VAL2__ = substr($__BASE_URL__, (7+4), strlen($__BASE_URL__));
+
+				$__BASE_URL__ = $__VAL1__.$__VAL2__;
+			} else if(strtoupper(substr($__BASE_URL__, 8, 3)) == "WWW" && $__BASE_PROTOCOL__ == "https") {
+				$__BASE_URL__ = $__BASE_PROTOCOL__."://".$__TBASE_URL_HOST__;
+
+				$__VAL1__ = substr($__BASE_URL__, 0, 8);
+				$__VAL2__ = substr($__BASE_URL__, (8+4), strlen($__BASE_URL__));
+
+				$__BASE_URL__ = $__VAL1__.$__VAL2__;
+			} else {
+				$__BASE_URL__ = $__BASE_PROTOCOL__."://".$__TBASE_URL_HOST__;
+			}
+		}
 	}
 	
 	/* Variabel GLOBALS $__BASE_URL__ */
+	$__DYN_ACTUAL_URL__			= $__BASE_URL__.$_SERVER["REQUEST_URI"];
+	$__ACTUAL_URL__ 			= $__DYN_ACTUAL_URL__;
 	$GLOBALS["__BASE_URL__"] 	= $__BASE_URL__;
 	
 	/* Hapus SEGMEN berlebih (Pertama saja) */
@@ -78,6 +173,29 @@
 	 */
 	if($__MY_CORE__["HIDE_WARNING_NOTICE"] == true) {
 		error_reporting(E_ALL ^ (E_NOTICE | E_WARNING));
+	}
+
+	/* Blocking
+	 */
+	$__BLOCKING__ 		= false;
+	$__EXPLODING_BASE__ = explode("://", $__BASE_URL__);
+
+	/* FOR PROTOCOL */
+	if($__EXPLODING_BASE__[0] != $__RBASE_PROTOCOL__) {
+		$__BLOCKING__ 	= true;
+	}
+	/* FOR HOST */
+	if($__EXPLODING_BASE__[1] != $__BASE_DOMAIN__) {
+		$__BLOCKING__ 	= true;
+	}
+
+	$__RBASE_URI__ = $_SERVER['REQUEST_URI'];
+
+	if($__BLOCKING__ == true) {
+		header("HTTP/1.1 301 Moved Permanently"); 
+		header("Location: ".$__BASE_URL__.$__RBASE_URI__);
+
+		die();
 	}
 
 	/* Timezone

@@ -161,6 +161,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     border: 2px solid #4989A2;
     color: #000000;
 }
+
+/* PopUp Area */
 #popUpSinTask {
     width: 500px;
     margin: 0px auto;
@@ -263,6 +265,58 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     margin-left: 450px;
     margin-top: 15px;
 }
+
+/* For Mobile */
+@media only screen and (max-width: 950px) {
+    .popUpFadeInContent {
+        position: fixed;
+        box-sizing: border-box;
+        left: 0;
+        background: #FFF;
+        width: 100%;
+        max-height: 500px;
+        border-radius: 0px;
+        z-index: 10001;
+        border: 1px solid transparent;
+        bottom: 0;
+        top: initial;
+    }
+    .popUpFadeInContentChild_0 {
+        margin-top: 30px;
+        margin-bottom: 30px;
+        padding: 50px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .popUpFadeInContentChild_1 {
+        position: fixed;
+        background: #FFF;
+        padding: 25px 50px;
+        width: 100%;
+        box-sizing: border-box;
+        z-index: 1;
+    }
+    .popUpFadeInContentChild_2 {
+        position: relative;
+        padding: 5px 50px;
+        margin-top: -70px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .popUpFadeInContentChild_3 {
+        position: fixed;
+        z-index: 2;
+        margin-top: 15px;
+        right: 3.5%;
+    }
+    .optionArea > button {
+        width: 49%;
+        box-sizing: border-box;
+        float: left !important;
+        margin-left: 1% !important;
+    }
+}
+
 .popUpFadeInContentChildSafeAcc {
     position: absolute;
     z-index: 2;
@@ -319,6 +373,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     padding: 15px;
     word-wrap: break-word;
 }
+/* END PopUp Area */
+
 .sint_wrap {
     position: relative;
     min-height: 100%;
@@ -2254,6 +2310,26 @@ input.sintaskInputNoBorder::placeholder {
 .p_a_10px {
 	padding: 10px;
 }
+
+.bSpace {
+    margin-top: 15px;
+    padding-top: 15px;
+}
+.bSpaceMini {
+    margin-top: 5px;
+    padding-top: 5px;
+}
+.bLineSpaceWhite {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #FFFFFF;
+}
+.bLineSpace {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #DADADA;
+}
+
 .sintask_tooltip {
     display: inline;
     position: relative;

@@ -349,7 +349,7 @@ fromByte = function(bytefilesize) {
     }
 
     function translateBytes() {
-        if(thisBytes>stdBytes && byteState<byteName.length-1) {
+        if(thisBytes >= stdBytes && byteState < byteName.length-1) {
             byteState = byteState+1;
             thisBytes = thisBytes/stdBytes;
 
@@ -607,8 +607,6 @@ popUpOne = function(data) {
         outerClickScript = "sintaskHideNotParamClicked('#popUpFadeInChild', "+removePopUpMethod+", 500);";
     }
 
-
-
     var templatePopUpOne = ""+
     "<div id=\"popUpFadeInPar\" class=\"popUpFadeIn\" style=\"display: none;\"><\/div>"+
     "<div id=\"popUpFadeInChild\" class=\"popUpFadeInContent\" style=\"display: none;\">"+
@@ -661,6 +659,7 @@ popUpOne = function(data) {
         sjqNoConflict("#footerStayContentSinTask").css("filter", "blur(3px)");
         sjqNoConflict("#fadeContentTwo").html(templatePopUpOne);
         sjqNoConflict("body").css("overflow-y", "hidden");
+        sjqNoConflict("body").css("width", "98.8%");
         sjqNoConflict("#popUpFadeInPar").css("overflow-y", "scroll");
 
         sjqNoConflict(document).off("click", "#onYesPopUp");
@@ -761,6 +760,7 @@ popUpTwo = function(data) {
         sjqNoConflict("#footerStayContentSinTask").css("filter", "blur(3px)");
         sjqNoConflict("#fadeContentTwo").html(templatePopUpOne);
         sjqNoConflict("body").css("overflow-y", "hidden");
+        sjqNoConflict("body").css("width", "98.8%");
         sjqNoConflict("#popUpFadeInPar").css("overflow-y", "scroll");
 
         sjqNoConflict(document).off("click", "#onOkPopUp");
@@ -795,6 +795,7 @@ removePopUp = function() {
     sjqNoConflict("#footerStayContentSinTask").css("filter", "");
     sjqNoConflict("#fadeContentTwo").html("");
     sjqNoConflict("body").css("overflow-y", "");
+    sjqNoConflict("body").css("width", "");
     sjqNoConflict("#popUpFadeInPar").css("overflow-y", "");
 }
 
@@ -807,6 +808,7 @@ removePopUpFade = function() {
     sjqNoConflict("#stayContentSinTask").css("filter", "");
     sjqNoConflict("#footerStayContentSinTask").css("filter", "");
     sjqNoConflict("body").css("overflow-y", "");
+    sjqNoConflict("body").css("width", "");
     sjqNoConflict("#popUpFadeInPar").css("overflow-y", "");
 
     function deletionPopUp() {
@@ -877,7 +879,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
     __SFW_mobileDeviceDetect = true;
 }
 if(__SFW_mobileDeviceDetect == true) {
-    fadeContentOne("Web is not optimal, open mobile web version", 200, "show");
+    toastOne("Web is not optimal, open mobile web version", 200, "show");
 }
 
 /* A TAG PREVENT DEFAULT ON CLICK */

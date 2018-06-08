@@ -100,6 +100,8 @@
 						include($__DOC_ROOT__.$requirePath['static']."/static.auto.update".$__FILE_EXTENSION__);
 					}
 				}
+			} else {
+				continue;
 			}
 
 			break;
@@ -111,6 +113,15 @@
 			) {
 				header("Content-type: text/css");
 				include($__DOC_ROOT__.$requirePath['static']."/dcss/".$__SEGMEN_PURE__[3].$__FILE_EXTENSION__);
+			}
+
+			break;
+
+		case "..sfw" :
+			if(
+				$__SEGMEN__[3] == "..ver"
+			) {
+				include($__DOC_ROOT__.$requirePath['static']."/static.ver".$__FILE_EXTENSION__);
 			}
 
 			break;
