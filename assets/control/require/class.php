@@ -45,6 +45,7 @@
 
 	    public $docroot 		= "";
 	    public $spatemplateloc 	= "";
+	    public $generaltemplate = "";
 	    private $metaReturn 	= "";
 
 	    private $fileNameArr;
@@ -60,6 +61,9 @@
 
 	    function newFileName($fileName) {
 	    	$this->fileName 	= $this->docroot.$this->spatemplateloc."/".$fileName;
+	    }
+	    function newFileNameGeneral($fileName) {
+	    	$this->fileName 	= $this->docroot.$this->generaltemplate."/".$fileName;
 	    }
 	    function newFileNameCustom($fileName) {
 	    	$this->fileName 	= $this->docroot.$fileName;
@@ -107,6 +111,7 @@
 	$sintaskNewMeta = new MetaSPA;
 	$sintaskNewMeta->thisDocRoot($__DOC_ROOT__);
 	$sintaskNewMeta->spatemplateloc = $requirePath['template'];
+	$sintaskNewMeta->generaltemplate = $requirePath['general'];
 
 	/*
 	 * 	SinTask Session

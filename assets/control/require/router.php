@@ -449,6 +449,9 @@
 						$thisCoreGet = "headstart";
 						include($__HTML_CORE_REQ__);
 
+						$__META_PATH__ = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['general'], $thisReqPathLoginPrefix, $thisReqPath, 2, "");
+						echo $sintaskNewMeta->readingMeta($__META_PATH__);
+
 						$thisCoreGet = "scripttop";
 						include($__HTML_CORE_REQ__);
 
