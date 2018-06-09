@@ -13,11 +13,11 @@
 	$__FILE_EXTENSION__ = ".php";
 	$__TOKENIZING__		= $_SESSION['globalSecureToken'];
 
-	$__VERSION__ 		= "SinTaskFW v1.3.2-11";
+	$__VERSION__ 		= "SinTaskFW v1.3.3-2";
 	$__CODENAME__ 		= "SinTaskDeveloper";
-	$__VERNAME__		= "1.3.2-11";
-	$__VERCOMPARE__		= "32";
-	$__DATE_UPDATED__	= "2018/06/07 06.50UTC+8";
+	$__VERNAME__		= "1.3.3-2";
+	$__VERCOMPARE__		= "33";
+	$__DATE_UPDATED__	= "2018/06/10 07.30UTC+8";
 	
 	$__IP_USER__      	= $_SERVER['REMOTE_ADDR'];
 

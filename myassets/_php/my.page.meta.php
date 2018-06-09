@@ -2,7 +2,7 @@
 
 	/* Untuk default 404 */
 	$sintaskNewMeta->newFileNameCustom("/assets/page/static/static.zero.php");
-	$sintaskNewMeta->newTitle("We are Not Found this page / 404");
+	$sintaskNewMeta->newTitle("We are Not Found this page / C-404");
 	$sintaskNewMeta->newSiteName("SinTaskFW");
 	$sintaskNewMeta->newKeywords("Page is not found, this is 404 error");
 	$sintaskNewMeta->newDescription("Page is not found, maybe deleted or moved");
@@ -10,7 +10,7 @@
 	$sintaskNewMeta->addNew();
 
 	$sintaskNewMeta->newFileName("default.404.php");
-	$sintaskNewMeta->newTitle("We are Not Found this page / 404");
+	$sintaskNewMeta->newTitle("We are Not Found this page / A-404");
 	$sintaskNewMeta->newSiteName("SinTaskFW");
 	$sintaskNewMeta->newKeywords("Page is not found, this is 404 error");
 	$sintaskNewMeta->newDescription("Page is not found, maybe deleted or moved");
@@ -33,7 +33,7 @@
 	 *		- META Desc : My name is Author, My username is username1
 	 * Ganti $sintaskNewMeta->newDescription("META DESC ANDA");
 	 */
-	$sintaskNewMeta->newFileName("notlogin.[].php");
+	$sintaskNewMeta->newFileName("notlogin.my.[].php");
 	$sintaskNewMeta->newTitle("Dynamic Page / ".$__SEGMEN_PURE__[2]);
 	$sintaskNewMeta->newSiteName("SinTaskFW");
 	$sintaskNewMeta->newKeywords("SinTask Framework is PHP - JS SPA Framework");
@@ -43,6 +43,14 @@
 
 	$sintaskNewMeta->newFileName("notlogin.test.php");
 	$sintaskNewMeta->newTitle("Just Test");
+	$sintaskNewMeta->newSiteName("SinTaskFW");
+	$sintaskNewMeta->newKeywords("SinTask Framework is PHP - JS SPA Framework");
+	$sintaskNewMeta->newDescription("SinTask Framework is PHP - JS SPA Framework");
+	$sintaskNewMeta->newImage($__BASE_URL__."/images/logo/sintask_logo_notlogin.png");
+	$sintaskNewMeta->addNew();
+
+	$sintaskNewMeta->newFileNameGeneral("both.general.php");
+	$sintaskNewMeta->newTitle("General Page / Not SPA");
 	$sintaskNewMeta->newSiteName("SinTaskFW");
 	$sintaskNewMeta->newKeywords("SinTask Framework is PHP - JS SPA Framework");
 	$sintaskNewMeta->newDescription("SinTask Framework is PHP - JS SPA Framework");

@@ -127,6 +127,7 @@
 	$requirePath['no_route']	= "/myassets/_page/no_route";
 	$requirePath['general'] 	= "/myassets/_page/general";
 	$requirePath['jsd'] 		= "/myassets/_page/jsd";
+	$requirePath['cssd'] 		= "/myassets/_page/cssd";
 	$requirePath['control'] 	= "/myassets/_page/control";
 	$requirePath['stay'] 		= "/myassets/_page/stay";
 	$requirePath['template'] 	= "/myassets/_page/spa_template";

@@ -400,6 +400,22 @@
 					/* Not Found 404 - JS Dynamic */
 					echo "console.log('%cJSD-404 / Sumber JS ini tidak ditemukan, baca selengkapnya https://fw.sintask.com/docs/error [ 3. Notice JSD-404 ]', 'font-size: 14px; color: #EA4335;');";
 				}
+			} else if($__END_SEGMEN_DOT__ == "cssd") {
+				/* [OTHER] Jika halaman adalah .cssd (CSS Dynamic) */
+				$__SFW_thisIteration = 2;
+
+				if($activeFileDynamic == "v4") {
+					$__SFW_thisIteration = 3;
+				}
+
+				header("Content-type: text/css");
+				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['cssd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".cssd") != $__ZERO__) {
+					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['cssd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".cssd"));
+				} else {
+					/* Tidak menemukan SPA tidak ke $__ZERO__ */
+					/* Not Found 404 - CSS Dynamic */
+					echo "";
+				}
 			} else {
 				if(
 					$__XHR_STATUS__ == true 		&&
