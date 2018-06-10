@@ -185,6 +185,7 @@
 				$__XHR_STATUS__ 	== true 				&& 
 				$__END_SEGMEN_DOT__ != "jssintasktemplate" 	&& 
 				$__END_SEGMEN_DOT__ != "jsd" 				&& 
+				$__END_SEGMEN_DOT__ != "cssd" 				&& 
 				$__END_SEGMEN_DOT__ != "latecss" 			&&
 				$__END_SEGMEN_DOT__ != "staycontent" 		&&
 				$__END_SEGMEN_DOT__ != "stayheader" 		&&
@@ -384,7 +385,10 @@
 				} else {
 					echo renderHTMLToJSStay("footer", $varRender);
 				}
-			} else if($__END_SEGMEN_DOT__ == "jsd") {
+			} else if(
+				$__END_SEGMEN_DOT__ == "jsd" &&
+				$__SEGMEN__[2] == "..jsd"
+			) {
 				/* [OTHER] Jika halaman adalah .jsd (JavaSciprt Dynamic) */
 				$__SFW_thisIteration = 2;
 
@@ -394,13 +398,17 @@
 
 				header("Content-type: text/javascript");
 				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['jsd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".jsd") != $__ZERO__) {
+					echo "/* JSD-SFW */\n";
 					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['jsd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".jsd"));
 				} else {
 					/* Tidak menemukan SPA tidak ke $__ZERO__ */
 					/* Not Found 404 - JS Dynamic */
 					echo "console.log('%cJSD-404 / Sumber JS ini tidak ditemukan, baca selengkapnya https://fw.sintask.com/docs/error [ 3. Notice JSD-404 ]', 'font-size: 14px; color: #EA4335;');";
 				}
-			} else if($__END_SEGMEN_DOT__ == "cssd") {
+			} else if(
+				$__END_SEGMEN_DOT__ == "cssd" &&
+				$__SEGMEN__[2] == "..cssd"
+			) {
 				/* [OTHER] Jika halaman adalah .cssd (CSS Dynamic) */
 				$__SFW_thisIteration = 2;
 
@@ -410,11 +418,12 @@
 
 				header("Content-type: text/css");
 				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['cssd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".cssd") != $__ZERO__) {
+					echo "/* CSSD-SFW */\n";
 					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['cssd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".cssd"));
 				} else {
 					/* Tidak menemukan SPA tidak ke $__ZERO__ */
 					/* Not Found 404 - CSS Dynamic */
-					echo "";
+					echo "/* CSS Dynamic tidak ditemukan */";
 				}
 			} else {
 				if(
