@@ -143,8 +143,8 @@
 	/* Daftar Inisialisasi require - urutan require tidak dapat di ubah */
 	require($__DOC_ROOT__.$requirePath['controlreq']."/class.php");
 	require($__DOC_ROOT__.$requirePath['controlreq']."/sec.class.php");
-	require($__DOC_ROOT__.$requirePath['controlreq']."/func.php");
 	require($__DOC_ROOT__.$requirePath['controlreq']."/core.php");
+	require($__DOC_ROOT__.$requirePath['controlreq']."/func.php");
     require($__DOC_ROOT__.$requirePath['config']."/config.php");
 	require($__DOC_ROOT__.$requirePath['controlreq']."/initial.php");
 

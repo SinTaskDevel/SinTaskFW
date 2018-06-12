@@ -31,6 +31,7 @@
 	/* Deteksi otomatis Protokol */
 	$__BASE_PROTOCOL__ 	= isset($_SERVER["HTTPS"]) ? 'https' : 'http';
 	$__RBASE_PROTOCOL__ = $__BASE_PROTOCOL__;
+	$__RBASE_URI__ 		= $_SERVER['REQUEST_URI'];
 	
 	/* Inisialisasi awal login status */
 	$__LOGIN_STATUS__ 	= false;
@@ -58,7 +59,7 @@
 		$__MY_CORE__["CUSTOM_BASE_URL"] != ""
 	) {
 		$__TBASE_URL_PROTOCOL__ 	= strtoupper(substr($__MY_CORE__["CUSTOM_BASE_URL"], 0, 5));
-		$__TBASE_URL_HOST__			= getDomainURL($__MY_CORE__["CUSTOM_BASE_URL"], "host");
+		$__TBASE_URL_HOST__			= parse_url($__MY_CORE__["CUSTOM_BASE_URL"], PHP_URL_HOST);
 
 		if($__TBASE_URL_PROTOCOL__ == "HTTPS") {
 			$__MY_CORE__["CUSTOM_BASE_URL"] = strtolower($__TBASE_URL_PROTOCOL__)."://".$__TBASE_URL_HOST__;
@@ -115,7 +116,7 @@
 	} else {
 		/* URL AutoDetection & FORCE_WWW */
 		if(isset($__MY_CORE__["FORCE_WWW"]) && $__MY_CORE__["FORCE_WWW"] == true) {
-			$__TBASE_URL_HOST__	= getDomainURL($__BASE_URL__, "host");
+			$__TBASE_URL_HOST__	= parse_url($__BASE_URL__, PHP_URL_HOST);
 
 			if(strtoupper(substr($__BASE_URL__, 7, 3)) != "WWW" && $__BASE_PROTOCOL__ == "http") {
 				$__BASE_URL__ = $__BASE_PROTOCOL__."://www.".$__TBASE_URL_HOST__;
@@ -127,7 +128,7 @@
 		}
 		/* AutoDetection & FORCE_NOT_WWW */
 		if(isset($__MY_CORE__["FORCE_NOT_WWW"]) && $__MY_CORE__["FORCE_NOT_WWW"] == true) {
-			$__TBASE_URL_HOST__	= getDomainURL($__BASE_URL__, "host");
+			$__TBASE_URL_HOST__	= parse_url($__BASE_URL__, PHP_URL_HOST);
 
 			if(strtoupper(substr($__BASE_URL__, 7, 3)) == "WWW" && $__BASE_PROTOCOL__ == "http") {
 				$__BASE_URL__ = $__BASE_PROTOCOL__."://".$__TBASE_URL_HOST__;
@@ -178,20 +179,56 @@
 	/* Blocking
 	 */
 	$__BLOCKING__ 		= false;
+	$__BLOCKING_STATE__	= 0;
 	$__EXPLODING_BASE__ = explode("://", $__BASE_URL__);
 
 	/* FOR PROTOCOL */
 	if($__EXPLODING_BASE__[0] != $__RBASE_PROTOCOL__) {
-		$__BLOCKING__ 	= true;
-	}
-	/* FOR HOST */
-	if($__EXPLODING_BASE__[1] != $__BASE_DOMAIN__) {
-		$__BLOCKING__ 	= true;
+		$__BLOCKING__ 		= true;
+		$__BLOCKING_STATE__ = 1;
 	}
 
-	$__RBASE_URI__ = $_SERVER['REQUEST_URI'];
+	/* DETECTION FOR SUBDIR URL ROOT */
+	$__EXPLODING_BASE_1__ 	= explode("/", $__EXPLODING_BASE__[1]);
+	$__EBL1__ 				= count($__EXPLODING_BASE_1__);
+	$__SEGMEN_ADD__ 		= ["Sfw"];
+
+	if($__EBL1__ > 1) {
+		$__EXPLODING_RBASE_URI__ 	= explode("/", $__RBASE_URI__);
+		$__EXPLODING_RBASE_URI__ 	= array_reverse($__EXPLODING_RBASE_URI__);
+
+		for($__A__ = 0; $__A__ < $__EBL1__; $__A__++) {
+			array_pop($__EXPLODING_RBASE_URI__);
+			array_push($__SEGMEN_ADD__, "Sfw");
+		}
+
+		$__EXPLODING_RBASE_URI__ 	= array_reverse($__EXPLODING_RBASE_URI__);
+		$__RBASE_URI__ 				= "/".implode("/", $__EXPLODING_RBASE_URI__);
+	}
+
+	/* REMOVE SUBDIR */
+	$__REMOVE_SUBDIR__ = explode("/", $__EXPLODING_BASE__[1]);
+
+	/* FOR HOST */
+	if($__REMOVE_SUBDIR__[0] != $__BASE_DOMAIN__) {
+		$__BLOCKING__ 		= true;
+		$__BLOCKING_STATE__ = 2;
+	}
+
+	$GLOBALS["SEGMEN_ADD"] = "Sfw/".$_SERVER["REQUEST_URI"];
 
 	if($__BLOCKING__ == true) {
+		echo "MOVED 301";
+		echo "<br>";
+		echo $__RBASE_URI__." | ".$GLOBALS["SEGMEN_ADD"]." | BS:".$__BLOCKING_STATE__;
+		echo "<br>";
+		echo $__EXPLODING_BASE__[1]." | ".$__BASE_DOMAIN__;
+		echo "<br>";
+		echo $__BASE_URL__.$__RBASE_URI__;
+		echo "<br>";
+		echo "MOVED 301";
+		die();
+
 		header("HTTP/1.1 301 Moved Permanently"); 
 		header("Location: ".$__BASE_URL__.$__RBASE_URI__);
 

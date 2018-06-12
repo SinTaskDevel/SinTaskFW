@@ -34,7 +34,7 @@
 	 * Ganti $sintaskNewMeta->newDescription("META DESC ANDA");
 	 */
 	$sintaskNewMeta->newFileName("notlogin.my.[].php");
-	$sintaskNewMeta->newTitle("Dynamic Page / ".$__SEGMEN_PURE__[2]);
+	$sintaskNewMeta->newTitle("Dynamic Page / ".$__SEGMEN_PURE__[3]);
 	$sintaskNewMeta->newSiteName("SinTaskFW");
 	$sintaskNewMeta->newKeywords("SinTask Framework is PHP - JS SPA Framework");
 	$sintaskNewMeta->newDescription("SinTask Framework is PHP - JS SPA Framework");

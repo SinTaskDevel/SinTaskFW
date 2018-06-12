@@ -22,7 +22,7 @@
 		$urlFeedback = [];
 
 		if($type == "pure") {
-			$url = explode("/", "System/".fixURI($_SERVER["REQUEST_URI"]));
+			$url = explode("/", fixURI($GLOBALS["SEGMEN_ADD"]));
 
 			$urlCount = count($url);
 			for($a=0; $a<$urlCount; $a++) {
@@ -30,7 +30,7 @@
 				array_push($urlFeedback, $urlexplode[0]);
 			}
 		} else if($type == "normal" || $type == "" || $type == null) {
-			$url = explode("/", "System/".$_SERVER["REQUEST_URI"]);
+			$url = explode("/", $GLOBALS["SEGMEN_ADD"]);
 			$urlFeedback = $url;
 		} else if($type == "nofollow") {
 			$url = siteSegmen("pure");
@@ -54,7 +54,7 @@
 	 * Old segmen
 	 */
 	function segmen($segmen) {
-		$url = explode("/", "SinTask/".$_SERVER["REQUEST_URI"]);
+		$url = explode("/", $GLOBALS["SEGMEN_ADD"]);
 		$thisSegmen = $segmen;
 		return $url[$thisSegmen];
 	}
