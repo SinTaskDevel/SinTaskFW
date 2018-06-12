@@ -218,17 +218,6 @@
 	$GLOBALS["SEGMEN_ADD"] = "Sfw/".$_SERVER["REQUEST_URI"];
 
 	if($__BLOCKING__ == true) {
-		echo "MOVED 301";
-		echo "<br>";
-		echo $__RBASE_URI__." | ".$GLOBALS["SEGMEN_ADD"]." | BS:".$__BLOCKING_STATE__;
-		echo "<br>";
-		echo $__EXPLODING_BASE__[1]." | ".$__BASE_DOMAIN__;
-		echo "<br>";
-		echo $__BASE_URL__.$__RBASE_URI__;
-		echo "<br>";
-		echo "MOVED 301";
-		die();
-
 		header("HTTP/1.1 301 Moved Permanently"); 
 		header("Location: ".$__BASE_URL__.$__RBASE_URI__);
 
