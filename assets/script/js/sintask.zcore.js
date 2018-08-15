@@ -367,6 +367,7 @@ abortSinTaskMovePage = function() {
  * destination page get from atribute s-data-url on html element (<a href...></a>).
  */
  __SFW_spaClick = function() {
+    /* SPA PAGE A HREF HANDLER */
     sjqNoConflict(document).on('click', '.s, a[spa]', function (e) {
         __SFW_globalScrollPage[document.URL] = sjqNoConflict(document).scrollTop();
 
@@ -375,6 +376,11 @@ abortSinTaskMovePage = function() {
             pageUrl = sjqNoConflict(this).attr('s-data-url') || sjqNoConflict(this).attr('spa-url');
         }
         sjqNoConflict.loadContent();
+        e.preventDefault();
+    });
+
+    /* A TAG PREVENT DEFAULT ON CLICK HANDLER */
+    sjqNoConflict(document).on("click", "a.prevent", function(e){
         e.preventDefault();
     });
 }
