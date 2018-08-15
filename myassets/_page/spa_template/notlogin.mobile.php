@@ -19,8 +19,14 @@
 	<div class="borderSpaceMini"></div>
 
 	<div class="clearBoth"></div>
+	<br>
+	<a spa href="<?php echo $__BASE_URL__;?>/test">Go to test page</a>
 </div>
 <script>
+	sjqNoConflict(document).on("click", "h3", function(){
+		alert("Header 3 Clicked (h3)");
+	});
+
 	sjqNoConflict("#showToastSinTask").on("click", function(){
 		var thisMessage = "Tester Toast 1";
 		var thisFadeTime = "200";

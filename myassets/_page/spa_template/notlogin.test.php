@@ -1,4 +1,6 @@
 <div class="contentArea">
+	<h3>Test Page</h3>
+	<br><br>
 	Hanya halaman test -> hasil dari $_GET['src'] atau ditulis $sintaskFW->get("src") : <?php echo $sintaskFW->get("src");?>
 	<br><br>
 	Cookie test 'sintaskFW' = <?php echo $sintaskKuki->get('sintaskFW');?>
@@ -32,4 +34,6 @@
 	    <input type="file" name="fileToUpload" id="fileToUpload">
 	    <input type="submit" value="Upload File" name="submitFile">
 	</form>
+	<br>
+	<a spa href="<?php echo $__BASE_URL__;?>/mobile">Go to mobile (test)</a>
 </div>

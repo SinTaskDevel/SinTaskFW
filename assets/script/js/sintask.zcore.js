@@ -356,6 +356,29 @@ abortSinTaskMovePage = function() {
         xhrSinTaskMovePage[i].abort();
     }
 }
+
+/**
+ * <a..></a> Tag
+ * --------
+ * document on click class 's' = if a href with .s click by user
+ * will run sjqNoConflict.loadContent function above.
+ * 
+ * Other Tag
+ * destination page get from atribute s-data-url on html element (<a href...></a>).
+ */
+ __SFW_spaClick = function() {
+    sjqNoConflict(document).on('click', '.s, a[spa]', function (e) {
+        __SFW_globalScrollPage[document.URL] = sjqNoConflict(document).scrollTop();
+
+        pageUrl = sjqNoConflict(this).attr('href');
+        if(pageUrl=="" || pageUrl==null || typeof pageUrl == 'undefined') {
+            pageUrl = sjqNoConflict(this).attr('s-data-url') || sjqNoConflict(this).attr('spa-url');
+        }
+        sjqNoConflict.loadContent();
+        e.preventDefault();
+    });
+}
+
 /**/
 /*LOADER_SINTASK*/
 /**
@@ -366,6 +389,7 @@ sintaskLoaderIframe();
 abortSinTaskMovePage();
 universalHideContent();
 instructBodyObjectSinTask("hide", __SFW_expectHiddenObject);
+
 xhrSinTaskMovePage.push( sjqNoConflict.ajax({
     type: "POST",
     data: { tokenizing: __SFW_tokenizingUser, part: "content" },
@@ -404,6 +428,9 @@ sjqNoConflict.loadContent = function () {
     abortSinTaskMovePage();
     universalHideContent();
     instructBodyObjectSinTask("hide", __SFW_expectHiddenObject);
+
+    sjqNoConflict(document).off("click");
+    __SFW_spaClick();
     xhrSinTaskMovePage.push( sjqNoConflict.ajax({
         type: "POST",
         data: { tokenizing: __SFW_tokenizingUser, part: "content" },
@@ -448,6 +475,9 @@ sjqNoConflict.backForwardButtons = function () {
         abortSinTaskMovePage();
         universalHideContent();
         instructBodyObjectSinTask("hide", __SFW_expectHiddenObject);
+
+        sjqNoConflict(document).off("click");
+        __SFW_spaClick();
         xhrSinTaskMovePage.push( sjqNoConflict.ajax({
             type: "POST",
             data: { tokenizing: __SFW_tokenizingUser, part: "content" },
@@ -481,25 +511,8 @@ sjqNoConflict.backForwardButtons = function () {
     });
 }
 
-/**
- * <a..></a> Tag
- * --------
- * document on click class 's' = if a href with .s click by user
- * will run sjqNoConflict.loadContent function above.
- * 
- * Other Tag
- * destination page get from atribute s-data-url on html element (<a href...></a>).
- */
-sjqNoConflict(document).on('click', '.s, a[spa]', function (e) {
-    __SFW_globalScrollPage[document.URL] = sjqNoConflict(document).scrollTop();
-
-    pageUrl = sjqNoConflict(this).attr('href');
-    if(pageUrl=="" || pageUrl==null || typeof pageUrl == 'undefined') {
-        pageUrl = sjqNoConflict(this).attr('s-data-url') || sjqNoConflict(this).attr('spa-url');
-    }
-    sjqNoConflict.loadContent();
-    e.preventDefault();
-});
+/* Run the SPA on click (initialization) */
+__SFW_spaClick();
 
 /**
  * Function for other operation changing page and run SPA

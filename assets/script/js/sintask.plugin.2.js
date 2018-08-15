@@ -526,11 +526,17 @@ sjqNoConflict.fn.sintaskFileSize = function() {
  * fn.sintaskHidePopUp = hide PopUp when out of PopUp area clicked by user.
  * Plugin is migrate to function sintaskHideNotParamClicked();
  */
-sjqNoConflict.fn.sintaskHidePopUpP2 = function(param, fadeTime) {
+sjqNoConflict.fn.sintaskHidePopUpP2 = function(param, fadeTime, callback) {
+    var callback = callback || "";
+
     sjqNoConflict(document).mouseup(function (e) {
         var popUpName = sjqNoConflict(param);
         if (!sjqNoConflict(param).is(e.target) && !popUpName.is(e.target) && popUpName.has(e.target).length == 0) {
             popUpName.hide(fadeTime);
+            
+            if(typeof(callback) == "function") {
+                callback();
+            }
         }
     });
 };

@@ -323,4 +323,190 @@
 	/* $sintaskMedia - Audio/Video */
 	$sintaskMedia = new MediaStream;
 
+	/*
+	 *	SinTask NotFound JS Page
+	 */
+	class SintaskNotFound {
+		public function __construct() {
+			$thisJSVar = '
+			<script>
+				sjqNoConflict(document).ready(function(){
+					document.title = "Tidak ditemukan";
+					sjqNoConflict("#freeContentSinTask").html("");
+
+					sjqNoConflict.ajax({
+				        type: "POST",
+				        data: { tokenizing: __SFW_tokenizingUser, part: "content" },
+				        url: __SFW_homeUrl+"/../..not/..found",
+				        success: function (data) {
+				            fadeContentOne("", 200, "hide");
+				            sintaskSuccessGetData(data);
+				        },
+				        error: function(xhr, textStatus, errorThrown) {
+				            if(textStatus!="abort") {
+				                purgeSideSinTask(0);
+				                purgeScriptAdd();
+				                instructBodyObjectSinTask("show", __SFW_expectHiddenObject);
+				                sjqNoConflict("#loadingPageSinTaskSPA").hide();
+				                
+				                popUpTwo({
+				                    title: "SinTask Framework Error", 
+				                    message: __SFW_251ErrorDesc, 
+				                    okButton: "Ok",
+				                    onOk: function(){
+				                        toastTwo("Load JSON Error", "show", 8000);
+				                    },
+				                    onOuterClick: "hide",
+				                    animationFade: true
+				                });
+				                /* location.assign("SINTASK_ERROR"); */
+				            }
+				            sintaskLoaderIframeStop();
+				        }
+				    });
+				});
+			</script>';
+
+			$vars = $this->toSingleLine($thisJSVar);
+			$vars = $this->tagSlash($vars);
+	        $tzer = $_SESSION["globalSecureToken"];
+
+	        $final .= 'var sintaskGFV'.$tzer.' = "'.$vars.'";';
+	        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'NewLine}}/g, "\n");';
+	        $final .= 'sintaskGFV'.$tzer.' = sintaskGFV'.$tzer.'.replace(/{{S-'.$tzer.'Tab}}/g, "\t");';
+
+	        $final .= getScriptAgain("head");
+
+	        $final .= tryCatchTemplate(
+	        	"SinTaskFW Javascript SPA Error", 
+	        	'sjqNoConflict("#freeContentSinTask").html(sintaskGFV'.$tzer.');'
+	        );
+
+	        $final .= getScriptAgain("foot");
+
+			echo $final;
+
+			die();
+		}
+		/* Membuat baris kode menjadi single line */
+		private function toSingleLine($output) {
+			/* 
+			 * \r 	= Carriage Return  	- NewLine Mac OS sebelum OS X
+			 * \n 	= Line Feed 		- NewLine Unix/Mac OS
+			 * \r\n = CR+LF				- NewLine Windows
+			 */
+			$tzer = $_SESSION["globalSecureToken"];
+
+			/* Mengubah <PRE> memiliki NewLine & Tab, lalu ditranslasikan menjadi singleline */
+			preg_match_all("'<pre[^>]*\>(.*?)</pre>'si", $output, $match);
+			preg_match_all('/<pre[^>]*\>/i', $output, $match2);
+			preg_match_all('/<\/pre[^>]*\>/i', $output, $match3);
+
+			$countMatchPre 	= count($match[1]);
+			$arrayBlock 	= ["\r\n", "\r", "\n"];
+			$arrayBlock2 	= ["\t"];
+			$arrayResult 	= [];
+			for($a = 0; $a < $countMatchPre; $a++ ) {
+			    $replaced = str_replace($arrayBlock, "{{S-".$tzer."NewLine}}", $match[1][$a]);
+			    $replaced = str_replace($arrayBlock2, "{{S-".$tzer."Tab}}", $replaced);
+			    array_push($arrayResult, $replaced);
+			}
+
+			$output = preg_replace_callback(
+				"'(<pre[^>]*\>)(.*?)(</pre>)'si", 
+				function($matches) use (&$arrayResult, &$match2, &$match3) {
+				    return array_shift($match2[0]).array_shift($arrayResult).array_shift($match3[0]);
+				}, 
+				$output
+			);
+
+			/* Mengubah <CODE> memiliki NewLine & Tab, lalu ditranslasikan menjadi singleline */
+			preg_match_all("'<code[^>]*\>(.*?)</code>'si", $output, $match);
+			preg_match_all('/<code[^>]*\>/i', $output, $match2);
+			preg_match_all('/<\/code[^>]*\>/i', $output, $match3);
+
+			$countMatchPre 	= count($match[1]);
+			$arrayBlock 	= ["\r\n", "\r", "\n"];
+			$arrayBlock2 	= ["\t"];
+			$arrayResult 	= [];
+			for($a = 0; $a < $countMatchPre; $a++ ) {
+			    $replaced = str_replace($arrayBlock, "{{S-".$tzer."NewLine}}", $match[1][$a]);
+			    $replaced = str_replace($arrayBlock2, "{{S-".$tzer."Tab}}", $replaced);
+			    array_push($arrayResult, $replaced);
+			}
+
+			$output = preg_replace_callback(
+				"'(<code[^>]*\>)(.*?)(</code>)'si", 
+				function($matches) use (&$arrayResult, &$match2, &$match3) {
+				    return array_shift($match2[0]).array_shift($arrayResult).array_shift($match3[0]);
+				}, 
+				$output
+			);
+
+			/* Mengubah <SCRIPT> memiliki NewLine & Tab, lalu ditranslasikan menjadi singleline */
+			preg_match_all("'<script[^>]*\>(.*?)</script>'si", $output, $match);
+			preg_match_all('/<script[^>]*\>/i', $output, $match2);
+			preg_match_all('/<\/script[^>]*\>/i', $output, $match3);
+
+			$countMatchPre 	= count($match[1]);
+			$arrayBlock 	= ["\r\n", "\r", "\n"];
+			$arrayBlock2 	= ["\t"];
+			$arrayResult 	= [];
+			for($a = 0; $a < $countMatchPre; $a++ ) {
+			    $replaced = str_replace($arrayBlock, "{{S-".$tzer."NewLine}}", $match[1][$a]);
+			    $replaced = str_replace($arrayBlock2, "{{S-".$tzer."Tab}}", $replaced);
+			    array_push($arrayResult, $replaced);
+			}
+
+			$output = preg_replace_callback(
+				"'(<script[^>]*\>)(.*?)(</script>)'si", 
+				function($matches) use (&$arrayResult, &$match2, &$match3) {
+				    return array_shift($match2[0]).array_shift($arrayResult).array_shift($match3[0]);
+				}, 
+				$output
+			);
+
+			/* Replace \r\n and \r menjadi format \n */
+			$breaks = array("\r\n", "\r");
+			$output = str_replace($breaks, "\n", $output);
+			
+			/* Explode per baris baru menjadi Array */
+			$lines = explode("\n", $output);
+
+			/* $new_lines variabel sebagai output function */
+			$new_lines = array();
+
+			/* Per line replace \t (TAB) dan masukkan hasil ke $new_lines array variable */
+			foreach ($lines as $i => $line) {
+				if(!empty($line)) {
+					$fix_lines = trim($line);
+					$fix_lines = trim(preg_replace('/\t+/', '', $fix_lines));
+					
+					$new_lines[] = $fix_lines;
+				}
+			}
+
+			/* Implode array menjadi satu string variabel */
+			$outputFinal = implode($new_lines);
+
+			return $outputFinal;
+		}
+		/* Menghapus tag slash custom -> \\, /, ', \" */
+		private function tagSlash($output) {
+			$breaks = array("\\");
+			$output = str_replace($breaks, "\\\\", $output);
+
+			$breaks = array("/");
+			$output = str_replace($breaks, "\/", $output);
+
+			$breaks = array("'");
+			$output = str_replace($breaks, "\\'", $output);
+
+			$breaks = array("\"");
+			$output = str_replace($breaks, "\\\"", $output);
+			
+			return $output;
+		}
+	}
+
 ?>
