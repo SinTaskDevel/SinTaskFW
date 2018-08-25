@@ -467,6 +467,7 @@ sjqNoConflict.loadContent = function () {
             sintaskLoaderIframeStop();
         }
     }) );
+    /* Change URL with pushState (History API JS) */
     if (__SFW_homeUrl+sintaskSPA(pageUrl) != window.location) {
         window.history.pushState('', '', pageUrl);
     }
