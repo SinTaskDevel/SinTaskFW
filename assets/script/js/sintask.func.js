@@ -7,6 +7,8 @@
  * Initiate var
  */
 var __SFW_mobileDeviceDetect = false;
+var __SFW_stalertQueue = [];
+var __SFW_stalertStatus = 0;
 
 /*_GET_RANDOM_VAL_*/
 /**
@@ -585,6 +587,7 @@ popUpOne = function(data) {
     var onNo            = data.onNo || "";
     var onOuterClick    = data.onOuterClick || "";
     var animationFade   = data.animationFade || "";
+    var callback        = data.callback || "";
 
     var removePopUpMethod = "";
     var shownPopUpMethod = "";
@@ -666,7 +669,9 @@ popUpOne = function(data) {
         sjqNoConflict(document).off("click", "#onNoPopUp");
 
         if(typeof onYes != "undefined" && onYes != "" && onYes) {
-            sjqNoConflict(document).on("click", "#onYesPopUp", onYes);
+            if(typeof onYes == "function") {
+                sjqNoConflict(document).on("click", "#onYesPopUp", onYes);
+            }
         }
 
         if(typeof onNo == "undefined" || onNo == "" || !onNo) {
@@ -676,7 +681,13 @@ popUpOne = function(data) {
                 sjqNoConflict(document).on("click", "#onNoPopUp", removePopUp);
             }
         } else {
-            sjqNoConflict(document).on("click", "#onNoPopUp", onNo);
+            if(typeof onNo == "function") {
+                sjqNoConflict(document).on("click", "#onNoPopUp", onNo);
+            }
+        }
+
+        if(typeof callback == "function") {
+            callback();
         }
     }
 }
@@ -693,6 +704,7 @@ popUpTwo = function(data) {
     var onOk            = data.onOk || "";
     var onOuterClick    = data.onOuterClick || "";
     var animationFade   = data.animationFade || "";
+    var callback        = data.callback || "";
 
     var removePopUpMethod = "";
     var shownPopUpMethod = "";
@@ -780,7 +792,14 @@ popUpTwo = function(data) {
                     removePopUp();
                 }
             }
-            sjqNoConflict(document).on("click", "#onOkPopUp", onOkChild);
+            
+            if(typeof onOk == "function") {
+                sjqNoConflict(document).on("click", "#onOkPopUp", onOkChild);
+            }
+        }
+
+        if(typeof callback == "function") {
+            callback();
         }
     }
 }
@@ -788,7 +807,9 @@ popUpTwo = function(data) {
 /**
  * Remove PopUp SinTaskFW Default
  */
-removePopUp = function() {
+removePopUp = function(callback) {
+    var callback    = callback || "";
+
     sjqNoConflict("#headerStayContentSinTask").css("filter", "");
     sjqNoConflict("#freeContentSinTask").css("filter", "");
     sjqNoConflict("#stayContentSinTask").css("filter", "");
@@ -797,12 +818,18 @@ removePopUp = function() {
     sjqNoConflict("body").css("overflow-y", "");
     sjqNoConflict("body").css("width", "");
     sjqNoConflict("#popUpFadeInPar").css("overflow-y", "");
+
+    if(typeof callback == "function") {
+        callback();
+    }
 }
 
 /**
  * Remove PopUp FadeOut SinTaskFW Default
  */
-removePopUpFade = function() {
+removePopUpFade = function(callback) {
+    var callback    = callback || "";
+
     sjqNoConflict("#headerStayContentSinTask").css("filter", "");
     sjqNoConflict("#freeContentSinTask").css("filter", "");
     sjqNoConflict("#stayContentSinTask").css("filter", "");
@@ -813,10 +840,54 @@ removePopUpFade = function() {
 
     function deletionPopUp() {
         sjqNoConflict("#fadeContentTwo").html("");
+
+        if(typeof callback == "function") {
+            callback();
+        }
     }
 
     sjqNoConflict("#popUpFadeInPar").fadeOut(200);
     sjqNoConflict("#popUpFadeInChild").fadeOut(400, "swing", deletionPopUp);  
+}
+
+/**
+ * Sintask Alert - stalert
+ */
+stalert = function(message) {
+    var message = message || "";
+
+    if(__SFW_stalertStatus == 0) {
+        popUpTwo({
+            title: location.hostname+" - Alert", 
+            message: "<div class='fontSize18px'>"+message+"<\/div>", 
+            okButton: "Ok",
+            onOk: function(){
+                removePopUp(function(){
+                    __SFW_stalertStatus = 0;
+
+                    if(__SFW_stalertQueue.length > 0) {
+                        var tempStalertContent = __SFW_stalertQueue[0]; 
+                        setTimeout(function(){
+                            stalert(tempStalertContent);
+                        },100);
+                        __SFW_stalertQueue.shift();
+                    }
+                });
+            },
+            onOuterClick: false,
+            animationFade: true,
+            callback: function(){
+                __SFW_stalertStatus = 1;
+            }
+        });
+    } else {
+        __SFW_stalertQueue.push(message);
+    }
+    return true;
+}
+stAlert = function(message) {
+    stalert(message);
+    return true;
 }
 
 /**
