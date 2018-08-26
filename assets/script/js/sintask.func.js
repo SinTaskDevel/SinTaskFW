@@ -1,6 +1,6 @@
 /* SINTASK FUNC JS */
 /* sintask.func.js */
-/* (c) 2016 - SinTask Webdev */
+/* (c) 2016 - 2018 SinTask Webdev */
 /* ------------------------- */
 
 /**
@@ -390,8 +390,8 @@ subStringJs = function(input, start, long) {
 
 /*_STR_REPLACE_PHP_EQUIVALEN_*/
 strReplaceJs = function(search, replace, input) {
-	var regex = new RegExp(search, 'g');
-	return input.toString().replace(regex, replace);
+    var regex = new RegExp(search, 'g');
+    return input.toString().replace(regex, replace);
 }
 
 /*_NUMER_FORMAT_PHP_EQUIVALEN_*/
@@ -402,8 +402,8 @@ numberFormatJs = function(input, tofixed, separator, separatorTwo) {
     var separatorTwo = separatorTwo || ".";
 
     input = parseFloat(input).toFixed(tofixed);
-	input = input.toString();
-	var nstr = input.split(".");
+    input = input.toString();
+    var nstr = input.split(".");
     var strmod = nstr[0];
     var nstrmod = strmod.split("");
     var result = "";
@@ -411,7 +411,7 @@ numberFormatJs = function(input, tofixed, separator, separatorTwo) {
     nstrmod.reverse();
 
     for(var a = 0; a < nstrmod.length; a++) {
-  	    if(nstrmod[a] != null && nstrmod[a] != "") {
+        if(nstrmod[a] != null && nstrmod[a] != "") {
             if(a % 3 == 0 && a != 0) {
                 result = nstrmod[a]+separatorTwo+result;
             } else {
@@ -421,10 +421,10 @@ numberFormatJs = function(input, tofixed, separator, separatorTwo) {
     }
     
     if(nstr[1] == null) {
-  	    return result;
+        return result;
     } else {
-  	    return result+separator+nstr[1];
- 	}
+        return result+separator+nstr[1];
+    }
 }
 
 /*_GET_FORMAT_FROM_NAME_OF_FILE_*/
@@ -579,6 +579,8 @@ toastTwo = function(message, status, hideIn) {
 popUpOne = function(data) {
     sjqNoConflict("#fadeContentTwo").html("");
 
+    var data            = data || [];
+
     var title           = data.title || "";
     var message         = data.message || "";
     var yes             = data.yesButton || "";
@@ -683,6 +685,7 @@ popUpOne = function(data) {
         } else {
             if(typeof onNo == "function") {
                 sjqNoConflict(document).on("click", "#onNoPopUp", onNo);
+                sjqNoConflict(document).on("click", "#closePopUpFadeInTwo", onNo);
             }
         }
 
@@ -697,6 +700,8 @@ popUpOne = function(data) {
  */
 popUpTwo = function(data) {
     sjqNoConflict("#fadeContentTwo").html("");
+
+    var data            = data || [];
 
     var title           = data.title || "";
     var message         = data.message || "";
