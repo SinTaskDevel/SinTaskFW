@@ -1,5 +1,5 @@
 <?php
-	
+
 	$thisPost = $sintaskFW->post("postDefault");
 	if(isset($thisPost)) {
 		echo "THIS POST : ".$thisPost;

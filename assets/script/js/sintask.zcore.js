@@ -474,6 +474,7 @@ var __SFWspa = function() {
             window.history.pushState('', '', pageUrl);
         }
     }
+
     /**
      * sjqNoConflict.backForwardButtons = if user click Back or Forward button from browser tab
      * this function will get data from user history
@@ -520,6 +521,47 @@ var __SFWspa = function() {
         });
     }
 
+    /**
+     *  sjqNoConflict.goToNotFound = to direct user with not found page
+     *  without changing their URL link
+     *  run on SPA only
+     */
+    sjqNoConflict.goToNotFound = function () {
+        document.title = "Tidak ditemukan";
+        sjqNoConflict("#freeContentSinTask").html("");
+
+        xhrSinTaskMovePage.push( sjqNoConflict.ajax({
+            type: "POST",
+            data: { tokenizing: __SFW_tokenizingUser, part: "content" },
+            url: __SFW_homeUrl+"/../..not/..found",
+            success: function (data) {
+                __SFW_f.toastOne("", 200, "hide");
+                sintaskSuccessGetData(data);
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                if(textStatus!="abort") {
+                    purgeSideSinTask(0);
+                    purgeScriptAdd();
+                    instructBodyObjectSinTask("show", __SFW_expectHiddenObject);
+                    sjqNoConflict("#loadingPageSinTaskSPA").hide();
+                    
+                    __SFW_f.popUpTwo({
+                        title: "SinTask Framework Error", 
+                        message: __SFW_251ErrorDesc, 
+                        okButton: "Ok",
+                        onOk: function(){
+                            __SFW_f.toastTwo("Load JSON Error", "show", 8000);
+                        },
+                        onOuterClick: "hide",
+                        animationFade: true
+                    });
+                    /* location.assign("SINTASK_ERROR"); */
+                }
+                sintaskLoaderIframeStop();
+            }
+        }) );
+    }
+
     /* Run the SPA on click (initialization) */
     __SFW_spaClick();
 
@@ -542,6 +584,7 @@ var __SFWspa = function() {
     sjqNoConflict.backForwardButtons();
 
     return {
+        goToNotFound: sjqNoConflict.goToNotFound,
         changingPageSPA: changingPageSPA
     };
 }
