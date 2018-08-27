@@ -433,7 +433,7 @@ sjqNoConflict.fn.sintaskDivPlaceholder = function() {
     var thisPlaceholder = sjqNoConflict(this).attr("placeholder");
     var thisId = this;
 
-    var randomValue = getRandomOnSinTask(2);
+    var randomValue = __SFW_f.getRandomOnSinTask(2);
 
     showOrHidePlaceholder = function(thisId) {
         var element     = sjqNoConflict(thisId);
@@ -441,7 +441,7 @@ sjqNoConflict.fn.sintaskDivPlaceholder = function() {
         var elemHtml    = element.html();
         var elemTextLen = elemText.length;
 
-        if(countEnter(elemHtml)<3 && elemTextLen==0) {
+        if(__SFW_f.countEnter(elemHtml) < 3 && elemTextLen == 0) {
             sjqNoConflict(thisId).parent().find(".typeDivPlaceholder").show();
         } else {
             sjqNoConflict(thisId).parent().find(".typeDivPlaceholder").hide();

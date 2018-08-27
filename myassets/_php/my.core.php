@@ -45,6 +45,7 @@
 		"POST_UPLOAD_MAX_SIZE"	=> "60",
 		"MAX_FILE_UPLOADS" 		=> "200",
 		"CUSTOM_BASE_URL"		=> "",
+		"MIGRATION_SCRIPT"		=> false,
 	];
 	/* 
 		NOTE: 	Jika FORCE_WWW dan FORCE_NOT_WWW keduanya bernilai 'true' maka 

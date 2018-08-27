@@ -272,19 +272,19 @@ popUpTwo({
 	sjqNoConflict("#showToastSinTask").on("click", function(){
 		var thisMessage = sjqNoConflict("#toastMessage").val();
 		var thisFadeTime = sjqNoConflict("#toastFadeTime").val();
-		if(thisMessage != "" && ctypeSpace(thisMessage) > 0) {
-			toastOne(thisMessage, thisFadeTime, "show");
+		if(thisMessage != "" && __SFW_f.ctypeSpace(thisMessage) > 0) {
+			__SFW_f.toastOne(thisMessage, thisFadeTime, "show");
 		}
 	});
 	sjqNoConflict("#hideToastSinTask").on("click", function(){
-		toastOne("", "", "hide");
+		__SFW_f.toastOne("", "", "hide");
 	});
 
 	sjqNoConflict("#showToast2SinTask").on("click", function(){
 		var thisMessage = sjqNoConflict("#toastMessage2").val();
 		var thisShowTime = sjqNoConflict("#toastShowTime2").val();
-		if(thisMessage != "" && ctypeSpace(thisMessage) > 0) {
-			toastTwo(thisMessage, "show", thisShowTime);
+		if(thisMessage != "" && __SFW_f.ctypeSpace(thisMessage) > 0) {
+			__SFW_f.toastTwo(thisMessage, "show", thisShowTime);
 		}
 	});
 
@@ -297,37 +297,37 @@ popUpTwo({
 		var thisPopUpDefault = true;
 
 		if(
-			(thisMessage != "" && ctypeSpace(thisMessage) > 0) 		&&
-			(thisTitle != "" && ctypeSpace(thisTitle) > 0) 			&&
-			(thisButtonYes != "" && ctypeSpace(thisButtonYes) > 0)	&&
-			(thisButtonNo != "" && ctypeSpace(thisButtonNo) > 0)
+			(thisMessage != "" && __SFW_f.ctypeSpace(thisMessage) > 0) 		&&
+			(thisTitle != "" && __SFW_f.ctypeSpace(thisTitle) > 0) 			&&
+			(thisButtonYes != "" && __SFW_f.ctypeSpace(thisButtonYes) > 0)	&&
+			(thisButtonNo != "" && __SFW_f.ctypeSpace(thisButtonNo) > 0)
 		) {
 			thisPopUpDefault = false;
 		}
 
 		if(thisPopUpDefault == true) {
-			popUpOne({
+			__SFW_f.popUpOne({
 				title: "Ada yang kurang", 
 				message: "Wajib mengisi ke-empat kolom input di atas tombol <span class=\"thisTagging\">Munculkan PopUp</span> untuk membuat contoh PopUp anda sendiri", 
 				yesButton: "Ya", 
 				noButton: "Keluar",
 				onYes: function(){
-					toastTwo("Anda mengklik kondisi onYes, untuk keluar klik tombol 'Keluar' atau silang pada pojok kanan atas PopUp ini", "show", 15000);
+					__SFW_f.toastTwo("Anda mengklik kondisi onYes, untuk keluar klik tombol 'Keluar' atau silang pada pojok kanan atas PopUp ini", "show", 15000);
 				},
 				onOuterClick: "hide",
 				animationFade: true
 			});
 		} else if(thisPopUpDefault == false) {
-			popUpOne({
+			__SFW_f.popUpOne({
 				title: thisTitle, 
 				message: thisMessage, 
 				yesButton: thisButtonYes, 
 				noButton: thisButtonNo,
 				onYes: function(){
-					toastTwo("Anda mengklik kondisi onYes", "show", 8000);
+					__SFW_f.toastTwo("Anda mengklik kondisi onYes", "show", 8000);
 				},
 				onNo: function(){
-					toastTwo("Anda mengklik kondisi onNo, untuk keluar klik tombol silang pada pojok kanan atas PopUp ini", "show", 8000);
+					__SFW_f.toastTwo("Anda mengklik kondisi onNo, untuk keluar klik tombol silang pada pojok kanan atas PopUp ini", "show", 8000);
 				},
 				onOuterClick: "hide"
 			});
@@ -342,31 +342,31 @@ popUpTwo({
 		var thisPopUpDefault = true;
 
 		if(
-			(thisMessage != "" && ctypeSpace(thisMessage) > 0) 		&&
-			(thisTitle != "" && ctypeSpace(thisTitle) > 0) 			&&
-			(thisButtonOk != "" && ctypeSpace(thisButtonOk) > 0)
+			(thisMessage != "" && __SFW_f.ctypeSpace(thisMessage) > 0) 		&&
+			(thisTitle != "" && __SFW_f.ctypeSpace(thisTitle) > 0) 			&&
+			(thisButtonOk != "" && __SFW_f.ctypeSpace(thisButtonOk) > 0)
 		) {
 			thisPopUpDefault = false;
 		}
 
 		if(thisPopUpDefault == true) {
-			popUpTwo({
+			__SFW_f.popUpTwo({
 				title: "Ada yang kurang", 
 				message: "Wajib mengisi ke-tiga kolom input di atas tombol <span class=\"thisTagging\">Munculkan PopUp 2</span> untuk membuat contoh PopUp anda sendiri", 
 				okButton: "Oke",
 				onOk: function(){
-					toastTwo("Anda mengklik kondisi onOk dan PopUp tipe 2 ini langsung menghilang", "show", 15000);
+					__SFW_f.toastTwo("Anda mengklik kondisi onOk dan PopUp tipe 2 ini langsung menghilang", "show", 15000);
 				},
 				onOuterClick: "hide",
 				animationFade: true
 			});
 		} else if(thisPopUpDefault == false) {
-			popUpTwo({
+			__SFW_f.popUpTwo({
 				title: thisTitle, 
 				message: thisMessage, 
 				okButton: thisButtonOk,
 				onOk: function(){
-					toastTwo("Anda mengklik kondisi onOk dan PopUp tipe 2 ini langsung menghilang", "show", 15000);
+					__SFW_f.toastTwo("Anda mengklik kondisi onOk dan PopUp tipe 2 ini langsung menghilang", "show", 15000);
 				},
 				onOuterClick: "hide"
 			});

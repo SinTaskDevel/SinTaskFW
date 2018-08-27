@@ -81,210 +81,12 @@ sjqNoConflict.fn.sintaskTooltipP2 = function() {
  * fn.realtimeTimeAgo = get timestamp from real-timestamp atribute on html element 
  * and translate it to human readable with 5s realtime interval
  */
-var sintaskBahasa = [];
-
-sintaskBahasa.janLST = "Jan";
-sintaskBahasa.febLST = "Feb";
-sintaskBahasa.marLST = "Mar";
-sintaskBahasa.aprLST = "Apr";
-sintaskBahasa.mayLST = "Mei";
-sintaskBahasa.junLST = "Jun";
-sintaskBahasa.julLST = "Jul";
-sintaskBahasa.augLST = "Agu";
-sintaskBahasa.sepLST = "Sep";
-sintaskBahasa.octLST = "Okt";
-sintaskBahasa.novLST = "Nov";
-sintaskBahasa.decLST = "Des";
-
-sintaskBahasa.sunLST = "Min";
-sintaskBahasa.monLST = "Sen";
-sintaskBahasa.tueLST = "Sel";
-sintaskBahasa.wedLST = "Rab";
-sintaskBahasa.thuLST = "Kam";
-sintaskBahasa.friLST = "Jum";
-sintaskBahasa.satLST = "Sab";
-
-sintaskBahasa.stillWarmLST              = "baru saja";
-sintaskBahasa.secondAgoPrettyTimeLST    = "detik lalu";
-sintaskBahasa.minuteAgoPrettyTimeLST    = "menit lalu";
-sintaskBahasa.minutesAgoPrettyTimeLST   = "menit lalu";
-sintaskBahasa.hourAgoPrettyTimeLST      = "jam lalu";
-sintaskBahasa.hoursAgoPrettyTimeLST     = "jam lalu";
-sintaskBahasa.yesterdayPrettyTimeLST    = "kemarin";
-sintaskBahasa.todayPrettyTimeLST        = "hari ini";
-sintaskBahasa.dayAgoPrettyTimeLST       = "hari lalu";
-sintaskBahasa.daysAgoPrettyTimeLST      = "hari lalu";
-
-sintaskBahasa.secondLST         = "detik";
-sintaskBahasa.secondsLST        = "detik";
-sintaskBahasa.minuteLST         = "menit";
-sintaskBahasa.minutesLST        = "menit";
-sintaskBahasa.hourLST           = "jam";
-sintaskBahasa.hoursLST          = "jam";
-sintaskBahasa.dayLST            = "hari";
-sintaskBahasa.daysLST           = "hari";
-sintaskBahasa.weekLST           = "minggu";
-sintaskBahasa.weeksLST          = "minggu";
-sintaskBahasa.remainingLST      = "tersisa";
-sintaskBahasa.deadlinePassedLST = "Deadline sudah lewat";
-
-timeStampToHumanTimeP2 = function(timestampIn, exception) {
-    AmPm = function(inHourMinuteSecond) {
-        var split = inHourMinuteSecond.split(":");
-        var hourAmPm = "";
-        if(split[0]>11 && split[0]<24) {
-            split[0] = split[0]-12;
-            if(split[0]<1) {
-                split[0] = "12";
-            }
-            hourAmPm = "PM";
-        } else {
-            split[0] = split[0];
-            if(split[0]<1) {
-                split[0] = "12";
-            }
-            hourAmPm = "AM";
-        }
-
-        var thisHourSplit = "0"+split[0];
-        split[0] = thisHourSplit.substr(-2);
-        var result = split[0]+":"+split[1]+":"+split[2]+" "+hourAmPm;
-        return result;
-    }
-    NumMonth = function(inMonth) {
-        var monthArray = [sintaskBahasa.janLST, sintaskBahasa.febLST, sintaskBahasa.marLST, sintaskBahasa.aprLST, sintaskBahasa.mayLST, sintaskBahasa.junLST, sintaskBahasa.julLST, sintaskBahasa.augLST, sintaskBahasa.sepLST, sintaskBahasa.octLST, sintaskBahasa.novLST, sintaskBahasa.decLST];
-
-        inMonth = parseInt(inMonth);
-
-        return monthArray[inMonth];
-    }
-    NumDay = function(inDay) {
-        var dayArray = [sintaskBahasa.sunLST, sintaskBahasa.monLST, sintaskBahasa.tueLST, sintaskBahasa.wedLST, sintaskBahasa.thuLST, sintaskBahasa.friLST, sintaskBahasa.satLST];
-
-        inDay = parseInt(inDay);
-
-        return dayArray[inDay];
-    }
-
-    var timestamp = timestampIn;
-    if(timestamp!="" && timestamp!=null) {
-        timestamp = timestamp.toString();
-        timestamp = timestamp.substr(0, 10);
-        timestamp = parseInt(timestamp*1000);
-    } else {
-        var newDate = new Date();
-        timestamp = newDate.getTime();
-    }
-
-    var date        = new Date(timestamp);
-    var getDay      = date.getDay();
-    var getDate     = date.getDate();
-    var getMonth    = date.getMonth();
-    var getYear     = date.getFullYear();
-    var getHour     = date.getHours();
-    var getMinute   = date.getMinutes();
-    var getSecond   = date.getSeconds();
-
-    getHour     = "0"+getHour;
-    getMinute   = "0"+getMinute;
-    getSecond   = "0"+getSecond;
-
-    getHour     = getHour.substr(-2);
-    getMinute   = getMinute.substr(-2);
-    getSecond   = getSecond.substr(-2);
-
-    var getHourAmPm = AmPm(getHour+":"+getMinute+":"+getSecond);
-    var getMonthAlfabet = NumMonth(getMonth);
-    var getDayAlfabet = NumDay(getDay);
-
-    if(exception=="" || exception==null) {
-        var result = getDayAlfabet+", "+getDate+" "+getMonthAlfabet+" "+getYear+" "+getHourAmPm;
-    } else {
-        if(exception=="nosecond") {
-            var splitHour = getHourAmPm.split(":");
-            var getSecAmPm = splitHour[2];
-            var splitSec = getSecAmPm.split(" ");
-            var newGetHourAmPm = splitHour[0]+":"+splitHour[1]+" "+splitSec[1];
-
-            var result = getDayAlfabet+", "+getDate+" "+getMonthAlfabet+" "+getYear+" "+newGetHourAmPm;
-        } else if(exception=="noclock") {
-            var result = getDayAlfabet+", "+getDate+" "+getMonthAlfabet+" "+getYear;
-        } else if(exception=="noyear") {
-            var result = getDayAlfabet+", "+getDate+" "+getMonthAlfabet+" "+getHourAmPm;
-        } else if(exception=="noday") {
-            var result = getDate+" "+getMonthAlfabet+" "+getYear+" "+getHourAmPm;
-        } else if(exception=="checkday") {
-            var newDate = new Date();
-            dayNow = newDate.getDay();
-
-            if(dayNow==getDay) {
-                var result = "";
-            } else if(dayNow>getDay) {
-                var dayMinus = dayNow-getDay;
-                if(dayMinus==1) {
-                    var result = "("+sintaskBahasa.yesterdayPrettyTimeLST+")";
-                } else {
-                    var result = "("+dayMinus+" "+sintaskBahasa.daysAgoPrettyTimeLST+")"; 
-                }
-            } else if(dayNow<getDay) {
-                var dayMinus = (dayNow+7)-getDay; /* +7 Because 7 = 1 Week */
-                if(dayMinus==1) {
-                    var result = "("+sintaskBahasa.yesterdayPrettyTimeLST+")";
-                } else {
-                    var result = "("+dayMinus+" "+sintaskBahasa.daysAgoPrettyTimeLST+")"; 
-                }
-            }
-        } else if(exception=="dayago") {
-            var newDate = new Date();
-            dayNow = newDate.getDay();
-
-            var splitHour = getHourAmPm.split(":");
-            var getSecAmPm = splitHour[2];
-            var splitSec = getSecAmPm.split(" ");
-            var newGetHourAmPm = splitHour[0]+":"+splitHour[1]+" "+splitSec[1];
-
-            if(dayNow==getDay) {
-                var result = sintaskBahasa.todayPrettyTimeLST+" "+newGetHourAmPm;
-            } else if(dayNow>getDay) {
-                var dayMinus = dayNow-getDay;
-                if(dayMinus==1) {
-                    var result = sintaskBahasa.yesterdayPrettyTimeLST+" "+newGetHourAmPm;
-                } else {
-                    var result = dayMinus+" "+sintaskBahasa.daysAgoPrettyTimeLST+" "+newGetHourAmPm; 
-                }
-            } else if(dayNow<getDay) {
-                var dayMinus = (dayNow+7)-getDay; /* +7 Because 7 = 1 Week */
-                if(dayMinus==1) {
-                    var result = sintaskBahasa.yesterdayPrettyTimeLST+" "+newGetHourAmPm;
-                } else {
-                    var result = dayMinus+" "+sintaskBahasa.daysAgoPrettyTimeLST+" "+newGetHourAmPm; 
-                }
-            }
-        } else if(exception=="realtimecontent") {
-            var newDate = new Date();
-            yearNow = newDate.getFullYear();
-
-            var splitHour = getHourAmPm.split(":");
-            var getSecAmPm = splitHour[2];
-            var splitSec = getSecAmPm.split(" ");
-            var newGetHourAmPm = splitHour[0]+":"+splitHour[1]+" "+splitSec[1];
-
-            if(getYear==yearNow) {
-                var result = getDayAlfabet+", "+getDate+" "+getMonthAlfabet+" "+newGetHourAmPm;
-            } else {
-                var result = getDayAlfabet+", "+getDate+" "+getMonthAlfabet+" "+getYear+" "+newGetHourAmPm;
-            }
-        }
-    }
-
-    return result;
-}
 sjqNoConflict.fn.realtimeTimeAgoP2 = function() {
     var thisId = this;
     var timeOldJsTen = sjqNoConflict(thisId).attr("real-timestamp");
     timeOldJsTen = timeOldJsTen.substr(0, 10);
     function timeOutRealtimeTimeAgo() {
-        var timeNowJsTen = timeStampJsTenLocal();
+        var timeNowJsTen = __SFW_f.timeStampJsTenLocal();
         var detik = timeNowJsTen-timeOldJsTen;
         var theResult = "";
         if(detik>-1) {
@@ -308,16 +110,16 @@ sjqNoConflict.fn.realtimeTimeAgoP2 = function() {
                     if(thisHour>0 && thisHour<2) {
                         hourAgo = sintaskBahasa.hourAgoPrettyTimeLST;
                     }
-                    var isYesterday = timeStampToHumanTimeP2(timeOldJsTen, "checkday");
+                    var isYesterday = __SFW_f.timeStampToHumanTimeP2(timeOldJsTen, "checkday");
                     theResult = thisHour+" "+hourAgo+" "+isYesterday;
                 } else if(detik>=(60*60*24) && detik<(60*60*24*4)) {
-                    theResult = timeStampToHumanTimeP2(timeOldJsTen, "dayago");
+                    theResult = __SFW_f.timeStampToHumanTimeP2(timeOldJsTen, "dayago");
                 } else {
-                    theResult = timeStampToHumanTimeP2(timeOldJsTen, "realtimecontent");
+                    theResult = __SFW_f.timeStampToHumanTimeP2(timeOldJsTen, "realtimecontent");
                 }
             }
         } else {
-            theResult = timeStampToHumanTimeP2(timeOldJsTen, "realtimecontent");
+            theResult = __SFW_f.timeStampToHumanTimeP2(timeOldJsTen, "realtimecontent");
         }
 
         sjqNoConflict(thisId).html(theResult);
@@ -334,7 +136,7 @@ sjqNoConflict.fn.realtimeTimeLimitP2 = function() {
     var thisId = this;
     var timeFutureJsTen = sjqNoConflict(thisId).attr("real-timestamp");
     function timeOutRealtimeTimeLimit() {
-        var timeNowJsTen = timeStampJsTenLocal();
+        var timeNowJsTen = __SFW_f.timeStampJsTenLocal();
         var detik = timeFutureJsTen-timeNowJsTen;
         var theResult = "";
 

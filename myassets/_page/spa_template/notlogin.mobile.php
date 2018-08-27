@@ -30,33 +30,33 @@
 	sjqNoConflict("#showToastSinTask").on("click", function(){
 		var thisMessage = "Tester Toast 1";
 		var thisFadeTime = "200";
-		if(thisMessage != "" && ctypeSpace(thisMessage) > 0) {
-			toastOne(thisMessage, thisFadeTime, "show");
+		if(thisMessage != "" && __SFW_f.ctypeSpace(thisMessage) > 0) {
+			__SFW_f.toastOne(thisMessage, thisFadeTime, "show");
 		}
 	});
 	sjqNoConflict("#hideToastSinTask").on("click", function(){
-		toastOne("", "", "hide");
+		__SFW_f.toastOne("", "", "hide");
 	});
 
 	sjqNoConflict("#showToast2SinTask").on("click", function(){
 		var thisMessage = "Tester Toast 2 - Hilang dalam 15 detik";
 		var thisShowTime = 15000;
-		if(thisMessage != "" && ctypeSpace(thisMessage) > 0) {
-			toastTwo(thisMessage, "show", thisShowTime);
+		if(thisMessage != "" && __SFW_f.ctypeSpace(thisMessage) > 0) {
+			__SFW_f.toastTwo(thisMessage, "show", thisShowTime);
 		}
 	});
 
 	sjqNoConflict("#showPopUpSinTask").on("click", function(){
-		popUpOne({
+		__SFW_f.popUpOne({
 			title: "Ini PopUp Tipe 1", 
 			message: "PopUp Tipe 1 ini hanya menampilkan tombol Yes & No, dan handler Yes/No pada Event", 
 			yesButton: "Yes",
 			noButton: "No",
 			onYes: function(){
-				toastTwo("Anda mengklik kondisi onYes", "show", 8000);
+				__SFW_f.toastTwo("Anda mengklik kondisi onYes", "show", 8000);
 			},
 			onNo: function(){
-				toastTwo("Anda mengklik kondisi onNo", "show", 8000);
+				__SFW_f.toastTwo("Anda mengklik kondisi onNo", "show", 8000);
 			},
 			onOuterClick: "hide",
 			animationFade: true
@@ -64,12 +64,12 @@
 	});
 
 	sjqNoConflict("#showPopUp2SinTask").on("click", function(){
-		popUpTwo({
+		__SFW_f.popUpTwo({
 			title: "Ini PopUp Tipe 2", 
 			message: "PopUp Tipe 2 ini hanya menampilkan tombol OK saja, dan handler OK pada Event", 
 			okButton: "OK",
 			onOk: function(){
-				toastTwo("Mengklik kondisi onOk dan PopUp tipe 2 ini akan menghilang", "show", 15000);
+				__SFW_f.toastTwo("Mengklik kondisi onOk dan PopUp tipe 2 ini akan menghilang", "show", 15000);
 			},
 			onOuterClick: "hide",
 			animationFade: true
