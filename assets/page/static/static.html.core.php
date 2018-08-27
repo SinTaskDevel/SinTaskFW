@@ -161,6 +161,12 @@
                 __SFW_locVal.url.thisis     = "<?php echo pureUrlPage($__BASE_URL__);?>";
                 
                 __SFW_locVal.sitenowww      = "<?php echo SITENOWWW;?>";
+
+                var __SFW_srvTime = {
+                    timenow: <?php echo microTimeStamp();?>,
+                    timenowTen: <?php echo floor(microTimeStamp()/1000)?>,
+                    timestampreal: <?php echo microTimeStamp();?>,
+                }
             </script>
 
             <?php
@@ -438,6 +444,7 @@
             <?php
         }
 
+        /* Default (For SPA Page) */
         if($thisCoreGet == "scriptend") {
             $base_url_css 	= $__BASE_URL__."/assets/script/css/";
             $base_url_js 	= $__BASE_URL__."/assets/script/js/";
@@ -450,6 +457,10 @@
                 "sintask.zcore.js",
             ];
 
+            if($__MY_CORE__["MIGRATION_SCRIPT"] == true) {
+                array_push($footer_js, "sintask.migration.js");
+            }
+
             /* Default */
             foreach($footer_js as $value) {
                 ?><script type="text/javascript" src="<?php echo $base_url_js.$value;?>"></script><?php
@@ -458,6 +469,7 @@
             /* AUTO JS */
             $base_url_auto_js   = $__BASE_URL__."/myassets/auto_js_foot/";
             $auto_js            = scandir($__DOC_ROOT__.$requirePath["auto_js"]);
+                                  natsort($auto_js);
             $count_auto_js      = count($auto_js);
 
             for($autoJsI = 2; $autoJsI < $count_auto_js; $autoJsI++) {
@@ -510,20 +522,37 @@
             ?>
             <script>
                 sjqNoConflict(document).ready(function(){
-                    sCached(); 
+                    __SFW_f.sCached(); 
                 });
             </script>
             <?php
         }
 
+        /* General (For Non-SPA Page) */
         if($thisCoreGet == "scriptend_general") {
             $base_url_css   = $__BASE_URL__."/assets/script/css/";
             $base_url_js    = $__BASE_URL__."/assets/script/js/";
             $base_url_jsd   = $__BASE_URL__."/jsd/";
 
+            $footer_js      = [
+                "sintask.func.js",
+                "sintask.plugin.js",
+                "sintask.plugin.2.js",
+            ];
+
+            if($__MY_CORE__["MIGRATION_SCRIPT"] == true) {
+                array_push($footer_js, "sintask.migration.js");
+            }
+
+            /* Default */
+            foreach($footer_js as $value) {
+                ?><script type="text/javascript" src="<?php echo $base_url_js.$value;?>"></script><?php
+            }
+
             /* AUTO JS */
             $base_url_auto_js   = $__BASE_URL__."/myassets/auto_js_foot/";
             $auto_js            = scandir($__DOC_ROOT__.$requirePath["auto_js"]);
+                                  natsort($auto_js);
             $count_auto_js      = count($auto_js);
 
             for($autoJsI = 2; $autoJsI < $count_auto_js; $autoJsI++) {
