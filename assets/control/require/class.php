@@ -325,45 +325,18 @@
 
 	/*
 	 *	SinTask NotFound JS Page
+	 * 	(For SPA page only)
 	 */
 	class SintaskNotFound {
 		public function __construct() {
 			$thisJSVar = '
 			<script>
 				sjqNoConflict(document).ready(function(){
-					document.title = "Tidak ditemukan";
-					sjqNoConflict("#freeContentSinTask").html("");
-
-					sjqNoConflict.ajax({
-				        type: "POST",
-				        data: { tokenizing: __SFW_tokenizingUser, part: "content" },
-				        url: __SFW_homeUrl+"/../..not/..found",
-				        success: function (data) {
-				            fadeContentOne("", 200, "hide");
-				            sintaskSuccessGetData(data);
-				        },
-				        error: function(xhr, textStatus, errorThrown) {
-				            if(textStatus!="abort") {
-				                purgeSideSinTask(0);
-				                purgeScriptAdd();
-				                instructBodyObjectSinTask("show", __SFW_expectHiddenObject);
-				                sjqNoConflict("#loadingPageSinTaskSPA").hide();
-				                
-				                popUpTwo({
-				                    title: "SinTask Framework Error", 
-				                    message: __SFW_251ErrorDesc, 
-				                    okButton: "Ok",
-				                    onOk: function(){
-				                        toastTwo("Load JSON Error", "show", 8000);
-				                    },
-				                    onOuterClick: "hide",
-				                    animationFade: true
-				                });
-				                /* location.assign("SINTASK_ERROR"); */
-				            }
-				            sintaskLoaderIframeStop();
-				        }
-				    });
+					if(typeof __SFW_spa == "object") {
+						__SFW_spa.goToNotFound();
+					} else {
+						alert("Page Not Found\n(Non-SPA Page Alert)");
+					}
 				});
 			</script>';
 
