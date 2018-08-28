@@ -3,10 +3,6 @@
 /* (c) 2016 - 2018 SinTask Webdev */
 /* ------------------------- */
 
-/** REALTIME TIME-LIMIT [PART]
- * fn.realtimeTimeAgo = get timestamp from real-timestamp atribute on html element 
- * and translate it to human readable with 5s realtime interval
- */
 var publicFunction = function(ouput) {
     var ouput = ouput || 'default';
     return ouput;
@@ -59,6 +55,10 @@ var __SFWfunc = function(){
     sintaskBahasa.remainingLST      = "tersisa";
     sintaskBahasa.deadlinePassedLST = "Deadline sudah lewat";
 
+    /** REALTIME TIME-LIMIT [PART]
+     * fn.realtimeTimeAgo = get timestamp from real-timestamp atribute on html element 
+     * and translate it to human readable with 5s realtime interval
+     */
     function timeStampToHumanTimeP2(timestampIn, exception) {
         AmPm = function(inHourMinuteSecond) {
             var split = inHourMinuteSecond.split(":");
