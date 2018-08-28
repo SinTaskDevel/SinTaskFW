@@ -6,7 +6,13 @@
 	<div class="borderSpaceMini"></div>
 	SinTaskFW atau SinTask Framework adalah <i>Simple & Light PHP Micro Framework built-in SPA</i>, dikembangkan oleh Divisi Web SinTask, yang dimana SinTask adalah Startup Teknologi yang juga mengembangkan <a href="http://www.sintask.com" target="_blank">SinTask Productive & Fun</a>.
 	<div class="borderSpaceMini"></div>
-	Versi &mdash; <?php echo $__VERSION__;?>
+	<div class="noted">
+		<strong>Info</strong>
+		<div class="borderSpaceMini"></div>
+		Versi &mdash; <span class="ft_style_b"><?php echo $__VERSION__;?></span>
+		<br>
+		Browser anda saat ini support JavaScript &mdash; <span id="jsVersion" class="ft_style_b"></span>
+	</div>
 	<div class="borderSpaceMini"></div>
 	<div class="borderLine"></div>
 
@@ -269,6 +275,8 @@ popUpTwo({
 	<div class="borderSpaceMini"></div>
 </div>
 <script>
+	sjqNoConflict("#jsVersion").html(__SFW_f.getJsVersion().jsVersion);
+	
 	sjqNoConflict("#showToastSinTask").on("click", function(){
 		var thisMessage = sjqNoConflict("#toastMessage").val();
 		var thisFadeTime = sjqNoConflict("#toastFadeTime").val();
