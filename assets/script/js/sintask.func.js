@@ -422,7 +422,7 @@ var __SFWfunc = function(){
     function getSintCookies(sname) {
         var name = sname + "=";
         var ca = document.cookie.split(';');
-        for(var i = 0; i <ca.length; i++) {
+        for(var i = 0; i < ca.length; i++) {
             var c = ca[i];
             while (c.charAt(0)==' ') {
                 c = c.substring(1);
@@ -1156,6 +1156,47 @@ var __SFWfunc = function(){
         });
     }
 
+    /*  Get from https://stackoverflow.com/a/26809125
+     *  JS Version Browser Support
+     *  @author = https://stackoverflow.com/users/4228427/dmitrys (DimitryS)
+     *  --------------------------
+     *  Modified by Sintask Web Dev
+     */
+    this.jsv = {
+        versions: [
+            "1.1", "1.2", "1.3", "1.4", "1.5", "1.6", "1.7", "1.8", "1.9", "+1.9"
+        ],
+        version: ""
+    };
+
+    function getJsVersion() {
+        var headElem = document.getElementsByTagName("script");
+        var headElemLen = headElem.length;
+
+        if(headElemLen > 0) {
+            for (i = 0; i < jsv.versions.length; i++) {
+                var createElem = document.createElement('script'),
+                    tagHolder = document.getElementsByTagName('script')[0];
+
+                createElem.setAttribute("language", "JavaScript" + jsv.versions[i]);
+                createElem.text = "this.jsv.version = '"+jsv.versions[i]+"';";
+                tagHolder.parentNode.insertBefore(createElem, tagHolder);
+
+                /* Redefine and Remove <script> */
+                var tagHolder2 = document.getElementsByTagName('script')[0];
+                tagHolder2.parentNode.removeChild(tagHolder2);
+            }
+        } else {
+            var jsVersion = "<script> tag not found";
+        }
+
+        var jsVersion = jsv.version;
+
+        return {
+            jsVersion: jsVersion
+        };
+    }
+
     return {
         timeStampToHumanTimeP2: timeStampToHumanTimeP2,
         getRandomOnSinTask: getRandomOnSinTask,
@@ -1207,7 +1248,8 @@ var __SFWfunc = function(){
         stalert: stalert,
         sintaskHideNotParamClicked: sintaskHideNotParamClicked,
         base64ToBlob: base64ToBlob,
-        sintaskResetFormat: sintaskResetFormat
+        sintaskResetFormat: sintaskResetFormat,
+        getJsVersion: getJsVersion
     }
 }
 
