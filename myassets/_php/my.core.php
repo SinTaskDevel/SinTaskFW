@@ -27,6 +27,15 @@
 		CUSTOM_BASE_URL			- Kami menggunakan URL AutoDetection, jika anda merasa ada yang salah
 								  silahkan isi dengan Full URL anda. (Mempengaruhi $__BASE_URL__)
 								  Note: Isi dengan HTTP/S (Protokol)
+		MIGRATION_SCRIPT		- Migration Script khusus untuk SintaskFW 1.3.3 ke bawah maka
+								  diharuskan untuk menjadi 'true'
+		JQUERY_SCRIPT			- Pemilihan versi jQuery yang digunakan sjqNoConflict;
+								  value 'v3' atau 'v2', jika tidak diisi maka otomatis memakai jQuery v3
+								  untuk menjalankan jQuery bawaan SintaskFW maka harus 
+								  memakai jQSFW atau jQuery bukan $, lalu jika anda ingin 
+								  menggunakan jQuery versi lainnya include kan pada 
+								  halaman 'my.page.setting.php' sehingga jika ada jQuery baru anda dapat menjalankan dengan $ atau jQuery.
+
 	 */
 	$__MY_CORE__ = [
 		"EXPOSE_PHP"			=> false,
@@ -46,6 +55,7 @@
 		"MAX_FILE_UPLOADS" 		=> "200",
 		"CUSTOM_BASE_URL"		=> "",
 		"MIGRATION_SCRIPT"		=> false,
+		"JQUERY_SCRIPT"			=> "v3",
 	];
 	/* 
 		NOTE: 	Jika FORCE_WWW dan FORCE_NOT_WWW keduanya bernilai 'true' maka 

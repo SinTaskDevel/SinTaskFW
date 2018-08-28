@@ -131,7 +131,7 @@ var __SFWspa = function() {
                     }
                 });
             } else {
-                sjqNoConflict("body").append("<style class='"+idfinal+" styleAdd'></style>");
+                sjqNoConflict("body").append("<style class='"+idfinal+" styleAdd iDisplayNone'></style>");
                 setTimeout(function(){loadAddStyle(link, id);},500);
             }
         }
