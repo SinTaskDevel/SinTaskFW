@@ -46,9 +46,13 @@
                 "sintask.css",
             ];
             $base_js_lib    = [
-                "lib/jquery.min.js",
+                "lib/jquery.min.v3.js",
                 "lib/cryptojs-aes.js",
             ];
+
+            if($__MY_CORE__["JQUERY_SCRIPT"] == "v2") {
+                $base_js_lib[0] = "lib/jquery.min.v2.js";
+            }
 
             /* Default */
             foreach($base_css as $value) {
