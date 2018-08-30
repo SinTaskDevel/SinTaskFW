@@ -866,17 +866,17 @@
 	/* Menghapus semua session untuk POST, GET, FILES */
 	function clearAllSessInput() {
 		/* Menghapus postGET & postPOST - karena terakhir di load */
-		unset($_SESSION['postGET']);
-		unset($_SESSION['postPOST']);
-		if(count($_SESSION['postFILES']) > 0) {
-			foreach($_SESSION['postFILES'] as $key => $value) {
-				$thisPostFiles = $_SESSION['postFILES'][$key]['tmp_name'];
+		unset($_SESSION[$_SESSION['globalSecureToken'].'postGET']);
+		unset($_SESSION[$_SESSION['globalSecureToken'].'postPOST']);
+		if(count($_SESSION[$_SESSION['globalSecureToken'].'postFILES']) > 0) {
+			foreach($_SESSION[$_SESSION['globalSecureToken'].'postFILES'] as $key => $value) {
+				$thisPostFiles = $_SESSION[$_SESSION['globalSecureToken'].'postFILES'][$key]['tmp_name'];
 				if(file_exists($thisPostFiles)) {
 					unlink($thisPostFiles);
 				}
 			}
 		}
-		unset($_SESSION['postFILES']);
+		unset($_SESSION[$_SESSION['globalSecureToken'].'postFILES']);
 	}
 	/* Addslash untuk \ dan " saja */
 	function addslashesNormalize($input) {
