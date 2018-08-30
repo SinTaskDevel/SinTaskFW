@@ -774,6 +774,7 @@ var __SFWfunc = function(){
     /**
      * PopUp SinTaskFW Default
      */
+    var popUpActiveId = "";
     function popUpOne(data) {
         sjqNoConflict("#fadeContentTwo").html("");
 
@@ -807,12 +808,15 @@ var __SFWfunc = function(){
 
         var outerClickScript = "";
         if(onOuterClick == "hide") {
-            outerClickScript = "__SFW_f.sintaskHideNotParamClicked('#popUpFadeInChild', "+removePopUpMethod+", 500);";
+            outerClickScript = "__SFW_f.sintaskHideNotParamClicked('#popUpFadeInChild', "+removePopUpMethod+", 500, 'one');";
         }
 
+        var thisDateTime = new Date().getTime();
+        popUpActiveId = getRandomOnSinTask(5)+thisDateTime;
+
         var templatePopUpOne = ""+
-        "<div id=\"popUpFadeInPar\" class=\"popUpFadeIn\" style=\"display: none;\"><\/div>"+
-        "<div id=\"popUpFadeInChild\" class=\"popUpFadeInContent\" style=\"display: none;\">"+
+        "<div id=\"popUpFadeInPar\" class=\"popUpFadeIn "+popUpActiveId+"\" style=\"display: none;\"><\/div>"+
+        "<div id=\"popUpFadeInChild\" class=\"popUpFadeInContent "+popUpActiveId+"\" style=\"display: none;\">"+
             "<div class=\"popUpFadeInContentChild_3 ft_style_b\">"+ 
                 "<div id=\"closePopUpFadeInTwo\" class=\"deleteOrCloseIcon c_pointer\"><\/div>"+
             "<\/div>"+
@@ -884,6 +888,7 @@ var __SFWfunc = function(){
                 if(typeof onNo == "function") {
                     sjqNoConflict(document).on("click", "#onNoPopUp", onNo);
                     sjqNoConflict(document).on("click", "#closePopUpFadeInTwo", onNo);
+                    __SFW_f.sintaskHideNotParamClicked('#popUpFadeInChild', onNo, 500, 'one');
                 }
             }
 
@@ -927,12 +932,15 @@ var __SFWfunc = function(){
 
         var outerClickScript = "";
         if(onOuterClick == "hide") {
-            outerClickScript = "__SFW_f.sintaskHideNotParamClicked('#popUpFadeInChild', "+removePopUpMethod+", 500);";
+            outerClickScript = "__SFW_f.sintaskHideNotParamClicked('#popUpFadeInChild', "+removePopUpMethod+", 500, 'one');";
         }
 
+        var thisDateTime = new Date().getTime();
+        popUpActiveId = getRandomOnSinTask(5)+thisDateTime;
+
         var templatePopUpOne = ""+
-        "<div id=\"popUpFadeInPar\" class=\"popUpFadeIn\" style=\"display: none;\"><\/div>"+
-        "<div id=\"popUpFadeInChild\" class=\"popUpFadeInContent\" style=\"display: none;\">"+
+        "<div id=\"popUpFadeInPar\" class=\"popUpFadeIn "+popUpActiveId+"\" style=\"display: none;\"><\/div>"+
+        "<div id=\"popUpFadeInChild\" class=\"popUpFadeInContent "+popUpActiveId+"\" style=\"display: none;\">"+
             "<div class=\"popUpFadeInContentChild_3 ft_style_b\">"+ 
             "<\/div>"+
             "<div class=\"popUpFadeInContentChild_1 ft_style_b fontSize20px\">"+ 
@@ -1011,13 +1019,14 @@ var __SFWfunc = function(){
      * Remove PopUp SinTaskFW Default
      */
     function removePopUp(callback) {
-        var callback    = callback || "";
+        var callback            = callback || "";
+        var popUpActiveIdNow    = popUpActiveId;
 
         sjqNoConflict("#headerStayContentSinTask").css("filter", "");
         sjqNoConflict("#freeContentSinTask").css("filter", "");
         sjqNoConflict("#stayContentSinTask").css("filter", "");
         sjqNoConflict("#footerStayContentSinTask").css("filter", "");
-        sjqNoConflict("#fadeContentTwo").html("");
+        sjqNoConflict("."+popUpActiveIdNow).remove();
         sjqNoConflict("body").css("overflow-y", "");
         sjqNoConflict("body").css("width", "");
         sjqNoConflict("#popUpFadeInPar").css("overflow-y", "");
@@ -1031,7 +1040,8 @@ var __SFWfunc = function(){
      * Remove PopUp FadeOut SinTaskFW Default
      */
     function removePopUpFade(callback) {
-        var callback    = callback || "";
+        var callback            = callback || "";
+        var popUpActiveIdNow    = popUpActiveId;
 
         sjqNoConflict("#headerStayContentSinTask").css("filter", "");
         sjqNoConflict("#freeContentSinTask").css("filter", "");
@@ -1042,7 +1052,7 @@ var __SFWfunc = function(){
         sjqNoConflict("#popUpFadeInPar").css("overflow-y", "");
 
         function deletionPopUp() {
-            sjqNoConflict("#fadeContentTwo").html("");
+            sjqNoConflict("."+popUpActiveIdNow).remove();
 
             if(typeof callback == "function") {
                 callback();
@@ -1107,7 +1117,9 @@ var __SFWfunc = function(){
      * Hiding where is not 'param' (HTML Tag/Element) is clicked
      * or Hide the 'param' where is not 'param' clicked
      */
-    function sintaskHideNotParamClicked(param, callback, fadeTime) {
+    function sintaskHideNotParamClicked(param, callback, fadeTime, time) {
+        var time = time || "";
+        
         sjqNoConflict(document).mouseup(function (e) {
             if(param != null && typeof param != "undefined" && param != "") {
                 var popUpName = sjqNoConflict(param);
@@ -1117,7 +1129,10 @@ var __SFWfunc = function(){
                     } else {
                         popUpName.hide(fadeTime);
                     }
-                    param = null;
+                    
+                    if(time == "one") {
+                        param = null;
+                    }
                 }
             }
         });

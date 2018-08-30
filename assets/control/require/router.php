@@ -49,6 +49,7 @@
 				require($__ZERO__);
 			}
 
+			clearAllSessInput();
 			break;
 
 		case "sec-s-ajaxify" :
@@ -67,6 +68,7 @@
 				require($__ZERO__);
 			}
 
+			clearAllSessInput();
 			break;
 
 		case "s-dl" :
