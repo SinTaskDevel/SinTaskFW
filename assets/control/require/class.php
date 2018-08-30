@@ -9,23 +9,47 @@
 		}
 		function get($key = null) {
 			if($key == null) {
-				return $_SESSION["postGET"];
+				return $_SESSION[$_SESSION['globalSecureToken']."postGET"];
 			} else {
-				return $_SESSION["postGET"][$key];
+				$result = null;
+
+				if(isset($_GET[$key])) {
+					$result = $_GET[$key];
+				} else {
+					$result = $_SESSION[$_SESSION['globalSecureToken']."postGET"][$key];
+				}
+
+				return $result;
 			}
 		}
 		function post($key = null) {
 			if($key == null) {
-				return $_SESSION["postPOST"];
+				return $_SESSION[$_SESSION['globalSecureToken']."postPOST"];
 			} else {
-				return $_SESSION["postPOST"][$key];
+				$result = null;
+
+				if(isset($_GET[$key])) {
+					$result = $_GET[$key];
+				} else {
+					$result = $_SESSION[$_SESSION['globalSecureToken']."postPOST"][$key];
+				}
+
+				return $result;
 			}
 		}
 		function files($key = null) {
 			if($key == null) {
-				return $_SESSION["postFILES"];
+				return $_SESSION[$_SESSION['globalSecureToken']."postFILES"];
 			} else {
-				return $_SESSION["postFILES"][$key];
+				$result = null;
+
+				if(isset($_GET[$key])) {
+					$result = $_GET[$key];
+				} else {
+					$result = $_SESSION[$_SESSION['globalSecureToken']."postFILES"][$key];
+				}
+
+				return $result;
 			}
 		}
 	}

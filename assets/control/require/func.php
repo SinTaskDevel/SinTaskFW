@@ -866,17 +866,17 @@
 	/* Menghapus semua session untuk POST, GET, FILES */
 	function clearAllSessInput() {
 		/* Menghapus postGET & postPOST - karena terakhir di load */
-		unset($_SESSION['postGET']);
-		unset($_SESSION['postPOST']);
-		if(count($_SESSION['postFILES']) > 0) {
-			foreach($_SESSION['postFILES'] as $key => $value) {
-				$thisPostFiles = $_SESSION['postFILES'][$key]['tmp_name'];
+		unset($_SESSION[$_SESSION['globalSecureToken'].'postGET']);
+		unset($_SESSION[$_SESSION['globalSecureToken'].'postPOST']);
+		if(count($_SESSION[$_SESSION['globalSecureToken'].'postFILES']) > 0) {
+			foreach($_SESSION[$_SESSION['globalSecureToken'].'postFILES'] as $key => $value) {
+				$thisPostFiles = $_SESSION[$_SESSION['globalSecureToken'].'postFILES'][$key]['tmp_name'];
 				if(file_exists($thisPostFiles)) {
 					unlink($thisPostFiles);
 				}
 			}
 		}
-		unset($_SESSION['postFILES']);
+		unset($_SESSION[$_SESSION['globalSecureToken'].'postFILES']);
 	}
 	/* Addslash untuk \ dan " saja */
 	function addslashesNormalize($input) {
@@ -1119,7 +1119,7 @@
 		header('SinTask-Framework-Ver: '.$__VERSION__);
 		header('SinTask-Author: SinTask Web Developer');
 		header('SinTask-License: Framework is under MIT License');
-		header('SinTask-Company: PT. SinTask Digital');
+		header('SinTask-Company: PT. Sintask Selteer');
 		header('SinTask-Framework: hi@sintask.com');
 	}
 
@@ -1241,25 +1241,25 @@
 		$final .= 		$tryContent;
 		$final .= '} catch(error) {';
 
-		$final .= 		'console.log("%c'.$title.'", "font-size: 16px; color: #EA4335;");';
+		$final .= 		'console.error("%c'.$title.'", "font-size: 16px; color: #EA4335;");';
 		
 		if($theBrowser["BR_NAME"] == "MOZ_FIRE") {
-			$final .= 		'console.log("%cError - "+error.message, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
-			$final .= 		'console.log("%cLine "+error.lineNumber, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
-			$final .= 		'console.log("%cColumn "+error.columnNumber, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
+			$final .= 		'console.error("%cError - "+error.message, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
+			$final .= 		'console.error("%cLine "+error.lineNumber, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
+			$final .= 		'console.error("%cColumn "+error.columnNumber, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
 
-			$final .= 'console.log("%cLine & Column numbers are calculated from the <script> tag in your SPA file\n", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
+			$final .= 'console.error("%cLine & Column numbers are calculated from the <script> tag in your SPA file\n", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
 		} else if($theBrowser["BR_NAME"] == "CHROME") {
-			$final .= 		'console.log("%cError - "+error.message, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
-			$final .= 		'console.log("%cStack "+error.stack, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
+			$final .= 		'console.error("%cError - "+error.message, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
+			$final .= 		'console.error("%cStack "+error.stack, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
 
-			$final .= 'console.log("%cSorry, your browser is not supported Line & Column number detection (Try Mozilla Firefox 50+ or Browser with Developer Edition)", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
-			$final .= 'console.log("%cClient-Browser: '.$theBrowser["name"].' ver-'.$theBrowser["version"].'\n", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
+			$final .= 'console.error("%cSorry, your browser is not supported Line & Column number detection (Try Mozilla Firefox 50+ or Browser with Developer Edition)", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
+			$final .= 'console.error("%cClient-Browser: '.$theBrowser["name"].' ver-'.$theBrowser["version"].'\n", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
 		} else {
-			$final .= 		'console.log("%cError - "+error.message, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
+			$final .= 		'console.error("%cError - "+error.message, "color: #EA4335; background: transparent; padding: 0px 10px; border-left: 4px solid #EA4335;");';
 
-			$final .= 'console.log("%cSorry, your browser is not supported Line & Column number detection (Try Mozilla Firefox 50+ or Browser with Developer Edition)", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
-			$final .= 'console.log("%cClient-Browser: '.$theBrowser["name"].' ver-'.$theBrowser["version"].'\n", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
+			$final .= 'console.error("%cSorry, your browser is not supported Line & Column number detection (Try Mozilla Firefox 50+ or Browser with Developer Edition)", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
+			$final .= 'console.error("%cClient-Browser: '.$theBrowser["name"].' ver-'.$theBrowser["version"].'\n", "font-size: 12px; color: #EA4335; border-bottom: 1px solid #EA4335;");';
 		}
 
 		$final .= '};';
@@ -3335,9 +3335,15 @@
     	return $input;
     }
 	
-	/* getRootBaseURL */
+	/* getRootBaseURL digunakan untuk mengambil root dari URL 
+	 * ----
+	 * Misalnya input "http://sintask.com/a/b/c" atau "https://sub.sintask.com"
+	 * Maka akan menghasilkan ".sintask.com"
+	 */
     function getRootBaseURL($inputURL) {
 		$base 	= $inputURL;
+
+		$base 	= getDomainURL($base, "host");
 		
 		$a 		= str_replace("/", 		"", 	$base);
 		$a 		= str_replace("https", 	"", 	$a);
@@ -3349,5 +3355,41 @@
 		$getRootBaseURL 		= ".".$explodeRootBaseURL[$countExplode-2].".".$explodeRootBaseURL[$countExplode-1];
 
 		return $getRootBaseURL;
+	}
+
+	/**
+	 * 	Untuk menyusun ulang Array (1 Dimensi) jika ada kekosongan pada index-index sebelumnya
+	 * 	Contoh :
+	 *		$a = [];
+	 *
+	 *		$a[3] = "b";
+	 *		$a[4] = "c";
+	 *		$a[6] = "d";
+	 * 	Maka dengan menjalankan sortArray1d($a); akan menghasilkan array :
+	 *		$a[0] = "b", $a[1] = "c", $a[2] = "d"
+	 * 
+	 * 	@return Array
+	 *	if not Array input @return false (boolean)
+	 */
+	function sortArray1d($array) {
+		if(is_array($array) == true) {
+			$fixArray = [];
+			$arrayLen = count($array);
+            
+            $b = 0;
+            $c = 0;
+			while($b < $arrayLen) {
+				if(isset($array[$c]) && $array[$c] != "" && $array[$c] != null) {
+					array_push($fixArray, $array[$c]);
+					
+					$b = $b+1;
+				}
+				$c = $c+1;
+			}
+
+			return $fixArray;
+		} else {
+			return false;
+		}
 	}
 ?>

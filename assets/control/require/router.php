@@ -1,11 +1,29 @@
 <?php
+	/* Deteksi jika Page dimuat ulang dari awal */
+	if(
+		$_SESSION["_SFW_loadingPage"] 	== true 	&&
+		$__XHR_STATUS__ 				== false
+	) {
+		$_SESSION["_SFW_loadingPage"] = false;
+	}
+
 	/* Pindahkan GET Param ke SESSION */
 	foreach($_GET as $key => $value) {
-		$_SESSION['postGET'][$key] = $value;
+		if(isset($_SESSION[$_SESSION['globalSecureToken'].'postGET'][$key])) {
+			unset($_SESSION[$_SESSION['globalSecureToken'].'postGET'][$key]);
+			$_SESSION[$_SESSION['globalSecureToken'].'postGET'][$key] = null;
+		}
+
+		$_SESSION[$_SESSION['globalSecureToken'].'postGET'][$key] = $value;
 	}
 	/* Pindahkan POST Param ke SESSION */
 	foreach($_POST as $key => $value) {
-		$_SESSION['postPOST'][$key] = $value;
+		if(isset($_SESSION[$_SESSION['globalSecureToken'].'postPOST'][$key])) {
+			unset($_SESSION[$_SESSION['globalSecureToken'].'postPOST'][$key]);
+			$_SESSION[$_SESSION['globalSecureToken'].'postPOST'][$key] = null;
+		}
+
+		$_SESSION[$_SESSION['globalSecureToken'].'postPOST'][$key] = $value;
 	}
 	/* Pindahkan FILES Param ke SESSION */
 	foreach($_FILES as $key => $value) {
@@ -22,8 +40,14 @@
 
 		/* Rename tmp_name menjadi Value baru */
 		$_FILES[$key]['tmp_name'] = $tmpFile;
-		$_SESSION['postFILES'][$key] = $value;
-		$_SESSION['postFILES'][$key]['tmp_name'] = $tmpFile;
+
+		if(isset($_SESSION[$_SESSION['globalSecureToken'].'postFILES'][$key])) {
+			unset($_SESSION[$_SESSION['globalSecureToken'].'postFILES'][$key]);
+			$_SESSION[$_SESSION['globalSecureToken'].'postFILES'][$key] = null;
+		}
+
+		$_SESSION[$_SESSION['globalSecureToken'].'postFILES'][$key] = $value;
+		$_SESSION[$_SESSION['globalSecureToken'].'postFILES'][$key]['tmp_name'] = $tmpFile;
 	}
 
 	if($_SESSION['sintaskFWActualURL'] == "" || $_SESSION['sintaskFWActualURL'] == null) {
@@ -49,6 +73,11 @@
 				require($__ZERO__);
 			}
 
+			/* Jika request setelah Page di load 100% */
+			if($_SESSION["_SFW_loadingPage"] == true) {
+				clearAllSessInput();
+			}
+
 			break;
 
 		case "sec-s-ajaxify" :
@@ -65,6 +94,11 @@
 				include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['api_sec'], $thisReqPathLoginPrefix, $thisReqPath, 3, ""));
 			} else {
 				require($__ZERO__);
+			}
+
+			/* Jika request setelah Page di load 100% */
+			if($_SESSION["_SFW_loadingPage"] == true) {
+				clearAllSessInput();
 			}
 
 			break;
@@ -324,6 +358,8 @@
 					echo toSingleLine($varRender);
 				}
 
+				/* SPA PAGE END */
+				$_SESSION["_SFW_loadingPage"] = true;
 				clearAllSessInput();
 			} else if(
 				$__XHR_STATUS__ 	== true 				&& 
@@ -494,6 +530,8 @@
 						include($__HTML_CORE_REQ__);
 					}
 
+					/* GENERAL PAGE END */
+					$_SESSION["_SFW_loadingPage"] = true;
 					clearAllSessInput();
 				} else {
 					/* [SPA] Jika halaman adalah SPA */
