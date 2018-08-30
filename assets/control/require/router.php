@@ -1,10 +1,18 @@
 <?php
 	/* Pindahkan GET Param ke SESSION */
 	foreach($_GET as $key => $value) {
+		if(isset($_SESSION['postGET'][$key])) {
+			unset($_SESSION['postGET'][$key]);
+		}
+
 		$_SESSION['postGET'][$key] = $value;
 	}
 	/* Pindahkan POST Param ke SESSION */
 	foreach($_POST as $key => $value) {
+		if(isset($_SESSION['postPOST'][$key])) {
+			unset($_SESSION['postPOST'][$key]);
+		}
+
 		$_SESSION['postPOST'][$key] = $value;
 	}
 	/* Pindahkan FILES Param ke SESSION */
@@ -22,6 +30,11 @@
 
 		/* Rename tmp_name menjadi Value baru */
 		$_FILES[$key]['tmp_name'] = $tmpFile;
+
+		if(isset($_SESSION['postFILES'][$key])) {
+			unset($_SESSION['postFILES'][$key]);
+		}
+
 		$_SESSION['postFILES'][$key] = $value;
 		$_SESSION['postFILES'][$key]['tmp_name'] = $tmpFile;
 	}
@@ -49,7 +62,6 @@
 				require($__ZERO__);
 			}
 
-			clearAllSessInput();
 			break;
 
 		case "sec-s-ajaxify" :
@@ -68,7 +80,6 @@
 				require($__ZERO__);
 			}
 
-			clearAllSessInput();
 			break;
 
 		case "s-dl" :
