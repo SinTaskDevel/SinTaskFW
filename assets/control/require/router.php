@@ -151,6 +151,26 @@
 
 			break;
 
+		case "..srv-time-get" :
+			$__FTOKEN__ = $sintaskSess->get("globalSecureToken");
+			$__STOKEN__ = $_POST["tokenizing"];
+
+			if($__FTOKEN__ == $__STOKEN__) {
+				$response = [
+					"status"        => 200,
+					"timeupdate"	=> microTimeStamp(),
+				];
+
+				echo json_encode($response, JSON_PRETTY_PRINT);
+			}
+
+			break;
+
+		case "..srv-time-js" :
+			header("Content-type: text/javascript");
+			include($__DOC_ROOT__.$requirePath['static']."/djs/srvtime".$__FILE_EXTENSION__);
+			break;
+
 		case "..sfw" :
 			if(
 				$__SEGMEN__[3] == "..ver"

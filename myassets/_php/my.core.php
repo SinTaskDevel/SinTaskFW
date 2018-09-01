@@ -35,6 +35,14 @@
 								  memakai jQSFW atau jQuery bukan $, lalu jika anda ingin 
 								  menggunakan jQuery versi lainnya include kan pada 
 								  halaman 'my.page.setting.php' sehingga jika ada jQuery baru anda dapat menjalankan dengan $ atau jQuery.
+		SYNCTIME_CLIENTSERVER 	- Untuk menyesuaikan variable Array __SFW_srvTime dengan waktu timestamp
+								  pada sisi server, dimana nantinya var __SFW_srvTime dapat on-time dengan 
+								  server walaupun waktu client (browser & OS) tidak sesuai dengan waktu 
+								  sekarang.
+								  Jika bernilai 'false' maka plugin JavaScript : 
+								  		- jqsfw(PARAM).realtimeTimeAgoP2();
+								  		- jqsfw(PARAM).realtimeTimeLimitP2();
+								  tidak akan menjadi Realtime mode.
 
 	 */
 	$__MY_CORE__ = [
@@ -56,6 +64,7 @@
 		"CUSTOM_BASE_URL"		=> "",
 		"MIGRATION_SCRIPT"		=> false,
 		"JQUERY_SCRIPT"			=> "v3",
+		"SYNCTIME_CLIENTSERVER"	=> true,
 	];
 	/* 
 		NOTE: 	Jika FORCE_WWW dan FORCE_NOT_WWW keduanya bernilai 'true' maka 

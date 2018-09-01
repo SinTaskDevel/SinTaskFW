@@ -52,6 +52,10 @@
 				return $result;
 			}
 		}
+		function timezone($newTimezone = "Asia/Makassar") {
+			date_default_timezone_set($newTimezone);
+			return true;
+		}
 	}
 	/* $sintaskFW */
 	$sintaskFW = new SinTaskHQ;

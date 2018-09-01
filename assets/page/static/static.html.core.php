@@ -61,6 +61,12 @@
             foreach($base_js_lib as $value) {
                 ?><script type="text/javascript" src="<?php echo $base_url_js.$value;?>"></script><?php
             }
+
+            if($__MY_CORE__["SYNCTIME_CLIENTSERVER"] == true) {
+                ?>
+                <script type="text/javascript" src="<?php echo $__BASE_URL__."/..srv-time-js";?>"></script>
+                <?php
+            }
             
             /* AUTO CSS */
             $base_url_auto_css  = $__BASE_URL__."/myassets/auto_css_head/";

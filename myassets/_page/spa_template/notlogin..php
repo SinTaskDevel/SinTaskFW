@@ -1,5 +1,5 @@
 <h2 class="head">
-	Welcome Coders,
+	<?php echo $welcomeText;?>
 </h2>
 <div class="contentArea">
 	Selamat, anda sudah berhasil menggunakan SinTaskFW.
@@ -12,6 +12,10 @@
 		Versi &mdash; <span class="ft_style_b"><?php echo $__VERSION__;?></span>
 		<br>
 		Browser anda saat ini support JavaScript &mdash; <span id="jsVersion" class="ft_style_b"></span>
+		<br>
+		Waktu server &mdash; <?php echo date("d-m-Y H:i");?> 
+		<div class=borderLineMini></div>
+		(Ubah <span class="thisTagging">timezone</span> pada halaman Control atau <span class="thisTagging">myassets/_page/control/notlogin..php</span>)
 	</div>
 	<div class="borderSpaceMini"></div>
 	<div class="borderLine"></div>
