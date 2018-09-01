@@ -2,13 +2,7 @@
 /* sintask.func.js */
 /* (c) 2016 - 2018 SinTask Webdev */
 /* ------------------------- */
-
-var publicFunction = function(ouput) {
-    var ouput = ouput || 'default';
-    return ouput;
-}
-var __SFWfunc = function(){
-    var sintaskBahasa = [];
+var sintaskBahasa = [];
 
     sintaskBahasa.janLST = "Jan";
     sintaskBahasa.febLST = "Feb";
@@ -55,6 +49,11 @@ var __SFWfunc = function(){
     sintaskBahasa.remainingLST      = "tersisa";
     sintaskBahasa.deadlinePassedLST = "Deadline sudah lewat";
 
+var publicFunction = function(ouput) {
+    var ouput = ouput || 'default';
+    return ouput;
+}
+var __SFWfunc = function(){
     /** REALTIME TIME-LIMIT [PART]
      * fn.realtimeTimeAgo = get timestamp from real-timestamp atribute on html element 
      * and translate it to human readable with 5s realtime interval

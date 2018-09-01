@@ -271,10 +271,27 @@ popUpTwo({
 	<div class="borderSpaceMini"></div>
 	<div class="borderLine"></div>
 
+	<h2 class="title">Extra Plugin.</h2>
+	<div class="borderSpaceMini"></div>
+	<div class="contentTwo">
+		<b>Realtime Time Ago</b> &mdash; Plugin <span class="thisTagging">jqsfw(YOUR_PARAM).realtimeTimeAgoP2();</span> &mdash; Javascript
+		<div class="borderSpaceMini"></div>
+		Waktu yang lalu <span id="timeAgo" class="ft_style_b roundedBorder" real-timestamp="<?php echo round(microTimeStamp()/1000)-2000;?>"></span>
+		<div class="borderSpaceMini"></div>
+		Batas waktu <span id="timeLimit" class="ft_style_b roundedBorder" real-timestamp="<?php echo round(microTimeStamp()/1000)+2000;?>"></span>
+	</div>
+	<div class="borderSpaceMini"></div>
+	<div class="borderLine"></div>
+
 	<h3>Lisensi untuk Framework ini menggunakan <a href="https://fw.sintask.com/licenses" target="_blank">MIT License</a>.</h3>
 	<div class="borderSpaceMini"></div>
 </div>
 <script>
+	/* EXTRA PLUGIN js */
+	jqsfw("#timeAgo").realtimeTimeAgoP2();
+	jqsfw("#timeLimit").realtimeTimeLimitP2();
+
+	/* Before EXTRA PLUGIN */
 	sjqNoConflict("#jsVersion").html(__SFW_f.getJsVersion().jsVersion);
 	
 	sjqNoConflict("#showToastSinTask").on("click", function(){
