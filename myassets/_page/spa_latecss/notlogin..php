@@ -108,3 +108,13 @@ button.toast {
 	margin-right: 5px;
 	margin-bottom: 2px;
 }
+.roundedBorder {
+	padding: 5px 20px;
+	border: 1px solid #45898F;
+	background: #45898F;
+	border-radius: 20px;
+	color: #FFF;
+	font-size: 12px;
+	margin-left: 5px;
+	margin-right: 5px;
+}

@@ -43,7 +43,7 @@
 			""						=> "external",
 		];
 		$__MY_JS_HEAD__ = [
-			""						=> "internal",
+			"..jsd/srvtime.jsd"		=> "internal",
 			""						=> "external",
 		];
 		/* FOOTER CSS & JS (Normal) */
@@ -75,7 +75,7 @@
 			""						=> "external",
 		];
 		$__MY_JS_HEAD__ = [
-			""						=> "internal",
+			"..jsd/srvtime.jsd"		=> "internal",
 			""						=> "external",
 		];
 		/* FOOTER CSS & JS (Normal) */

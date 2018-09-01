@@ -166,10 +166,12 @@
                 
                 __SFW_locVal.sitenowww      = "<?php echo SITENOWWW;?>";
 
-                var __SFW_srvTime = {
-                    timenow: <?php echo microTimeStamp();?>,
-                    timenowTen: <?php echo floor(microTimeStamp()/1000)?>,
-                    timestampreal: <?php echo microTimeStamp();?>,
+                if(typeof __SFW_srvTime == "undefined") {
+                    var __SFW_srvTime = {
+                        timenow: <?php echo microTimeStamp();?>,
+                        timenowTen: <?php echo floor(microTimeStamp()/1000)?>,
+                        timestampreal: <?php echo microTimeStamp();?>,
+                    }
                 }
             </script>
 
