@@ -156,6 +156,8 @@
 			$__STOKEN__ = $_POST["tokenizing"];
 
 			if($__FTOKEN__ == $__STOKEN__) {
+				header("Content-type: application/json");
+				
 				$response = [
 					"status"        => 200,
 					"timeupdate"	=> microTimeStamp(),
