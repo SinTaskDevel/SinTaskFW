@@ -19,10 +19,10 @@
 
 	/* Untuk page meta */
 	$sintaskNewMeta->newFileName("notlogin..php");
-	$sintaskNewMeta->newTitle("SinTask Framework / SinTaskFW");
-	$sintaskNewMeta->newSiteName("SinTaskFW");
-	$sintaskNewMeta->newKeywords("SinTask Framework is PHP - JS SPA Framework");
-	$sintaskNewMeta->newDescription("SinTask Framework is PHP - JS SPA Framework");
+	$sintaskNewMeta->newTitle("Sintask Framework / SintaskFW");
+	$sintaskNewMeta->newSiteName("SintaskFW");
+	$sintaskNewMeta->newKeywords("Sintask Framework is PHP - JS SPA Framework");
+	$sintaskNewMeta->newDescription("Sintask Framework is PHP - JS SPA Framework");
 	$sintaskNewMeta->newImage($__BASE_URL__."/images/logo/sintask_logo_notlogin.png");
 	$sintaskNewMeta->addNew();
 
@@ -35,25 +35,25 @@
 	 */
 	$sintaskNewMeta->newFileName("notlogin.my.[].php");
 	$sintaskNewMeta->newTitle("Dynamic Page / ".$__SEGMEN_PURE__[3]);
-	$sintaskNewMeta->newSiteName("SinTaskFW");
-	$sintaskNewMeta->newKeywords("SinTask Framework is PHP - JS SPA Framework");
-	$sintaskNewMeta->newDescription("SinTask Framework is PHP - JS SPA Framework");
+	$sintaskNewMeta->newSiteName("SintaskFW");
+	$sintaskNewMeta->newKeywords("Sintask Framework is PHP - JS SPA Framework");
+	$sintaskNewMeta->newDescription("Sintask Framework is PHP - JS SPA Framework");
 	$sintaskNewMeta->newImage($__BASE_URL__."/images/logo/sintask_logo_notlogin.png");
 	$sintaskNewMeta->addNew();
 
 	$sintaskNewMeta->newFileName("notlogin.test.php");
 	$sintaskNewMeta->newTitle("Just Test");
-	$sintaskNewMeta->newSiteName("SinTaskFW");
-	$sintaskNewMeta->newKeywords("SinTask Framework is PHP - JS SPA Framework");
-	$sintaskNewMeta->newDescription("SinTask Framework is PHP - JS SPA Framework");
+	$sintaskNewMeta->newSiteName("SintaskFW");
+	$sintaskNewMeta->newKeywords("Sintask Framework is PHP - JS SPA Framework");
+	$sintaskNewMeta->newDescription("Sintask Framework is PHP - JS SPA Framework");
 	$sintaskNewMeta->newImage($__BASE_URL__."/images/logo/sintask_logo_notlogin.png");
 	$sintaskNewMeta->addNew();
 
 	$sintaskNewMeta->newFileNameGeneral("both.general.php");
 	$sintaskNewMeta->newTitle("General Page / Not SPA");
-	$sintaskNewMeta->newSiteName("SinTaskFW");
-	$sintaskNewMeta->newKeywords("SinTask Framework is PHP - JS SPA Framework");
-	$sintaskNewMeta->newDescription("SinTask Framework is PHP - JS SPA Framework");
+	$sintaskNewMeta->newSiteName("SintaskFW");
+	$sintaskNewMeta->newKeywords("Sintask Framework is PHP - JS SPA Framework");
+	$sintaskNewMeta->newDescription("Sintask Framework is PHP - JS SPA Framework");
 	$sintaskNewMeta->newImage($__BASE_URL__."/images/logo/sintask_logo_notlogin.png");
 	$sintaskNewMeta->addNew();
 
