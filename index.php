@@ -163,6 +163,7 @@
 	require($__DOC_ROOT__.$requirePath['mycontrol']."/my.core.class.php");
 	require($__DOC_ROOT__.$requirePath['mycontrol']."/my.core.func.php");
 	require($__DOC_ROOT__.$requirePath['mycontrol']."/my.page.meta.php");
+	require($__DOC_ROOT__.$requirePath['mycontrol']."/my.page.addscript.php");
 	require($__DOC_ROOT__.$requirePath['mycontrol']."/my.page.setting.php");
 
 	/* Header SinTask

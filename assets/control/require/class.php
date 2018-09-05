@@ -61,7 +61,7 @@
 	$sintaskFW = new SinTaskHQ;
 
 	/*
-	 *	SinTask META untuk SPA or N-SPA Page
+	 *	SinTask META untuk SPA atau N-SPA Page
 	 */
 	class MetaSPA {
 		private $fileName	= "";
@@ -125,7 +125,7 @@
 	    }
 
 	    function readingMeta($fileName) {
-	    	$this->metaReturn .= '<meta property="og:title" name="site_name" content="'.addslashesMeta($this->fileNameArr[$fileName]['title']).'">
+	    	$this->metaReturn = '<meta property="og:title" name="site_name" content="'.addslashesMeta($this->fileNameArr[$fileName]['title']).'">
     			<meta property="og:site_name" name="site_name" content="'.addslashesMeta($this->fileNameArr[$fileName]['siteName']).'">
     			<meta property="og:keywords" name="keywords" content="'.addslashesMeta($this->fileNameArr[$fileName]['keywords']).'" />
     			<meta property="og:description" name="description" content="'.addslashesMeta($this->fileNameArr[$fileName]['description']).'"/>
@@ -140,6 +140,126 @@
 	$sintaskNewMeta->thisDocRoot($__DOC_ROOT__);
 	$sintaskNewMeta->spatemplateloc = $requirePath['template'];
 	$sintaskNewMeta->generaltemplate = $requirePath['general'];
+
+	/*
+	 *	SinTask Additional JS load untuk SPA atau N-SPA Page
+	 */
+	class AdditionalJs {
+		public $fileName 		= "";
+		public $urlJs			= "";
+		public $positionJs 		= "";
+		public $docroot 		= "";
+	    public $spatemplateloc 	= "";
+	    public $generaltemplate = "";
+	    private $addJsReturn 	= "";
+	    private $addJsReturnArr = [];
+
+	    private $addJsArr;
+
+	    public function __construct() {
+	    	global $GLOBALS;
+	        $this->addJsArr = &$GLOBALS['addjssaver'];
+	    }
+
+	    function thisDocRoot($docroot) {
+	    	$this->docroot 		= $docroot;
+	    }
+
+	    function newFileName($fileName) {
+	    	$this->fileName 	= $this->docroot.$this->spatemplateloc."/".$fileName;
+	    }
+	    function newFileNameGeneral($fileName) {
+	    	$this->fileName 	= $this->docroot.$this->generaltemplate."/".$fileName;
+	    }
+	    function newFileNameCustom($fileName) {
+	    	$this->fileName 	= $this->docroot.$fileName;
+	    }
+	    function newUrlJs($url) {
+	    	$this->urlJs 		= $url;
+	    }
+	    function positionJs($pos) {
+	    	$pos = strtolower($pos);
+
+	    	if($pos != "bottom" && $pos != "bottomtwo" && $pos != "top") { 
+	    		$pos = "top"; 
+	    	}
+	    	if($pos == "head") {
+	    		$pos = "top";
+	    	}
+	    	if($pos == "foot") {
+	    		$pos = "bottom";
+	    	}
+
+	    	$this->positionJs = $pos;
+	    }
+	    function addNew() {
+	    	$this->addJsArr[$this->fileName][$this->positionJs][count($this->addJsArr[$this->fileName][$this->positionJs])] = $this->urlJs;
+	    	$GLOBALS['addjssaver'] = $this->addJsArr;
+	    }
+
+	    /* General SPA Page */
+	    function readingAddJs($fileName, $nowUrl) {
+	    	foreach ($this->addJsArr[$fileName]['top'] as $key => $value) {
+	    		$localCount = count($this->addJsReturnArr[$fileName][$nowUrl]);
+	    		$this->addJsReturnArr[$fileName][$nowUrl][$localCount] = $value;
+	    	}
+	    	foreach ($this->addJsArr[$fileName]['bottom'] as $key => $value) {
+	    		$localCount = count($this->addJsReturnArr[$fileName][$nowUrl]);
+	    		$this->addJsReturnArr[$fileName][$nowUrl][$localCount] = $value;
+	    	}
+	    	foreach ($this->addJsArr[$fileName]['bottomtwo'] as $key => $value) {
+	    		$localCount = count($this->addJsReturnArr[$fileName][$nowUrl]);
+	    		$this->addJsReturnArr[$fileName][$nowUrl][$localCount] = $value;
+	    	}
+
+	    	return $this->addJsReturnArr[$fileName][$nowUrl];
+	    }
+
+	    /* General Page */
+	    function readingAddJsTopGeneral($fileName) {
+	    	if(
+	    		$this->addJsArr[$fileName]['top'] != null 	&& 
+	    		$this->addJsArr[$fileName]['top'] != ""		&&
+	    		count($this->addJsArr[$fileName]['top']) > 0 
+	    	) {
+		    	foreach ($this->addJsArr[$fileName]['top'] as $key => $value) {
+		    		$this->addJsReturn = "<script type=\"text/javascript\" src=\"".$value."\"></script>";
+		    	}
+		    	return $this->addJsReturn;
+		    }
+	    }
+
+	    function readingAddJsBottomOneGeneral($fileName) {
+	    	if(
+	    		$this->addJsArr[$fileName]['bottom'] != null 	&& 
+	    		$this->addJsArr[$fileName]['bottom'] != ""		&&
+	    		count($this->addJsArr[$fileName]['bottom']) > 0 
+	    	) {
+		    	foreach ($this->addJsArr[$fileName]['bottom'] as $key => $value) {
+		    		$this->addJsReturn = "<script type=\"text/javascript\" src=\"".$value."\"></script>";
+		    	}
+		    	return $this->addJsReturn;
+		    }
+	    }
+
+	    function readingAddJsBottomTwoGeneral($fileName) {
+	    	if(
+	    		$this->addJsArr[$fileName]['bottomtwo'] != null 	&& 
+	    		$this->addJsArr[$fileName]['bottomtwo'] != ""		&&
+	    		count($this->addJsArr[$fileName]['bottomtwo']) > 0 
+	    	) {
+		    	foreach ($this->addJsArr[$fileName]['bottomtwo'] as $key => $value) {
+		    		$this->addJsReturn = "<script type=\"text/javascript\" src=\"".$value."\"></script>";
+		    	}
+		    	return $this->addJsReturn;
+		    }
+	    }
+	}
+	$GLOBALS['addjssaver'] = [];
+	$sintaskAddJs = new AdditionalJs;
+	$sintaskAddJs->thisDocRoot($__DOC_ROOT__);
+	$sintaskAddJs->spatemplateloc = $requirePath['template'];
+	$sintaskAddJs->generaltemplate = $requirePath['general'];
 
 	/*
 	 * 	SinTask Session
