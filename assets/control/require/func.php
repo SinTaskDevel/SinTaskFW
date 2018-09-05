@@ -105,6 +105,14 @@
 		return $result;
 	}
 
+	/**
+	 * Hapus Get
+	 */
+	function removeGetUrl($urlInput) {
+		$explodeUrl = explode("?", $urlInput);
+		return $explodeUrl[0];
+	}
+
 	/* 
 	 * Memperbaiki Segmen URL
 	 * Pop dari array $__SEGMEN__ jika element terakhir = empty / null
@@ -1141,7 +1149,15 @@
 
 		[!] JSON secara Manual, tidak menggunakan JSON_ENCODE dan sejenis.
 	 */
-	function initialJson($title, $style, $script, $inst = "null", $msg = "OK") {
+	function initialJson($title, $style, $script, $inst = "null", $msg = "OK", $scriptArr = []) {
+		$specificScript = "";
+		foreach ($scriptArr as $key => $value) {
+			$specificScript .= "{\"script\":\"".$value."\"}";
+			if($key < (count($scriptArr)-1)) {
+				$specificScript .= ",";
+			}
+		}
+
 		$output = "[
 						{\"content\":[
 							{\"contentTitle\":[
@@ -1152,6 +1168,9 @@
 							]},
 							{\"addScript\":[
 								{\"script\":\"".$script."\"}
+							]},
+							{\"specificAddScript\":[
+								".$specificScript."
 							]}
 						]},
 						{\"sts\":200},

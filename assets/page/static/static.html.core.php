@@ -534,7 +534,7 @@
             ?>
             <script>
                 sjqNoConflict(document).ready(function(){
-                    __SFW_f.sCached(); 
+                    __SFW_f.sCached();
                 });
             </script>
             <?php

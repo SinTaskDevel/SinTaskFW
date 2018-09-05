@@ -274,10 +274,16 @@
 						$normalizingPage = "/";
 					}
 
+					$__forUrlAddJs = removeGetUrl($__ACTUAL_URL__);
+					$__forUrlAddJs = pureUrlPage($__forUrlAddJs);
+
 					echo initialJson(
 						$sintaskNewMeta->getTitleMeta($__META_PATH__), 
 						pureUrlPage($__BASE_URL__).$normalizingPage.".latecss", 
-						pureUrlPage($__BASE_URL__).$normalizingPage.".jssintasktemplate?type=content"
+						pureUrlPage($__BASE_URL__).$normalizingPage.".jssintasktemplate?type=content",
+						"null",
+						"OK",
+						$sintaskAddJs->readingAddJs($__META_PATH__, $__forUrlAddJs)
 					);
 					$_SESSION['404_DETECT'] = false;
 				} else {
@@ -537,6 +543,7 @@
 
 						$thisCoreGet = "scripttop";
 						include($__HTML_CORE_REQ__);
+						echo $sintaskAddJs->readingAddJsTopGeneral($__META_PATH__);
 
 						$thisCoreGet = "headend";
 						include($__HTML_CORE_REQ__);
@@ -546,7 +553,9 @@
 
 					if($__HTML_META_GENERAL__["DEFAULT_META"] == true) {
 						$thisCoreGet = "scriptend_general";
+						echo $sintaskAddJs->readingAddJsBottomOneGeneral($__META_PATH__);
 						include($__HTML_CORE_REQ__);
+						echo $sintaskAddJs->readingAddJsBottomTwoGeneral($__META_PATH__);
 
 						$thisCoreGet = "foothtml";
 						include($__HTML_CORE_REQ__);

@@ -62,6 +62,7 @@ var __SFWspa = function() {
     	/*!!IFRAME LOADER IS CLOSED*/
     	return true;
     }
+
     /**
      * instSinTask = Instruction from JSON response from Server
      */
@@ -89,6 +90,7 @@ var __SFWspa = function() {
         }
         return true;
     }
+
     /**
      * loadAddScript = Load additional <script> (JS) with response from Server
      */
@@ -109,6 +111,30 @@ var __SFWspa = function() {
         });
         return true;
     }
+
+    /**
+     * loadAddScript = Load additional <script> (JS) with response from Server
+     */
+    function loadAddScriptC(link, callback) {
+        var link_ = link;
+        sjqNoConflict.ajax({
+            type: "POST",
+            data: { tokenizing: __SFW_tokenizingUser },
+            cache: true,
+            dataType: "script",
+            url: link_,
+            success: function (data) {
+                if(typeof callback == "function") {
+                    callback();
+                }
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                /*NOTHING*/
+            }
+        });
+        return true;
+    }
+
     /**
      * loadAddStyle = Load additional <style> (CSS) with response from Server
      */
@@ -198,33 +224,58 @@ var __SFWspa = function() {
         instSinTask(inst);
         if(feedbackSts==200) {
             /*INITIAL*/
-            var theTitle    = datafeed[0].content[0].contentTitle;
-            var addStyle    = datafeed[0].content[1].addStyle;
-            var addScript   = datafeed[0].content[2].addScript;
+            var theTitle            = datafeed[0].content[0].contentTitle;
+            var addStyle            = datafeed[0].content[1].addStyle;
+            var addScript           = datafeed[0].content[2].addScript;
+            var specificAddScript   = datafeed[0].content[3].specificAddScript;
+
             /*LEN*/
-            if(addStyle!="null") {
+            if(typeof addStyle != "undefined") {
                 var addStyleLen = addStyle.length;
             }
-            if(addScript!="null") {
+            if(typeof addScript != "undefined") {
                 var addScriptLen = addScript.length;
             }
+            if(typeof specificAddScript != "undefined") {
+                var specificAddScriptLen = specificAddScript.length;
+            }
+
             /*PURGE_CONTENT*/
             purgeSideSinTask(__SFW_runP);
             purgeScriptAdd();
+
             /*LOAD_STYLE*/
             var loadAddStyleIt = 0;
-            while(loadAddStyleIt<addStyleLen) {
+            while(loadAddStyleIt < addStyleLen) {
                 var styleNow = addStyle[loadAddStyleIt].style;
                 loadAddStyle(styleNow, "addParentStyle"+loadAddStyleIt);
                 loadAddStyleIt = loadAddStyleIt+1;
             }
+
             /*LOAD_SCRIPT*/
             var loadAddScriptIt = 0;
-            while(loadAddScriptIt<addScriptLen) {
+            while(loadAddScriptIt < addScriptLen) {
                 var scriptNow = addScript[loadAddScriptIt].script;
                 loadAddScript(scriptNow);
                 loadAddScriptIt = loadAddScriptIt+1;
             }
+
+            /*LOAD_SPECIFIC_SCRIPT*/
+            var loadSpecificAddScriptIt = 0;
+
+            function specificScript(it) {
+                if(it < specificAddScriptLen) {
+                    var scriptNow = specificAddScript[loadSpecificAddScriptIt].script;
+                    
+                    loadAddScriptC(scriptNow, function(){
+                        loadSpecificAddScriptIt = loadSpecificAddScriptIt+1;
+                        specificScript(loadSpecificAddScriptIt);
+                    });
+                }
+            }
+
+            specificScript(loadSpecificAddScriptIt);
+
             /*GET NEW TITLE*/
             document.title = theTitle[0].title;
 
