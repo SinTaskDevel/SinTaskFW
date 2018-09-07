@@ -420,8 +420,15 @@ var __SFWspa = function() {
      * destination page get from atribute s-data-url on html element (<a href...></a>).
      */
     function __SFW_spaClick() {
+        sjqNoConflict(document).off("click");
+
+        /* Remove on click event jQuery */
+        if(typeof jQuery !== "undefined") {
+            jQuery(document).off("click");
+        }
+
         /* SPA PAGE A HREF HANDLER */
-        sjqNoConflict(document).on('click', '.s, a[spa]', function (e) {
+        sjqNoConflict(document).on("click", ".s, a[spa]", function (e) {
             __SFW_globalScrollPage[document.URL] = sjqNoConflict(document).scrollTop();
 
             pageUrl = sjqNoConflict(this).attr('href');
