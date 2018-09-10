@@ -97,7 +97,7 @@ var __SFWspa = function() {
     function loadAddScript(link) {
         var link_ = link;
         sjqNoConflict.ajax({
-            type: "POST",
+            type: "GET",
             data: { tokenizing: __SFW_tokenizingUser },
             cache: true,
             dataType: "script",
@@ -118,7 +118,7 @@ var __SFWspa = function() {
     function loadAddScriptC(link, callback) {
         var link_ = link;
         sjqNoConflict.ajax({
-            type: "POST",
+            type: "GET",
             data: { tokenizing: __SFW_tokenizingUser },
             cache: true,
             dataType: "script",
@@ -143,7 +143,7 @@ var __SFWspa = function() {
             var idfinal = "style-"+id;
             if(sjqNoConflict("."+idfinal).length>0) {
                 sjqNoConflict.ajax({
-                    type: "POST",
+                    type: "GET",
                     data: { tokenizing: __SFW_tokenizingUser },
                     cache: true,
                     dataType: "html",
@@ -225,19 +225,30 @@ var __SFWspa = function() {
         if(feedbackSts==200) {
             /*INITIAL*/
             var theTitle            = datafeed[0].content[0].contentTitle;
-            var addStyle            = datafeed[0].content[1].addStyle;
-            var addScript           = datafeed[0].content[2].addScript;
-            var specificAddScript   = datafeed[0].content[3].specificAddScript;
+            var addStyle;
+            var addScript;
+            var specificAddScript;
+
+            var addStyleLen             = 0;
+            var addScriptLen            = 0;
+            var specificAddScriptLen    = 0;
+
+            var detectContentLen = datafeed[0].content.length;
 
             /*LEN*/
-            if(typeof addStyle != "undefined") {
-                var addStyleLen = addStyle.length;
+            if(typeof datafeed[0].content[1].addStyle != "undefined") {
+                addStyle        = datafeed[0].content[1].addStyle;
+                addStyleLen     = addStyle.length;
             }
-            if(typeof addScript != "undefined") {
-                var addScriptLen = addScript.length;
+            if(typeof datafeed[0].content[2].addScript != "undefined") {
+                addScript       = datafeed[0].content[2].addScript;
+                addScriptLen    = addScript.length;
             }
-            if(typeof specificAddScript != "undefined") {
-                var specificAddScriptLen = specificAddScript.length;
+            if(detectContentLen > 3) {
+                if(typeof datafeed[0].content[3].specificAddScript != "undefined") {
+                    specificAddScript       = datafeed[0].content[3].specificAddScript;
+                    specificAddScriptLen    = specificAddScript.length;
+                }
             }
 
             /*PURGE_CONTENT*/
