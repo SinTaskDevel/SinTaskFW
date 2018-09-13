@@ -25,7 +25,7 @@
 	 *			- Atau baca dokumentasi pada https://fw.sintask.com/docs
 	 *
 	 * 	CODE STYLE
-	 *		K&R Style (Kernighan & Ritchie)
+	 *		One True Brace Style (1TBS)
 	 *
 	 * 	DOKUMENTASI SINGKAT :
 	 * 	Petunjuk sebelum menggunakan framework, perhatikan langkah-langkah berikut :
@@ -239,6 +239,7 @@
 		* Untuk membuat halaman biasa / general, file diletakkan pada :
 		* 		-> /myassets/_page/general
 		*/
+
 	require($__DOC_ROOT__.$requirePath['controlreq']."/router.php");
 
 	if($__WITHOUT_DB__ == false) {
