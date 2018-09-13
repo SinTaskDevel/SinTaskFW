@@ -63,7 +63,7 @@
 
 			protected $dbstate;
 		 
-			public function __construct($dbdata){
+			public function __construct($dbdata = 0){
 				global $GLOBALS;
 				$this->dbstate 	= $GLOBALS["globalKoneksi"][$dbdata];
 
