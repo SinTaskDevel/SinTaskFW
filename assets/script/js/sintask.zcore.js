@@ -97,7 +97,7 @@ var __SFWspa = function() {
     function loadAddScript(link) {
         var link_ = link;
         sjqNoConflict.ajax({
-            type: "GET",
+            type: "POST",
             data: { tokenizing: __SFW_tokenizingUser },
             cache: true,
             dataType: "script",
@@ -143,7 +143,7 @@ var __SFWspa = function() {
             var idfinal = "style-"+id;
             if(sjqNoConflict("."+idfinal).length>0) {
                 sjqNoConflict.ajax({
-                    type: "GET",
+                    type: "POST",
                     data: { tokenizing: __SFW_tokenizingUser },
                     cache: true,
                     dataType: "html",
