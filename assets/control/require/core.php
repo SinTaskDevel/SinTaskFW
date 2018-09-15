@@ -45,7 +45,7 @@
 	}
 	
 	/* Deteksi otomatis URL */
-	$__TMP_BASE_URL__	= "";
+	$__TMP_BASE_URL__	= preg_replace("!^${__CENTER__}!", '', $__BASE_DIR__);
 	$__BASE_PORT__		= $_SERVER['SERVER_PORT'];
 	$__DISPLAY_PORT__ 	= ($__BASE_PROTOCOL__ == 'http' && $__BASE_PORT__ == 80 || $__BASE_PROTOCOL__ == 'https' && $__BASE_PORT__ == 443) ? '' : ":$__BASE_PORT__";
 	$__BASE_DOMAIN__	= $_SERVER['SERVER_NAME'];
