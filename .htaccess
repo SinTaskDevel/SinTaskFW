@@ -1,4 +1,7 @@
-Options All -Indexes
+Options +FollowSymLinks
+Options -Indexes
+DirectoryIndex index.php
+
 RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-d
