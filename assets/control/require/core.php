@@ -23,6 +23,15 @@
 		$from = '/'.preg_quote($from, '/').'/';
 		return preg_replace($from, $to, $subject, 1);
 	}
+
+	/*
+	 * isset checker
+	 */
+	function issetChecker(&$data, $defaultValue) {
+		if(!isset($data)) {
+			$data = $defaultValue;
+		}
+	}
 	
 	/* ### END FUNCTION CORE ### */
 	
@@ -38,6 +47,34 @@
 
 	/* Include Core dari Pengguna */
 	include($__DOC_ROOT__.$requirePath['mycontrol']."/my.core.php");
+
+	/* Jika $__MY_CORE__ tidak lengkap */
+	$__MY_CORE_DEFAULT__ = [
+		"EXPOSE_PHP"			=> false,
+		"MAINTENANCE"			=> false,
+		"HIDE_WARNING_NOTICE" 	=> true,
+		"DISPLAY_PHP_ERROR"		=> true,
+		"AES_SECURE_SPA_TRANSF"	=> true,
+		"USE_DB"				=> false,
+		"FORCE_HTTPS"			=> false,
+		"FORCE_WWW"				=> false,
+		"FORCE_NOT_WWW"			=> false,
+		"MAX_EXEC_TIME_PHP"		=> 300,
+		"TIMEZONE" 				=> "Asia/Makassar",
+		"DEFAULT_CHARSET"		=> "UTF-8",
+		"UPLOAD_MAX_FILESIZE"	=> "60",
+		"POST_UPLOAD_MAX_SIZE"	=> "60",
+		"MAX_FILE_UPLOADS" 		=> "200",
+		"CUSTOM_BASE_URL"		=> "",
+		"MIGRATION_SCRIPT"		=> false,
+		"JQUERY_SCRIPT"			=> "v3",
+		"SYNCTIME_CLIENTSERVER"	=> true,
+		"CACHE_SPA"				=> false,
+	];
+
+	foreach($__MY_CORE_DEFAULT__ as $key => $value) {
+	    issetChecker($__MY_CORE__[$key], $value);
+	}
 
 	/* Force HTTPS - memaksakan protokol, jika tidak terbaca Deteksi otomatis */
 	if(isset($__MY_CORE__["FORCE_HTTPS"]) && $__MY_CORE__["FORCE_HTTPS"] == true) {
