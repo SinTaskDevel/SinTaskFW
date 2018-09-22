@@ -160,6 +160,7 @@
                 var __SFW_tokenizing        = "<?php echo $__TOKENIZING__;?>";
                 var __SFW_tokenizingUser    = __SFW_tokenizing;
                 var __SFW_utoken            = "<?php echo $__UTOKEN__;?>";
+                var __SFW_cacheSPA          = <?php if($__MY_CORE__["CACHE_SPA"]){echo "true";}else{echo "false";};?>;
 
                 var __SFW_runH              = 0;
                 var __SFW_runP              = 0;

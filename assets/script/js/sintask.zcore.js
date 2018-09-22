@@ -10,6 +10,8 @@ var __SFWspa = function() {
     var __SFW_globalScrollPage = [];
     var __SFW_250ErrorDesc = '[<b>Kode Error 250<\/b>]<br>Ada kesalahan dengan __SFW_tokenizing karena tidak dapat diverifikasi oleh sisi Server, silahkan re-load halaman ini, jika terus berlanjut Selengkapnya buka <a class="ft_style_u" href="https:\/\/fw.sintask.com\/docs\/error">Dokumentasi Error SinTaskFW<\/a>';
     var __SFW_251ErrorDesc = '[<b>Kode Error 251<\/b>]<br>Ada beberapa kesalahan yang mungkin terjadi : <br><br>1. Saat mengambil data dari Server, kemungkinan SPA tidak dapat membaca JSON karena Error, periksa lagi setiap baris kode anda. <br><br>2. Terjadi perpindahan halaman dari halaman berbasis SPA ke halaman normal (Not-SPA), silahkan periksa perpindahan halaman anda.';
+    var __SFW_dataCacheSPA      = [];
+    var __SFW_dataCacheSPACSS   = [];
 
     sjqNoConflict(window).on('load', function() {
         sintaskLoaderIframeStop();
@@ -96,19 +98,41 @@ var __SFWspa = function() {
      */
     function loadAddScript(link) {
         var link_ = link;
-        sjqNoConflict.ajax({
-            type: "POST",
-            data: { tokenizing: __SFW_tokenizingUser },
-            cache: true,
-            dataType: "script",
-            url: link_,
-            success: function (data) {
-                /*NOTHING*/
-            },
-            error: function(xhr, textStatus, errorThrown) {
-                /*NOTHING*/
+
+        if(__SFW_cacheSPA === true) {
+            if(link_ in __SFW_dataCacheSPA) {
+                eval(__SFW_dataCacheSPA[link_]);
+            } else {
+                sjqNoConflict.ajax({
+                    type: "POST",
+                    data: { tokenizing: __SFW_tokenizingUser },
+                    cache: true,
+                    dataType: "script",
+                    url: link_,
+                    success: function (data) {
+                        /*NOTHING*/
+                        __SFW_dataCacheSPA[link_] = data;
+                    },
+                    error: function(xhr, textStatus, errorThrown) {
+                        /*NOTHING*/
+                    }
+                });
             }
-        });
+        } else {
+            sjqNoConflict.ajax({
+                type: "POST",
+                data: { tokenizing: __SFW_tokenizingUser },
+                cache: true,
+                dataType: "script",
+                url: link_,
+                success: function (data) {
+                    /*NOTHING*/
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    /*NOTHING*/
+                }
+            });
+        }
         return true;
     }
 
@@ -142,23 +166,45 @@ var __SFWspa = function() {
         if(link!="null") {
             var idfinal = "style-"+id;
             if(sjqNoConflict("."+idfinal).length>0) {
-                sjqNoConflict.ajax({
-                    type: "POST",
-                    data: { tokenizing: __SFW_tokenizingUser },
-                    cache: true,
-                    dataType: "html",
-                    url: link,
-                    success: function (data) {
-                        var feedcssback = "/*BEGIN*/"+data;
-                        sjqNoConflict("."+idfinal).html(feedcssback);
-                    },
-                    error: function(xhr, textStatus, errorThrown) {
-                        
+                if(__SFW_cacheSPA === true) {
+                    if(link in __SFW_dataCacheSPACSS) {
+                        sjqNoConflict("."+idfinal).html(__SFW_dataCacheSPACSS[link]);
+                    } else {
+                        sjqNoConflict.ajax({
+                            type: "POST",
+                            data: { tokenizing: __SFW_tokenizingUser },
+                            cache: true,
+                            dataType: "html",
+                            url: link,
+                            success: function (data) {
+                                var feedcssback = "/*BEGIN*/"+data;
+                                sjqNoConflict("."+idfinal).html(feedcssback);
+                                __SFW_dataCacheSPACSS[link] = feedcssback;
+                            },
+                            error: function(xhr, textStatus, errorThrown) {
+                                
+                            }
+                        });
                     }
-                });
+                } else {
+                    sjqNoConflict.ajax({
+                        type: "POST",
+                        data: { tokenizing: __SFW_tokenizingUser },
+                        cache: true,
+                        dataType: "html",
+                        url: link,
+                        success: function (data) {
+                            var feedcssback = "/*BEGIN*/"+data;
+                            sjqNoConflict("."+idfinal).html(feedcssback);
+                        },
+                        error: function(xhr, textStatus, errorThrown) {
+                            
+                        }
+                    });
+                }
             } else {
                 sjqNoConflict("body").append("<style class='"+idfinal+" styleAdd iDisplayNone'></style>");
-                setTimeout(function(){loadAddStyle(link, id);},500);
+                setTimeout(function(){loadAddStyle(link, id);},200);
             }
         }
         return true;
@@ -446,7 +492,11 @@ var __SFWspa = function() {
             if(pageUrl=="" || pageUrl==null || typeof pageUrl == 'undefined') {
                 pageUrl = sjqNoConflict(this).attr('s-data-url') || sjqNoConflict(this).attr('spa-url');
             }
-            sjqNoConflict.loadContent();
+            
+            if(pageUrl != window.location.href) {
+                sjqNoConflict.loadContent();
+            }
+            
             e.preventDefault();
         });
 
@@ -644,6 +694,7 @@ var __SFWspa = function() {
         if(pageUrl == null || pageUrl == "") {
             pageUrl = window.location;
         }
+        
         sjqNoConflict.loadContent();
     }
 

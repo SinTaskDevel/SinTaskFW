@@ -43,6 +43,7 @@
 								  		- jqsfw(PARAM).realtimeTimeAgoP2();
 								  		- jqsfw(PARAM).realtimeTimeLimitP2();
 								  tidak akan menjadi Realtime mode.
+		CACHE_SPA				- [BETA] Untuk menyimpan cache dari page SPA yang pernah dibuka sebelumnya.
 
 	 */
 	$__MY_CORE__ = [
@@ -65,6 +66,7 @@
 		"MIGRATION_SCRIPT"		=> false,
 		"JQUERY_SCRIPT"			=> "v3",
 		"SYNCTIME_CLIENTSERVER"	=> true,
+		"CACHE_SPA"				=> false,
 	];
 	/* 
 		NOTE: 	Jika FORCE_WWW dan FORCE_NOT_WWW keduanya bernilai 'true' maka 
