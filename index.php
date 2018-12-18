@@ -139,7 +139,7 @@
 	$__CENTER__		= preg_replace("!${_SERVER['SCRIPT_NAME']}$!", '', $_SERVER['SCRIPT_FILENAME']);
 	$__BASE_DIR__	= str_replace("\\", "/", __DIR__);
 	$__DOC_ROOT__	= $__BASE_DIR__;
-    
+	
 	/* Daftar Inisialisasi require - urutan require tidak dapat di ubah */
 	require($__DOC_ROOT__.$requirePath['controlreq']."/class.php");
 	require($__DOC_ROOT__.$requirePath['controlreq']."/sec.class.php");
@@ -149,7 +149,6 @@
 	require($__DOC_ROOT__.$requirePath['controlreq']."/initial.php");
 
 	/* Setelah ini dapat menggunakan $__DOC_ROOT__ sebagai pengganti $_SERVER['DOCUMENT_ROOT'] */
-	
 	$thisReqPath 			= $__DOC_ROOT__;
 	$thisReqPathAdditional 	= $__DOC_ROOT__;
 	$thisReqPathLoginPrefix = "notlogin";

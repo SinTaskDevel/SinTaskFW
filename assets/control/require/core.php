@@ -80,11 +80,18 @@
 	if(isset($__MY_CORE__["FORCE_HTTPS"]) && $__MY_CORE__["FORCE_HTTPS"] == true) {
 		$__BASE_PROTOCOL__	= "https";
 	}
+
+	$__CENTER_RP__ 		= preg_replace("/[^a-zA-Z0-9 \:\/.]/", '', $__CENTER__);
+	$__BASE_DIR_RP__ 	= preg_replace("/[^a-zA-Z0-9 \:\/.]/", '', $__BASE_DIR__);
 	
 	/* Deteksi otomatis URL */
-	$__TMP_BASE_URL__	= preg_replace("!^${__CENTER__}!", '', $__BASE_DIR__);
+	$__TMP_BASE_URL__	= preg_replace("!^".$__CENTER_RP__."!", '', $__BASE_DIR_RP__);
+
 	$__BASE_PORT__		= $_SERVER['SERVER_PORT'];
-	$__DISPLAY_PORT__ 	= ($__BASE_PROTOCOL__ == 'http' && $__BASE_PORT__ == 80 || $__BASE_PROTOCOL__ == 'https' && $__BASE_PORT__ == 443) ? '' : ":$__BASE_PORT__";
+	$__DISPLAY_PORT__ 	= (
+		($__BASE_PROTOCOL__ == 'http' && $__BASE_PORT__ == 80) 		|| 
+		($__BASE_PROTOCOL__ == 'https' && $__BASE_PORT__ == 443)
+	) ? '' : ":".$__BASE_PORT__;
 	$__BASE_DOMAIN__	= $_SERVER['SERVER_NAME'];
 	$__BASE_URL_PORT__  = "${__BASE_PROTOCOL__}://${__BASE_DOMAIN__}${__DISPLAY_PORT__}${__TMP_BASE_URL__}";
 	$__BASE_URL__  		= "${__BASE_PROTOCOL__}://${__BASE_DOMAIN__}${__TMP_BASE_URL__}";
@@ -256,7 +263,7 @@
 
 	if($__BLOCKING__ == true) {
 		header("HTTP/1.1 301 Moved Permanently"); 
-		header("Location: ".$__BASE_URL__.$__RBASE_URI__);
+		header("Location: ".$__EXPLODING_BASE__[0]."://".$__REMOVE_SUBDIR__[0].$_SERVER["REQUEST_URI"]);
 
 		die();
 	}
@@ -294,6 +301,14 @@
 		$_SESSION['globalSecureToken'] = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz12345678901234567890'), 0, 170 );
 		$_SESSION['verIncludeCode'] = $_SESSION['globalSecureToken'];
 	}
-	
+
+	/* Tambah Protected */
+	if(!file_exists($__BASE_DIR__."/protected/data")) {
+		mkdir($__BASE_DIR__."/protected/data/media", 0777, true);
+		mkdir($__BASE_DIR__."/protected/data/tmp", 0777, true);
+		mkdir($__BASE_DIR__."/protected/data/download/direct", 0777, true);
+		mkdir($__BASE_DIR__."/protected/data/download/not_direct", 0777, true);
+	}
+		
 	/* ### END VARIABLE & SETTING CORE ### */
 ?>
