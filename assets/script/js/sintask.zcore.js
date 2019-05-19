@@ -477,11 +477,26 @@ var __SFWspa = function() {
      * destination page get from atribute s-data-url on html element (<a href...></a>).
      */
     function __SFW_spaClick() {
-        sjqNoConflict(document).off("click");
+        var allMouseEvent = [
+            "scroll", "click", "dblclick", "mousedown", "mouseup", "mousemove", "mouseover", "mouseout", "mouseenter", "mouseleave", "load", "resize", "scroll", "unload", "error"
+        ];
+        var allKeyboardEvent = [
+            "keydown", "keypress", "keyup"
+        ];
+        var allDOMEelementEvent = [
+            "blur", "focus", "focusin", "focusout", "change", "select", "submit"
+        ];
 
-        /* Remove on click event jQuery */
-        if(typeof jQuery !== "undefined") {
-            jQuery(document).off("click");
+        var itAll = 0;
+        var mergeEvent = allMouseEvent.concat(allKeyboardEvent).concat(allDOMEelementEvent);
+
+        for (var ii = 0; ii < mergeEvent.length; ii ++) {
+            sjqNoConflict(document).off(mergeEvent[ii]);
+
+            /* Remove on click event jQuery */
+            if(typeof jQuery !== "undefined") {
+                jQuery(document).off(mergeEvent[ii]);
+            }
         }
 
         /* SPA PAGE A HREF HANDLER */
