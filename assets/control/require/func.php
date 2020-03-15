@@ -1703,9 +1703,9 @@
 		$ex1 = "/^([^<>]*)(<?)/i";
 		$ex2 = "/(>)([^<>]*)$/i";
 
-		$data = preg_replace_callback($exp, create_function('$matches','return $matches[1].str_replace(" ","&nbsp;",$matches[2]);'), $data);
-		$data = preg_replace_callback($ex1, create_function('$matches','return str_replace(" ","&nbsp;",$matches[1]).$matches[2];'), $data);
-		$data = preg_replace_callback($ex2, create_function('$matches','return $matches[1].str_replace(" ","&nbsp;",$matches[2]);'), $data);
+		$data = preg_replace_callback($exp, function($matches) {return $matches[1].str_replace(" ","&nbsp;",$matches[2]);}, $data);
+		$data = preg_replace_callback($ex1, function($matches) {return str_replace(" ","&nbsp;",$matches[1]).$matches[2];}, $data);
+		$data = preg_replace_callback($ex2, function($matches) {return $matches[1].str_replace(" ","&nbsp;",$matches[2]);}, $data);
 
 		return $data;
 	}
