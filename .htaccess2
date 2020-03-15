@@ -1,0 +1,14 @@
+RewriteEngine on
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+
+Options All -Indexes
+
+ErrorDocument 400     /assets/conn/404
+ErrorDocument 401     /assets/conn/404
+ErrorDocument 403     /assets/conn/404
+ErrorDocument 404     /assets/conn/404
+ErrorDocument 500     /assets/conn/404
