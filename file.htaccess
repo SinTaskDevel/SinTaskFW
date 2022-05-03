@@ -1,0 +1,23 @@
+Options +FollowSymLinks
+Options -Indexes
+DirectoryIndex index.php
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+
+RedirectMatch 403 ^.*/assets/page/*
+RedirectMatch 403 ^.*/assets/control/*
+RedirectMatch 403 ^.*/assets/config/*
+RedirectMatch 403 ^.*/myassets/_dbconfig/*
+RedirectMatch 403 ^.*/myassets/_php/*
+RedirectMatch 403 ^.*/myassets/_page/*
+RedirectMatch 403 ^.*/protected/*
+
+ErrorDocument 400 /z/404
+ErrorDocument 401 /z/404
+ErrorDocument 403 /z/404
+ErrorDocument 404 /z/404
+ErrorDocument 500 /z/404

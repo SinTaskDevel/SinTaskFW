@@ -1,0 +1,21 @@
+autoindex off;
+index index.php;
+error_page 400 /z/404;
+error_page 401 /z/404;
+error_page 403 /z/404;
+error_page 404 /z/404;
+error_page 500 /z/404;
+
+location / {
+  location ~ ^/assets/(config|control|page)/(.+)\.php$ {
+    rewrite ^/ /index.php last;
+  }
+  location ~ ^/myassets/(_dbconfig|_php|_page)/(.+)\.php$ {
+    rewrite ^/ /index.php last;
+  }
+  location ~ ^/protected/(.+)\.*$ {
+    rewrite ^/ /index.php last;
+  }
+  
+  try_files $uri $uri/ /index.php$is_args$args;
+}
