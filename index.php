@@ -5,7 +5,11 @@
 	 * 	GENERAL INFO :
 	 *		SinTask Framework
 	 *		(c) 2016 - 2018 CV. SinTask
-	 * 		SinTask, Ltd. / SinTask Web Developer / SinTask Engineering
+	 *		SinTask, Ltd. / SinTask Web Developer / SinTask Engineering
+	 *
+	 *		(c) 2018 - 2022 PT. Selteer
+	 *		Aditya Wikardiyan / Selteer Engineering
+	 * 		
 	 *
 	 *	AUTHOR :
 	 *		- Aditya Wikardiyan

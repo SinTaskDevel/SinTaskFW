@@ -5,9 +5,12 @@
 	 */
 	
 	$sintaskGet = $_GET["to"];
-	if($sintaskGet == "step1") {
-		$local_file     = $__DOC_ROOT__.'/protected/data/download/file.zip';
-		$download_url1  = 'https://fw.sintask.com/direct/dl/latest';
+	$latestVer 	= $_GET['ver'];
+	if($sintaskGet == "step1" && !!$latestVer) {
+		// STEP 1
+		$local_file     	= $__DOC_ROOT__.'/protected/data/download/file.zip';
+		$github_source_api 	= 'https://api.github.com/repos/sintaskdevel/sintaskfw/releases/latest';
+		$download_url1  	= 'https://api.github.com/repos/SinTaskDevel/SinTaskFW/zipball/'.$latestVer;
 
 		$sleepTime  = 1;        // 1 sec
 		$usleepTime = 1000000;  // 1 sec
@@ -108,12 +111,15 @@
 		    }
 		}
 
-		$ctx = stream_context_create();
+		$ctx = stream_context_create(array('http' => array(
+			'header' => 'User-Agent: sintaskfw',
+		)));
 		stream_context_set_params($ctx, array("notification" => "stream_notification_callback"));
 
 		$save = file_get_contents($download_url1, false, $ctx);
 		file_put_contents($local_file, $save);
 	} else if($sintaskGet == "step2") {
+		// STEP 2
 		header('Content-Type: text/octet-stream');
 	    header('Cache-Control: no-cache');
 
@@ -122,10 +128,18 @@
 	    $zip    = new ZipArchive;
 	    $res    = $zip->open($file);
 	    if ($res === TRUE) {
+			$dirName = trim($zip->getNameIndex(0), '/');
+
 	        $zip->extractTo($__DOC_ROOT__.'/protected/data/tmp/');
 	        $zip->close();
 	        
 	        unlink($file);
+
+			$oldDest   = $__DOC_ROOT__.'/protected/data/tmp/'.$dirName;
+			$newDest   = $__DOC_ROOT__.'/protected/data/tmp/sintaskfw';
+
+			rcopy($oldDest, $newDest);
+			rrmdir($oldDest);
 	        
 	        $d = array('message' => "File telah di ekstrak", 'status' => 200);
 	        echo json_encode($d) . PHP_EOL;
@@ -135,6 +149,7 @@
 	        echo json_encode($d) . PHP_EOL;
 	    }
 	} else if($sintaskGet == "step3") {
+		// STEP 3
 		header('Content-Type: text/octet-stream');
 	    header('Cache-Control: no-cache');
 
@@ -146,13 +161,13 @@
 	    rcopy($file."/assets", $dest."/assets");
 	    rrmdir($file);
 
-	    $d = array('message' => "SinTaskFw telah diperbarui", 'status' => 200);
+	    $d = array('message' => "SintaskFW telah diperbarui", 'status' => 200);
 	    echo json_encode($d) . PHP_EOL;
 	} else {
 		?>
 		<html>
 			<head>
-				<title>SinTask Auto-Update</title>
+				<title>SintaskFW Auto-Update</title>
 				<script type="text/javascript" src="<?php echo $__BASE_URL__;?>/assets/script/js/lib/jquery.min.js"></script>
 			</head>
 			<body>
@@ -254,7 +269,7 @@
 				</style>
 
 				<div class="contentArea">
-				    <b class="fontSize25px">SinTaskFW Auto-Update / Versi saat ini <?php echo $__VERNAME__;?></b>
+				    <b class="fontSize25px">SintaskFW Auto-Update / Versi saat ini <span id="currentVer"><?php echo $__VERNAME__;?></span></b>
 				    <div class="borderSpace"></div>
 				    <div id="thisNotedUser" class="noted">
 				    	<div class="orangeBubble">Mohon diperhatikan</div>
@@ -264,7 +279,7 @@
 				    	Lingkup direktori pekerjaan atau proyek web anda pada <span class="thisTagging">/myassets</span>, <span class="thisTagging">/images</span>, dan <span class="thisTagging">/protected</span>. Anda juga diperkenankan menambah direktori-direktori lainnya untuk keperluan anda.
 				    </div>
 				    <div class="borderSpaceMini"></div>
-				    Klik tombol <b>Periksa update</b> untuk mendapatkan update terkini dari SinTaskFW.
+				    Klik tombol <b>Periksa update</b> untuk mendapatkan update terkini dari SintaskFW.
 				    <div class="borderSpaceMini"></div>
 				    <button id="checkUpdate" onclick="ajaxChecker();">Periksa update</button>
 				    <div class="borderLine"></div>
@@ -275,6 +290,8 @@
 				</div>
 
 				<script>
+					let currentTagVersion = '';
+
 				    function doClear() {
 				        document.getElementById("divProgress").innerHTML = "";
 				    }
@@ -304,10 +321,10 @@
 				            
 				            xhr.onload = function() {
 				                var new_response = JSON.parse( xhr.responseText );
-				                var ver     = new_response.version;
+				                var tag_name = new_response.tag_name;
 				                
 				                if(next == true) {
-				                    logMessage("Versi terbaru telah tersedia - "+ver);
+				                    logMessage("Versi terbaru telah tersedia - <b>"+tag_name+"</b>");
 				                    logMessage("Mencoba mengunduh dari server...");
 				                    
 				                    setTimeout(function(){
@@ -322,26 +339,15 @@
 				                try {
 				                    if (xhr.readyState == 4) {
 				                        var new_response = JSON.parse( xhr.responseText );
-				                        var verfull = new_response.versionFull;
-				                        var ver     = new_response.version;
-				                        var compare	= new_response.verCompare;
+										var tag_name = new_response.tag_name;
+										currentTagVersion = tag_name;
 
-				                        if(verfull == "<?php echo $__VERNAME__;?>") {
-				                            logMessageOne("SinTaskFW anda up-to-date dengan versi v"+verfull);
+				                        if(tag_name == "<?php echo $__VERNAME__;?>") {
+				                            logMessageOne("SintaskFW anda up-to-date dengan versi v"+tag_name);
 				                            
 				                            sjqNoConflict("#checkUpdate").prop("disabled", false);
 				                        } else {
-				                        	if(compare < "<?php echo $__VERCOMPARE__;?>") {
-				                            	logMessageOne("Versi SinTaskFW anda lebih baru dari versi yang ada pada Server SinTaskFW - Notice: "+compare+"_SRV : <?php echo $__VERCOMPARE__;?>_YOU");
-				                            
-				                            	sjqNoConflict("#checkUpdate").prop("disabled", false);
-				                        	} else if(compare == "<?php echo $__VERCOMPARE__;?>") {
-				                        		logMessageOne("SinTaskFW anda up-to-date dengan versi v<?php echo $__VERNAME__;?>");
-				                            
-				                            	sjqNoConflict("#checkUpdate").prop("disabled", false);
-				                        	} else {
-				                        		next = true;
-				                        	}
+				                        	next = true;
 				                        }
 				                    }   
 				                }
@@ -350,7 +356,7 @@
 				                }
 				            };
 
-				            var url1 = "https://fw.sintask.com/check/update";
+				            var url1 = "https://api.github.com/repos/sintaskdevel/sintaskfw/releases/latest";
 
 				            xhr.open("GET", url1, true);
 				            xhr.send("Making request...");      
@@ -372,14 +378,11 @@
 				            
 				            xhr.onload = function() {
 				                var new_response = JSON.parse( xhr.responseText );
-				                var ver     = new_response.version;
 				                
 				                if(next == true) {
 				                    logMessage("Selesai");
-				                    
-				                    setTimeout(function(){
-				                        //NOT
-				                    },2000);
+
+									document.getElementById('currentVer').innerHTML = currentTagVersion;
 				                }
 				            };
 				            xhr.onerror = function() { 
@@ -428,7 +431,6 @@
 				            
 				            xhr.onload = function() {
 				                var new_response = JSON.parse( xhr.responseText );
-				                var ver     = new_response.version;
 				                
 				                if(next == true) {
 				                    logMessage("Memindahkan data file...");
@@ -512,7 +514,7 @@
 				                }
 				            };
 
-				            var url1 = "?to=step1";
+				            var url1 = `?to=step1&ver=${currentTagVersion}`;
 
 				            xhr.open("GET", url1, true);
 				            xhr.send("Making request...");      

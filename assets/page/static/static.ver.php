@@ -6,7 +6,7 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1" />
 	    <meta http-equiv='pragma' content='no-cache' />
 	    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-	    <title>SinTaskFW Ver</title>
+	    <title>SintaskFW Ver</title>
 	</HEAD>
 	<BODY>
 		<style>
@@ -66,16 +66,16 @@
 		    	text-decoration: underline;
 		    }
 		    table.centered {
-		   		margin-left: 20%;
+		   		margin-left: 15%;
 			    text-align: left;
 			    box-sizing: border-box;
 		    }
 		</style>
 
 		<h1>SFW,</h1>
-		<h2>Keterangan Versi SinTaskFW</h2>
+		<h2>Keterangan Versi SintaskFW</h2>
 		<div class="content">
-		    Sistem/Aplikasi/Website ini menggunakan SinTask Framework, halaman ini dapat dibuka karena Router Engine dari SinTaskFW belum dimodifikasi/ubah.
+		    Sistem/Aplikasi/Website ini menggunakan Sintask Framework, halaman ini dapat dibuka karena Router Engine dari SintaskFW belum dimodifikasi/ubah.
 		</div>
 		<div class="contentLeft">
 			<table class="centered">
