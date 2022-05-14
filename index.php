@@ -230,7 +230,7 @@
 		* cara penulisan yang salah adalah "[prefix].report.bug.[].[].php" sehingga tidak dapat diakses
 		* darimanapun ( "[domain]/report/bug/[param]/[param]" ataupun "[domain]/report/bug/[param]" )
 		*/
-	$__SEGMEN_DOT_EXPLODE__ = explode(".", end($__SEGMEN__));
+	$__SEGMEN_DOT_EXPLODE__ = explode(",", end($__SEGMEN__));
 	$__END_SEGMEN_DOT__ 	= end($__SEGMEN_DOT_EXPLODE__);
 
 	/**

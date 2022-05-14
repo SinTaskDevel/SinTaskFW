@@ -151,7 +151,7 @@
 
 			break;
 
-		case "..srv-time-get" :
+		case ",,srv-time-get" :
 			$__FTOKEN__ = $sintaskSess->get("globalSecureToken");
 			$__STOKEN__ = $_POST["tokenizing"];
 
@@ -168,14 +168,14 @@
 
 			break;
 
-		case "..srv-time-js" :
+		case ",,srv-time-js" :
 			header("Content-type: text/javascript");
 			include($__DOC_ROOT__.$requirePath['static']."/djs/srvtime".$__FILE_EXTENSION__);
 			break;
 
-		case "..sfw" :
+		case ",,sfw" :
 			if(
-				$__SEGMEN__[3] == "..ver"
+				$__SEGMEN__[3] == ",,ver"
 			) {
 				include($__DOC_ROOT__.$requirePath['static']."/static.ver".$__FILE_EXTENSION__);
 			}
@@ -279,8 +279,8 @@
 
 					echo initialJson(
 						$sintaskNewMeta->getTitleMeta($__META_PATH__), 
-						pureUrlPage($__BASE_URL__).$normalizingPage.".latecss", 
-						pureUrlPage($__BASE_URL__).$normalizingPage.".jssintasktemplate?type=content",
+						pureUrlPage($__BASE_URL__).$normalizingPage.",latecss", 
+						pureUrlPage($__BASE_URL__).$normalizingPage.",jssintasktemplate?type=content",
 						"null",
 						"OK",
 						$sintaskAddJs->readingAddJs($__META_PATH__, $__forUrlAddJs)
@@ -299,10 +299,10 @@
 			) {
 				/* [SPA] jika halaman .jssintasktemplate (JavaSciprt SinTask Template) */
 				header("Content-type: text/javascript");
-				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".jssintasktemplate") != $__ZERO__) {
+				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, ",jssintasktemplate") != $__ZERO__) {
 
 					/* Custom Template */
-					$pathRender = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".jssintasktemplate");
+					$pathRender = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, ",jssintasktemplate");
 
 					/* Mengambil akhiran nama file */
 					$explodePath = explode("/", $pathRender);
@@ -362,8 +362,8 @@
 			) {
 				/* [SPA] Jika halaman adalah .latecss (CSS late load) */
 				header("Content-type: text/css");
-				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['latecss'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".latecss") != $__ZERO__) {
-					$pathRender = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['latecss'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".latecss");
+				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['latecss'], $thisReqPathLoginPrefix, $thisReqPath, 2, ",latecss") != $__ZERO__) {
+					$pathRender = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['latecss'], $thisReqPathLoginPrefix, $thisReqPath, 2, ",latecss");
 					
 					/* Render CSS - LateCSS agar ukuran lebih kecil */
 					ob_start();
@@ -451,7 +451,7 @@
 				}
 			} else if(
 				$__END_SEGMEN_DOT__ == "jsd" &&
-				$__SEGMEN__[2] == "..jsd"
+				$__SEGMEN__[2] == ",,jsd"
 			) {
 				/* [OTHER] Jika halaman adalah .jsd (JavaSciprt Dynamic) */
 				$__SFW_thisIteration = 2;
@@ -461,9 +461,9 @@
 				}
 
 				header("Content-type: text/javascript");
-				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['jsd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".jsd") != $__ZERO__) {
+				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['jsd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ",jsd") != $__ZERO__) {
 					echo "/* JSD-SFW */\n";
-					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['jsd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".jsd"));
+					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['jsd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ",jsd"));
 				} else {
 					/* Tidak menemukan SPA tidak ke $__ZERO__ */
 					/* Not Found 404 - JS Dynamic */
@@ -471,7 +471,7 @@
 				}
 			} else if(
 				$__END_SEGMEN_DOT__ == "cssd" &&
-				$__SEGMEN__[2] == "..cssd"
+				$__SEGMEN__[2] == ",,cssd"
 			) {
 				/* [OTHER] Jika halaman adalah .cssd (CSS Dynamic) */
 				$__SFW_thisIteration = 2;
@@ -481,9 +481,9 @@
 				}
 
 				header("Content-type: text/css");
-				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['cssd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".cssd") != $__ZERO__) {
+				if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['cssd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ",cssd") != $__ZERO__) {
 					echo "/* CSSD-SFW */\n";
-					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['cssd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ".cssd"));
+					include(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['cssd'], $thisReqPathLoginPrefix, $thisReqPath, $__SFW_thisIteration, ",cssd"));
 				} else {
 					/* Tidak menemukan SPA tidak ke $__ZERO__ */
 					/* Not Found 404 - CSS Dynamic */

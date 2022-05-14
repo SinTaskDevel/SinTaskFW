@@ -13,11 +13,11 @@
 	$__FILE_EXTENSION__ = ".php";
 	$__TOKENIZING__		= $_SESSION['globalSecureToken'];
 
-	$__VERSION__ 		= "SintaskFW v1.3.9-1";
+	$__VERSION__ 		= "SintaskFW v1.4.0";
 	$__CODENAME__ 		= "Sintask.Selteer-Devel";
-	$__VERNAME__		= "1.3.9-1";
-	$__VERCOMPARE__		= "65";
-	$__DATE_UPDATED__	= "2022/05/04 00.45UTC+8";
+	$__VERNAME__		= "1.4.0";
+	$__VERCOMPARE__		= "66";
+	$__DATE_UPDATED__	= "2022/05/14 14.20UTC+8";
 	
 	$__IP_USER__      	= $_SERVER['REMOTE_ADDR'];
 

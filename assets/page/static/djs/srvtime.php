@@ -16,7 +16,7 @@ srvTimeReal = function() {
 			jqsfw.ajax({
 				type: "POST",
 				data: { tokenizing: __SFW_tokenizing },
-				url: __SFW_homeUrl+"/..srv-time-get",
+				url: __SFW_homeUrl+"/,,srv-time-get",
 				success: function (data) {
 					var datafeed    = data;
 					var feedbackSts = datafeed.status;

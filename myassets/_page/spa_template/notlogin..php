@@ -2,16 +2,14 @@
 	<?php echo $welcomeText;?>
 </h2>
 <div class="contentArea">
-	Selamat, anda sudah berhasil menggunakan SinTaskFW.
+	Selamat, anda sudah berhasil menggunakan SintaskFW.
 	<div class="borderSpaceMini"></div>
-	SinTaskFW atau SinTask Framework adalah <i>Simple & Light PHP Micro Framework built-in SPA</i>, dikembangkan oleh Divisi Web SinTask, yang dimana SinTask adalah Startup Teknologi yang juga mengembangkan <a href="http://www.sintask.com" target="_blank">SinTask Productive & Fun</a>.
+	SintaskFW atau Sintask Framework adalah <i>Simple & Light PHP Micro Framework built-in SPA</i>, dikembangkan oleh Divisi Web Sintask, yang dimana Sintask adalah Startup Teknologi yang juga mengembangkan <a href="http://www.sintask.com" target="_blank">Sintask Productive & Fun</a>.
 	<div class="borderSpaceMini"></div>
 	<div class="noted">
 		<strong>Info</strong>
 		<div class="borderSpaceMini"></div>
 		Versi &mdash; <span class="ft_style_b"><?php echo $__VERSION__;?></span>
-		<br>
-		Browser anda saat ini support JavaScript &mdash; <span id="jsVersion" class="ft_style_b"></span>
 		<br>
 		Waktu server &mdash; <?php echo date("d-m-Y H:i");?> 
 		<div class=borderLineMini></div>
@@ -25,7 +23,7 @@
 	<div class="contentTwo">
 		<ul>
 			<li>
-				Saat baru mulai menggunakan SinTaskFW, silahkan konfigurasi pada direktori <span class="thisTagging">myassets/_php/my.core.php</span>
+				Saat baru mulai menggunakan SintaskFW, silahkan konfigurasi pada direktori <span class="thisTagging">myassets/_php/my.core.php</span>
 				<br>
 				Silahkan baca dokumentasi lengkap di <a href="https://fw.sintask.com/docs/1.2.0/3" target="_blank">fw.sintask.com</a> untuk keterangan lebih lengkap. 
 			</li>
@@ -45,7 +43,7 @@
 			</li>
 			<div class="borderSpaceMini"></div>
 			<li>
-				SinTaskFW sudah langsung menggunakan Lato Font. Jika anda ingin me-reset pengaturan CSS font-family cukup tambahkan kode di bawah pada file <span class="thisTagging">myassets/css/my.css</span> atau file css custom anda (pada contoh di bawah ini menggunakan Arial Font)
+				SintaskFW sudah langsung menggunakan Lato Font. Jika anda ingin me-reset pengaturan CSS font-family cukup tambahkan kode di bawah pada file <span class="thisTagging">myassets/css/my.css</span> atau file css custom anda (pada contoh di bawah ini menggunakan Arial Font)
 				<div class="borderSpaceMini"></div>
 				<div class="noted">
 					<pre><code>body, html {
@@ -63,12 +61,12 @@
 			</li>
 			<div class="borderSpaceMini"></div>
 			<li>
-				Ingin mengembangkan SinTaskFW lebih lanjut? kami terbuka untuk siapa saja yang ingin mengembangkan SinTaskFW
+				Ingin mengembangkan SintaskFW lebih lanjut? kami terbuka untuk siapa saja yang ingin mengembangkan SintaskFW
 				<div class="borderSpaceMini"></div>
 				<div class="noted">
-					<b>GitHub</b> &mdash; <a href="https://github.com/SinTaskDevel/SinTaskFW" target="_blank">SinTaskFW</a> & <a href="https://github.com/SinTaskDevel/SinTaskFW-Installer" target="_blank">SinTaskFW-Installer</a>
+					<b>GitHub</b> &mdash; <a href="https://github.com/SintaskDevel/SintaskFW" target="_blank">SintaskFW</a> & <a href="https://github.com/SintaskDevel/SintaskFW-Installer" target="_blank">SintaskFW-Installer</a>
 					<div class="borderSpaceMini"></div>
-					<b>Kontak</b> &mdash; Keterangan lebih lanjut dapat hubungi tim SinTask melalui email ke <span class="thisTagging">hi@sintask.com</span> atau <span class="thisTagging">developer@sintask.com</span>
+					<b>Kontak</b> &mdash; Keterangan lebih lanjut dapat hubungi tim Sintask melalui email ke <span class="thisTagging">hi@sintask.com</span> atau <span class="thisTagging">dev@selteer.com</span>
 				</div>
 			</li>
 			<div class="borderSpaceMini"></div>
@@ -119,7 +117,7 @@
 	<div class="contentTwo">
 		<div class="ft_style_b">1. Panduan singkat, menambah halaman/page.</div>
 		<div class="borderSpaceMini"></div>
-		Silahkan tambahkan file .php pada <span class="thisTagging">/myassets/_page/spa_template</span> dengan nama <span class="thisTagging">notlogin.my-firstpage.php</span> lalu isi dengan kode PHP/HTML/JS anda secara bebas, setelah itu coba buka Link di bawah ini, jika tidak menghasilkan 404 artinya anda berhasil membuat Page SPA Pertama anda menggunakan SinTaskFW.
+		Silahkan tambahkan file .php pada <span class="thisTagging">/myassets/_page/spa_template</span> dengan nama <span class="thisTagging">notlogin.my-firstpage.php</span> lalu isi dengan kode PHP/HTML/JS anda secara bebas, setelah itu coba buka Link di bawah ini, jika tidak menghasilkan 404 artinya anda berhasil membuat Page SPA Pertama anda menggunakan SintaskFW.
 		<div class="borderSpaceMini"></div>
 		<a spa href="<?php echo $__BASE_URL__;?>/my-firstpage" class="ft_style_u">
 			Halaman SPA Pertama-ku &mdash; <b><?php echo $__BASE_URL__;?>/my-firstpage</b>
@@ -128,18 +126,18 @@
 
 		<div class="ft_style_b">2. Panduan singkat, mengubah/menghilangkan header & footer.</div>
 		<div class="borderSpaceMini"></div>
-		Silahkan edit file .php pada <span class="thisTagging">/myassets/_page/stay</span> terdapat 3 file dengan nama <span class="thisTagging">stay_content.php</span>, <span class="thisTagging">stay_header.php</span>, <span class="thisTagging">stay_footer.php</span> di mana file-file ini berfungsi untuk menampilkan Header, Footer dan Content. File ini berguna saat anda ingin mengurangi beban load / memuat halaman SPA anda dari Header, Footer dan Content, juga agar mempermudah anda agar tidak perlu membuat header pada setiap Page secara manual. Anda juga tentu dapat mengosongkan ke-tiga file ini jika tidak ingin menggunakan fitur stay content SPA SinTaskFW, lalu membuat Header & Footer secara manual pada setiap Page (Not-Recomended).
+		Silahkan edit file .php pada <span class="thisTagging">/myassets/_page/stay</span> terdapat 3 file dengan nama <span class="thisTagging">stay_content.php</span>, <span class="thisTagging">stay_header.php</span>, <span class="thisTagging">stay_footer.php</span> di mana file-file ini berfungsi untuk menampilkan Header, Footer dan Content. File ini berguna saat anda ingin mengurangi beban load / memuat halaman SPA anda dari Header, Footer dan Content, juga agar mempermudah anda agar tidak perlu membuat header pada setiap Page secara manual. Anda juga tentu dapat mengosongkan ke-tiga file ini jika tidak ingin menggunakan fitur stay content SPA SintaskFW, lalu membuat Header & Footer secara manual pada setiap Page (Not-Recomended).
 		<div class="borderSpace"></div>
 
 		<div class="ft_style_b">3. Baca dokumentasi dan pahami, serta temukan hal menariknya.</div>
 		<div class="borderSpaceMini"></div>
-		Kami menyarankan anda untuk membaca dokumentasi kami secara menyeluruh agar paham dan mudah dalam membangun web anda menggunakan SinTaskFW.
+		Kami menyarankan anda untuk membaca dokumentasi kami secara menyeluruh agar paham dan mudah dalam membangun web anda menggunakan SintaskFW.
 		<div class="borderSpaceMini"></div>
-		&mdash; <a href="https://fw.sintask.com/docs/" class="ft_style_u" target="_blank">Buka Dokumentasi SinTaskFW</a>
+		&mdash; <a href="https://fw.sintask.com/docs/" class="ft_style_u" target="_blank">Buka Dokumentasi SintaskFW</a>
 		<br>
-		&mdash; Jika ada kendala hubungi kami melalui <b>hi@sintask.com</b> dengan menyertakan tulisan [SinTaskFW] pada subject anda.
+		&mdash; Jika ada kendala hubungi kami melalui <b>hi@sintask.com</b> dengan menyertakan tulisan [SintaskFW] pada subject anda.
 		<br>
-		&mdash; Menemui masalah lain dan butuh respon lebih cepat? kirim Issue ke <a href="https://github.com/SinTaskDevel/SinTaskFW" class="ft_style_u" target="_blank">Github SinTaskFW</a>
+		&mdash; Menemui masalah lain dan butuh respon lebih cepat? kirim Issue ke <a href="https://github.com/SintaskDevel/SintaskFW" class="ft_style_u" target="_blank">Github SintaskFW</a>
 	</div>
 	<div class="borderSpaceMini"></div>
 	<div class="borderLine"></div>
@@ -194,7 +192,7 @@ toastTwo(thisMessage, "show", thisShowTime);</code></pre>
 		<div class="borderSpace"></div>
 		<b>Pop Up</b> &mdash; function <span class="thisTagging">popUpOne</span> &mdash; Javascript
 		<div class="borderSpaceMini"></div>
-		Pop Up bawaan SinTaskFW hanya dapat dijalankan pada halaman SinTaskFW yang berbasiskan SPA (Single Page Application)
+		Pop Up bawaan SintaskFW hanya dapat dijalankan pada halaman SintaskFW yang berbasiskan SPA (Single Page Application)
 		<div class="borderSpaceMini"></div>
 		<input id="popUpTitle" class="toast" type="text" placeholder="Pop Up Title">
 		<br>
@@ -238,7 +236,7 @@ popUpOne({
 		<div class="borderSpace"></div>
 		<b>Pop Up</b> &mdash; function <span class="thisTagging">popUpTwo</span> &mdash; Javascript
 		<div class="borderSpaceMini"></div>
-		Pop Up bawaan SinTaskFW hanya dapat dijalankan pada halaman SinTaskFW yang berbasiskan SPA (Single Page Application), perbedaan dengan popUpOne adalah Pop Up ini hanya memiliki 1 pilihan tombol.
+		Pop Up bawaan SintaskFW hanya dapat dijalankan pada halaman SintaskFW yang berbasiskan SPA (Single Page Application), perbedaan dengan popUpOne adalah Pop Up ini hanya memiliki 1 pilihan tombol.
 		<div class="borderSpaceMini"></div>
 		<input id="popUpTitle2" class="toast" type="text" placeholder="Pop Up Title">
 		<br>
@@ -269,7 +267,7 @@ popUpTwo({
 		<div class="borderSpace"></div>
 		<b>Hilangkan Pop Up</b> &mdash; function <span class="thisTagging">removePopUp</span> & <span class="thisTagging">removePopUpFade</span> &mdash; Javascript
 		<div class="borderSpaceMini"></div>
-		Terdapat 2 function (global) untuk menghilangkan Pop Up bawaan SinTaskFW yaitu <span class="thisTagging">removePopUp</span> & <span class="thisTagging">removePopUpFade</span>, khusus untuk <span class="thisTagging">removePopUpFade</span> akan menghilangkan Pop Up dengan tambahan animasi fadeOut.
+		Terdapat 2 function (global) untuk menghilangkan Pop Up bawaan SintaskFW yaitu <span class="thisTagging">removePopUp</span> & <span class="thisTagging">removePopUpFade</span>, khusus untuk <span class="thisTagging">removePopUpFade</span> akan menghilangkan Pop Up dengan tambahan animasi fadeOut.
 		<div class="borderSpaceMini"></div>
 	</div>
 	<div class="borderSpaceMini"></div>

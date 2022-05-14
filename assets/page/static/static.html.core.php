@@ -64,7 +64,7 @@
 
             if($__MY_CORE__["SYNCTIME_CLIENTSERVER"] == true) {
                 ?>
-                <script type="text/javascript" src="<?php echo $__BASE_URL__."/..srv-time-js";?>"></script>
+                <script type="text/javascript" src="<?php echo $__BASE_URL__."/,,srv-time-js";?>"></script>
                 <?php
             }
             
@@ -396,9 +396,9 @@
                 <?php
                     /* SEO Support */
                     if($__XHR_STATUS__ == false) {
-                        if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".jssintasktemplate") != $__ZERO__) {
+                        if(fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, ",jssintasktemplate") != $__ZERO__) {
                             /* Konten dapat terbaca tanpa Javascript */
-                            $pathRender = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, ".jssintasktemplate");
+                            $pathRender = fileDynamic($__SEGMEN__, $__FILE_EXTENSION__, $__ZERO__, $requirePath['template'], $thisReqPathLoginPrefix, $thisReqPath, 2, ",jssintasktemplate");
                             /* HTML Rendering */
                             ob_start();
                             include($pathRender);
