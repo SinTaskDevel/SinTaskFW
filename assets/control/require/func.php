@@ -1227,10 +1227,10 @@
 							{\"title\":\"".$title."\"}
 						]},
 						{\"addStyle\":[
-							{\"style\":\"".$GLOBALS["__BASE_URL__"]."/s-404/.latecss\"}
+							{\"style\":\"".$GLOBALS["__BASE_URL__"]."/s-404/,latecss\"}
 						]},
 						{\"addScript\":[
-							{\"script\":\"".$GLOBALS["__BASE_URL__"]."/s-404/.jssintasktemplate?type=content\"}
+							{\"script\":\"".$GLOBALS["__BASE_URL__"]."/s-404/,jssintasktemplate?type=content\"}
 						]}
 					]},
 					{\"sts\":200},

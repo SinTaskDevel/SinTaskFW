@@ -1,7 +1,6 @@
 /* Framework Header */
 .headerSintaskFramework {
-    background: transparent url(<?php echo $__BASE_URL__;?>/images/logo/sintasklogo.png) no-repeat scroll 50% 50% / 70px 70px;
-    margin: 2px 1% 2px 13%;
+    background: transparent url(<?php echo $__BASE_URL__;?>/images/logo/sintasklogo.png) no-repeat scroll 0% 50% / 70px 70px;
     width: 70px;
     height: 70px;
     cursor: pointer;

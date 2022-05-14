@@ -1,7 +1,7 @@
-<h2 class="head">
+<h2 class="head content-responsive-padding">
 	<?php echo $welcomeText;?>
 </h2>
-<div class="contentArea">
+<div class="contentArea content-responsive-padding">
 	Selamat, anda sudah berhasil menggunakan SintaskFW.
 	<div class="borderSpaceMini"></div>
 	SintaskFW atau Sintask Framework adalah <i>Simple & Light PHP Micro Framework built-in SPA</i>, dikembangkan oleh Divisi Web Sintask, yang dimana Sintask adalah Startup Teknologi yang juga mengembangkan <a href="http://www.sintask.com" target="_blank">Sintask Productive & Fun</a>.

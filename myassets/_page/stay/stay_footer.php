@@ -1,4 +1,4 @@
-<div class="theFooter">
+<div class="theFooter content-responsive-padding">
 	<div class="footerSintaskFrameworkTitle fl_l">
 		<div class="fontSize16px">
 			<?php echo $__VERSION__;?> - <?php echo $__CODENAME__;?> (<?php echo $__VERNAME__."-VC".$__VERCOMPARE__;?>)
